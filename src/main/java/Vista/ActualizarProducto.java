@@ -4,9 +4,11 @@ import Controlador.ControladoraGeneral;
 import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
+import Modelo.Stock;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
+import org.apache.commons.lang3.StringUtils;
 
 public class ActualizarProducto extends javax.swing.JFrame {
 
@@ -312,7 +314,53 @@ public class ActualizarProducto extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBuscarFocusLost
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        //validar
+        String nombre = StringUtils.trim(txtNombre.getText());
+        String precio = StringUtils.trim(txtPrecioCompra.getText());
+        String cantidad = StringUtils.trim(txtCantidad.getText());
+
+        if (!camposObligatorios(nombre, cantidad, precio)) {
+            mostrarMensaje("Nombre, precio y cantidad son obligatorios", "error");
+            return;
+        }
+
+        double precioValidado = validarPrecio(precio);
+        if (precioValidado == 0) {
+            mostrarMensaje("El precio es un número.\nEl decimal debe ser con punto, no con coma.\nEjm: 0.7", "error");
+            return;
+        }
+        int cantidadValidada = validarCantidad(cantidad);
+        if (cantidadValidada == -1) {
+            mostrarMensaje("La cantidad debe ser un número", "error");
+            return;
+        }
+        //obtener proveedor y categoria
+        String cat = (String) boxCategoria.getSelectedItem();
+        categoria = control.getControladoraCategoria().leerPorNombre(cat);
+        String prov = (String) boxProveedor.getSelectedItem();
+        proveedor = control.getControladoraProveedor().leerPorNombre(prov);
+        //codigo
+        /*Traer los productos de la categoria*/
+        List<Producto> productos = control.getControladoraProducto().leerPorCategoria(categoria);
+        String codigo = generarCodigo(proveedor, categoria, productos);
+        //Actualizar stock
+        Stock stock = prod.getStock();
+        stock.setCantidad(cantidadValidada);
+        control.getControladoraStock().actualizarStock(stock);
+        //añadir datos
+        prod.setNombre(nombre);
+        prod.setPrecioCompra(precioValidado);
+        prod.setCodigo(codigo);
+        prod.setStock(stock);
+        prod.setCategoria(categoria);
+        prod.setProveedor(proveedor);
+        //actaulizar
+        control.getControladoraProducto().actualizarProducto(prod);
+        mostrarMensaje("Producto actualizado", "informacion");
+        VistaInventario pant = new VistaInventario();
+        pant.setVisible(true);
+        pant.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
@@ -394,5 +442,41 @@ public class ActualizarProducto extends javax.swing.JFrame {
         };
 
         JOptionPane.showMessageDialog(null, mensaje, "Mensaje", tipoMensaje);
+    }
+    
+    private double validarPrecio(String texto) {
+        String sinEspacio = StringUtils.trim(texto);
+        try {
+            Double numero = Double.valueOf(sinEspacio);
+            return numero;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private int validarCantidad(String texto) {
+        String sinEspacio = StringUtils.trim(texto);
+        try {
+            int numero = Integer.parseInt(sinEspacio);
+            if (numero < 0) {
+                return -1;
+            }
+            return numero;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private boolean camposObligatorios(String nombre, String cantidad, String precio) {
+        return !nombre.isEmpty() && !cantidad.isEmpty() && !precio.isEmpty();
+    }
+
+    private String generarCodigo(Proveedor proveedor, Categoria categoria, List<Producto> productos) {
+        String codigo = "EST";
+        String cat = categoria.getNombre().substring(0, 3).toUpperCase();
+        int num = productos.size() + 1;
+        String indice = String.format("%03d", num);
+        String prov = proveedor.getNombre().substring(0, 3).toUpperCase();
+        return codigo + cat + indice + prov;
     }
 }
