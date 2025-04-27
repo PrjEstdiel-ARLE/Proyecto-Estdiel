@@ -36,6 +36,11 @@ public class VistaInventario extends javax.swing.JFrame {
         });
 
         btnAñadirProducto.setText("Añadir Nuevo Producto");
+        btnAñadirProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirProductoActionPerformed(evt);
+            }
+        });
 
         btnActualizarProducto.setText("Actualizar Producto");
 
@@ -91,11 +96,18 @@ public class VistaInventario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        PantallaPrincipal igu=new PantallaPrincipal();
+        PantallaPrincipal igu = new PantallaPrincipal();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnAñadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirProductoActionPerformed
+        AgregarProducto igu = new AgregarProducto();
+        igu.setVisible(true);
+        igu.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnAñadirProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarProducto;
