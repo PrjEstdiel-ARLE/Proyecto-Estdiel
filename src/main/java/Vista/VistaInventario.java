@@ -43,6 +43,11 @@ public class VistaInventario extends javax.swing.JFrame {
         });
 
         btnActualizarProducto.setText("Actualizar Producto");
+        btnActualizarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarProductoActionPerformed(evt);
+            }
+        });
 
         btnEliminarProducto.setText("Eliminar Producto");
 
@@ -108,6 +113,13 @@ public class VistaInventario extends javax.swing.JFrame {
         igu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnAñadirProductoActionPerformed
+
+    private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
+        ActualizarProducto igu=new ActualizarProducto();
+        igu.setVisible(true);
+        igu.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnActualizarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarProducto;
