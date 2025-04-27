@@ -1,10 +1,12 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Categoria implements Serializable {
@@ -14,6 +16,8 @@ public class Categoria implements Serializable {
     private int idCategoria;
     private String nombre;
     private double ganancia;
+    @OneToMany(mappedBy = "categoria")
+    private List<Producto> productos;
 
     public Categoria() {
     }
@@ -40,6 +44,14 @@ public class Categoria implements Serializable {
 
     public void setGanancia(double ganancia) {
         this.ganancia = ganancia;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
     }
 
 }

@@ -1,11 +1,13 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Proveedor implements Serializable {
@@ -18,6 +20,8 @@ public class Proveedor implements Serializable {
     private String correo;
     private String direccion;
     private String RUC;
+    @OneToMany(mappedBy = "proveedor")
+    private List<Producto> productos;
     
     public Proveedor() {
     }
@@ -76,6 +80,14 @@ public class Proveedor implements Serializable {
 
     public void setRUC(String RUC) {
         this.RUC = RUC;
-    }   
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
+    public void setProductos(List<Producto> productos) {
+        this.productos = productos;
+    }
     
 }
