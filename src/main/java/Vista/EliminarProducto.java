@@ -71,8 +71,18 @@ public class EliminarProducto extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtInfo);
 
         btnEliminar.setText("Eliminar Producto");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -172,6 +182,25 @@ public class EliminarProducto extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        VistaInventario pant = new VistaInventario();
+        pant.setVisible(true);
+        pant.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        boolean conf = Mensajes.confirmar("El producto aparecerá como descontinuado en todas las referencias que tenga.\n¿Desea proceder con la eliminación?");
+        if (conf) {
+            control.getControladoraProducto().eliminarProducto(prod.getIdProducto());
+            Mensajes.mostrarMensaje("El producto fue eliminado", "informacion");
+            VistaInventario pant = new VistaInventario();
+            pant.setVisible(true);
+            pant.setLocationRelativeTo(null);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
