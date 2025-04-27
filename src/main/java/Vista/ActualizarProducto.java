@@ -1,15 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
 
+import Controlador.ControladoraGeneral;
+import Modelo.Categoria;
+import Modelo.Producto;
+import Modelo.Proveedor;
 import java.awt.Color;
+import java.util.List;
+import javax.swing.JOptionPane;
 
 public class ActualizarProducto extends javax.swing.JFrame {
 
+    ControladoraGeneral control;
+    List<Proveedor> proveedores;
+    List<Categoria> categorias;
+    Categoria categoria;
+    Proveedor proveedor;
+    Producto prod;
+
     public ActualizarProducto() {
         initComponents();
+        control = new ControladoraGeneral();
+        prod = new Producto();
+        proveedores = control.getControladoraProveedor().leerTodo();
+        categorias = control.getControladoraCategoria().leerTodo();
+        cargarProveedores();
+        cargarCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -59,6 +74,11 @@ public class ActualizarProducto extends javax.swing.JFrame {
         });
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("Nombre del Producto");
@@ -295,6 +315,29 @@ public class ActualizarProducto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnGuardarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        if (txtBuscar.getText().equals("") || txtBuscar.getText().equals("Buscar producto por código")) {
+            mostrarMensaje("Escriba el proveedor a buscar", "error");
+        } else {
+            prod = control.getControladoraProducto().leerPorCodigo(txtBuscar.getText());
+            if (prod == null) {
+                mostrarMensaje("Código no registrado", "error");
+                txtBuscar.setText("Buscar producto por código");
+                txtBuscar.setForeground(new Color(102, 102, 102));
+            } else {
+                //cargar datos
+                txtNombre.setText(prod.getNombre());
+                txtCantidad.setText(String.valueOf(prod.getStock().getCantidad()));
+                txtPrecioCompra.setText(String.valueOf((float) prod.getPrecioCompra()));
+                boxCategoria.setSelectedItem(prod.getCategoria().getNombre());
+                boxProveedor.setSelectedItem(prod.getProveedor().getNombre());
+                //Reiniciar placeholder
+                txtBuscar.setText("Buscar producto por código");
+                txtBuscar.setForeground(new Color(102, 102, 102));
+            }
+        }
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxCategoria;
@@ -319,4 +362,37 @@ public class ActualizarProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecioCompra;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarProveedores() {
+        boxProveedor.removeAllItems();
+        for (Proveedor provedor : proveedores) {
+            boxProveedor.addItem(provedor.getNombre());
+        }
+    }
+
+    private void cargarCategorias() {
+        boxCategoria.removeAllItems();
+        for (Categoria cat : categorias) {
+            boxCategoria.addItem(cat.getNombre());
+        }
+    }
+    
+    private static void mostrarMensaje(String mensaje, String tipo) {
+        int tipoMensaje;
+
+        tipoMensaje = switch (tipo.toLowerCase()) {
+            case "error" ->
+                JOptionPane.ERROR_MESSAGE;
+            case "informacion" ->
+                JOptionPane.INFORMATION_MESSAGE;
+            case "advertencia" ->
+                JOptionPane.WARNING_MESSAGE;
+            case "pregunta" ->
+                JOptionPane.QUESTION_MESSAGE;
+            default ->
+                JOptionPane.PLAIN_MESSAGE;
+        };
+
+        JOptionPane.showMessageDialog(null, mensaje, "Mensaje", tipoMensaje);
+    }
 }
