@@ -4,7 +4,10 @@ import Controlador.ControladoraGeneral;
 import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
+import Modelo.Stock;
 import java.util.List;
+import javax.swing.JOptionPane;
+import org.apache.commons.lang3.StringUtils;
 
 public class AgregarProducto extends javax.swing.JFrame {
 
@@ -188,8 +191,18 @@ public class AgregarProducto extends javax.swing.JFrame {
         );
 
         btnAñadirProducto.setText("Añadir Producto");
+        btnAñadirProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAñadirProductoActionPerformed(evt);
+            }
+        });
 
         btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -273,6 +286,60 @@ public class AgregarProducto extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnAñadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirProductoActionPerformed
+        //validar
+        String nombre = StringUtils.trim(txtNombre.getText());
+        String precio = StringUtils.trim(txtPrecioCompra.getText());
+        String cantidad = StringUtils.trim(txtCantidad.getText());
+
+        if (!camposObligatorios(nombre, cantidad, precio)) {
+            mostrarMensaje("Nombre, precio y cantidad son obligatorios", "error");
+            return;
+        }
+
+        double precioValidado = validarPrecio(precio);
+        if (precioValidado == 0) {
+            mostrarMensaje("El precio es un número.\nEl decimal debe ser con punto, no con coma.\nEjm: 0.7", "error");
+            return;
+        }
+        int cantidadValidada = validarCantidad(cantidad);
+        if (cantidadValidada == -1) {
+            mostrarMensaje("La cantidad debe ser un número", "error");
+            return;
+        }
+        //obtener proveedor y categoria
+        String cat = (String) boxCategoria.getSelectedItem();
+        categoria = control.getControladoraCategoria().leerPorNombre(cat);
+        String prov = (String) boxProveedor.getSelectedItem();
+        proveedor = control.getControladoraProveedor().leerPorNombre(prov);
+        //codigo
+        /*Traer los productos de la categoria*/
+        List<Producto> productos = control.getControladoraProducto().leerPorCategoria(categoria);
+        String codigo = generarCodigo(proveedor, categoria, productos);
+        //Crear stock
+        Stock stock = new Stock();
+        stock.setCantidad(cantidadValidada);
+        control.getControladoraStock().crearStock(stock);
+        //añadir datos
+        producto.setNombre(nombre);
+        producto.setPrecioCompra(precioValidado);
+        producto.setCodigo(codigo);
+        producto.setStock(stock);
+        producto.setCategoria(categoria);
+        producto.setProveedor(proveedor);
+        //crear
+        control.getControladoraProducto().crearProducto(producto);
+        //asociar stock
+        stock.setProducto(producto);
+        control.getControladoraStock().actualizarStock(stock);
+        mostrarMensaje("Producto creado correctamente", "informacion");
+        limpiar();
+    }//GEN-LAST:event_btnAñadirProductoActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JComboBox<String> boxCategoria;
     private javax.swing.JComboBox<String> boxProveedor;
@@ -314,5 +381,60 @@ public class AgregarProducto extends javax.swing.JFrame {
         txtNombre.setText("");
         txtPrecioCompra.setText("");
         txtCantidad.setText("");
+    }
+
+    private boolean camposObligatorios(String nombre, String cantidad, String precio) {
+        return !nombre.isEmpty() && !cantidad.isEmpty() && !precio.isEmpty();
+    }
+
+    private static void mostrarMensaje(String mensaje, String tipo) {
+        int tipoMensaje;
+
+        tipoMensaje = switch (tipo.toLowerCase()) {
+            case "error" ->
+                JOptionPane.ERROR_MESSAGE;
+            case "informacion" ->
+                JOptionPane.INFORMATION_MESSAGE;
+            case "advertencia" ->
+                JOptionPane.WARNING_MESSAGE;
+            case "pregunta" ->
+                JOptionPane.QUESTION_MESSAGE;
+            default ->
+                JOptionPane.PLAIN_MESSAGE;
+        };
+
+        JOptionPane.showMessageDialog(null, mensaje, "Mensaje", tipoMensaje);
+    }
+
+    private double validarPrecio(String texto) {
+        String sinEspacio = StringUtils.trim(texto);
+        try {
+            Double numero = Double.valueOf(sinEspacio);
+            return numero;
+        } catch (NumberFormatException e) {
+            return 0;
+        }
+    }
+
+    private int validarCantidad(String texto) {
+        String sinEspacio = StringUtils.trim(texto);
+        try {
+            int numero = Integer.parseInt(sinEspacio);
+            if (numero < 0) {
+                return -1;
+            }
+            return numero;
+        } catch (NumberFormatException e) {
+            return -1;
+        }
+    }
+
+    private String generarCodigo(Proveedor proveedor, Categoria categoria, List<Producto> productos) {
+        String codigo = "EST";
+        String cat = categoria.getNombre().substring(0, 3).toUpperCase();
+        int num = productos.size() + 1;
+        String indice = String.format("%03d", num);
+        String prov = proveedor.getNombre().substring(0, 3).toUpperCase();
+        return codigo + cat + indice + prov;
     }
 }
