@@ -50,6 +50,11 @@ public class VistaInventario extends javax.swing.JFrame {
         });
 
         btnEliminarProducto.setText("Eliminar Producto");
+        btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProductoActionPerformed(evt);
+            }
+        });
 
         btnMostrarProductos.setText("Mostrar Productos");
 
@@ -115,11 +120,18 @@ public class VistaInventario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAñadirProductoActionPerformed
 
     private void btnActualizarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarProductoActionPerformed
-        ActualizarProducto igu=new ActualizarProducto();
+        ActualizarProducto igu = new ActualizarProducto();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_btnActualizarProductoActionPerformed
+
+    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
+        EliminarProducto igu = new EliminarProducto();
+        igu.setVisible(true);
+        igu.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_btnEliminarProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizarProducto;
