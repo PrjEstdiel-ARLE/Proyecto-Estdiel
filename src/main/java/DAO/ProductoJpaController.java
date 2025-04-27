@@ -10,15 +10,23 @@ import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import Modelo.Stock;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
+import javax.persistence.Persistence;
 
 public class ProductoJpaController implements Serializable {
 
     public ProductoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public ProductoJpaController() {
+        emf = Persistence.createEntityManagerFactory("persistencia");
+    }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -224,4 +232,49 @@ public class ProductoJpaController implements Serializable {
         }
     }
     
+     public Producto findByNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Producto p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Producto.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Producto findByCodigo(String codigo) {
+        EntityManager em = getEntityManager();
+        System.out.println("Query ejecutada con código: [" + codigo + "]");
+        String query = "SELECT p FROM Producto p WHERE UPPER(p.codigo) = UPPER(:codigo)";
+        try {
+            List<Producto> resultados = em.createQuery(query, Producto.class)
+                    .setParameter("codigo", codigo)
+                    .getResultList();
+            System.out.println("Resultados encontrados: " + resultados.size());
+            return resultados.isEmpty() ? null : resultados.get(0);
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    List<Producto> findByCategory(Categoria categoria) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT d FROM Producto d WHERE d.categoria = :categoria";
+        try {
+            return em.createQuery(query, Producto.class)
+                    .setParameter("categoria", categoria)
+                    .getResultList();
+        } catch (NoResultException e) {
+            return Collections.emptyList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

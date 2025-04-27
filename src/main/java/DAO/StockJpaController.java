@@ -11,12 +11,18 @@ import Modelo.Stock;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class StockJpaController implements Serializable {
 
     public StockJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public StockJpaController() {
+        emf = Persistence.createEntityManagerFactory("persistencia");
+    }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -165,5 +171,5 @@ public class StockJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class CategoriaJpaController implements Serializable {
 
     public CategoriaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public CategoriaJpaController() {
+        emf = Persistence.createEntityManagerFactory("integradorPU");
+    }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -177,5 +183,5 @@ public class CategoriaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

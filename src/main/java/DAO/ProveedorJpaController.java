@@ -12,12 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class ProveedorJpaController implements Serializable {
 
     public ProveedorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
+
+    public ProveedorJpaController() {
+        emf = Persistence.createEntityManagerFactory("persistencia");
+    }
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -177,5 +183,5 @@ public class ProveedorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }
