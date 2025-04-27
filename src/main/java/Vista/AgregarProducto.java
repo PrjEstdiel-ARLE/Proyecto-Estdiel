@@ -1,9 +1,28 @@
 package Vista;
 
-public class AñadirProducto extends javax.swing.JFrame {
+import Controlador.ControladoraGeneral;
+import Modelo.Categoria;
+import Modelo.Producto;
+import Modelo.Proveedor;
+import java.util.List;
 
-    public AñadirProducto() {
+public class AgregarProducto extends javax.swing.JFrame {
+
+    ControladoraGeneral control;
+    List<Proveedor> proveedores;
+    List<Categoria> categorias;
+    Producto producto;
+    Proveedor proveedor;
+    Categoria categoria;
+
+    public AgregarProducto() {
         initComponents();
+        control = new ControladoraGeneral();
+        proveedores = control.getControladoraProveedor().leerTodo();
+        categorias = control.getControladoraCategoria().leerTodo();
+        cargarProveedores();
+        cargarCategorias();
+        producto = new Producto();
     }
 
     @SuppressWarnings("unchecked")
@@ -248,7 +267,7 @@ public class AñadirProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaInventario igu=new VistaInventario();
+        VistaInventario igu = new VistaInventario();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
         this.dispose();
@@ -276,4 +295,24 @@ public class AñadirProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecioCompra;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarProveedores() {
+        boxProveedor.removeAllItems();
+        for (Proveedor provedor : proveedores) {
+            boxProveedor.addItem(provedor.getNombre());
+        }
+    }
+
+    private void cargarCategorias() {
+        boxCategoria.removeAllItems();
+        for (Categoria cat : categorias) {
+            boxCategoria.addItem(cat.getNombre());
+        }
+    }
+
+    private void limpiar() {
+        txtNombre.setText("");
+        txtPrecioCompra.setText("");
+        txtCantidad.setText("");
+    }
 }
