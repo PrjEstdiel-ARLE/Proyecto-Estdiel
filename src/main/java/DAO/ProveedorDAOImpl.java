@@ -32,7 +32,7 @@ public class ProveedorDAOImpl implements ProveedorDAO {
             Logger.getLogger(ProveedorDAOImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     @Override
     public void eliminar(int id) {
         try {
@@ -45,6 +45,11 @@ public class ProveedorDAOImpl implements ProveedorDAO {
     @Override
     public List<Proveedor> leerTodo() {
         return provJpa.findProveedorEntities();
+    }
+
+    @Override
+    public Proveedor leerPorNombre(String nombre) {
+        return provJpa.findByNombre(nombre);
     }
 
 }

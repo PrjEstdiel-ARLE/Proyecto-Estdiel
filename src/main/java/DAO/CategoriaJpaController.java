@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class CategoriaJpaController implements Serializable {
@@ -179,6 +180,20 @@ public class CategoriaJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    Categoria findByName(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Categoria p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Categoria.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         } finally {
             em.close();
         }

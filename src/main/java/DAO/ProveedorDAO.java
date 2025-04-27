@@ -13,4 +13,6 @@ public interface ProveedorDAO {
     void eliminar(int id);
     
     List<Proveedor> leerTodo();
+    
+    Proveedor leerPorNombre(String nombre);
 }

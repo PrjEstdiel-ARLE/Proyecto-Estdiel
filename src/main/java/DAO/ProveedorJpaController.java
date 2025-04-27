@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class ProveedorJpaController implements Serializable {
@@ -179,6 +180,20 @@ public class ProveedorJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Proveedor findByNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Proveedor p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Proveedor.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
         } finally {
             em.close();
         }
