@@ -1,6 +1,6 @@
 package Vista;
 
-import Controlador.ControladoraGeneral;
+/*import Controlador.ControladoraGeneral;
 import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
@@ -8,25 +8,25 @@ import Modelo.Stock;
 import java.awt.Color;
 import java.util.List;
 import javax.swing.JOptionPane;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;*/
 
 public class ActualizarProducto extends javax.swing.JFrame {
 
-    ControladoraGeneral control;
+    /*ControladoraGeneral control;
     List<Proveedor> proveedores;
     List<Categoria> categorias;
     Categoria categoria;
     Proveedor proveedor;
-    Producto prod;
+    Producto prod;*/
 
     public ActualizarProducto() {
         initComponents();
-        control = new ControladoraGeneral();
+        /*control = new ControladoraGeneral();
         prod = new Producto();
         proveedores = control.getControladoraProveedor().leerTodo();
         categorias = control.getControladoraCategoria().leerTodo();
         cargarProveedores();
-        cargarCategorias();
+        cargarCategorias();*/
     }
 
     @SuppressWarnings("unchecked")
@@ -303,24 +303,24 @@ public class ActualizarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
-        if (txtBuscar.getText().equals("Buscar producto por código")) {
+        /*if (txtBuscar.getText().equals("Buscar producto por código")) {
             txtBuscar.setText("");
             txtBuscar.setForeground(Color.BLACK);
-        }
+        }*/
     }//GEN-LAST:event_txtBuscarFocusGained
 
     private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
-        if (txtBuscar.getText().equals("")) {
+        /*if (txtBuscar.getText().equals("")) {
             txtBuscar.setText("Buscar producto por código");
             txtBuscar.setForeground(new Color(204, 204, 204));
         } else {
             txtBuscar.setForeground(Color.BLACK);
-        }
+        }*/
     }//GEN-LAST:event_txtBuscarFocusLost
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         //validar
-        String nombre = StringUtils.trim(txtNombre.getText());
+        /*String nombre = StringUtils.trim(txtNombre.getText());
         String precio = StringUtils.trim(txtPrecioCompra.getText());
         String cantidad = StringUtils.trim(txtCantidad.getText());
 
@@ -346,7 +346,7 @@ public class ActualizarProducto extends javax.swing.JFrame {
         proveedor = control.getControladoraProveedor().leerPorNombre(prov);
         //codigo
         /*Traer los productos de la categoria*/
-        List<Producto> productos = control.getControladoraProducto().leerPorCategoria(categoria);
+        /*List<Producto> productos = control.getControladoraProducto().leerPorCategoria(categoria);
         String codigo = generarCodigo(proveedor, categoria, productos);
         //Actualizar stock
         Stock stock = prod.getStock();
@@ -365,11 +365,11 @@ public class ActualizarProducto extends javax.swing.JFrame {
         VistaInventario pant = new VistaInventario();
         pant.setVisible(true);
         pant.setLocationRelativeTo(null);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if (txtBuscar.getText().equals("") || txtBuscar.getText().equals("Buscar producto por código")) {
+        /*if (txtBuscar.getText().equals("") || txtBuscar.getText().equals("Buscar producto por código")) {
             mostrarMensaje("Escriba el proveedor a buscar", "error");
         } else {
             prod = control.getControladoraProducto().leerPorCodigo(txtBuscar.getText());
@@ -388,14 +388,14 @@ public class ActualizarProducto extends javax.swing.JFrame {
                 txtBuscar.setText("Buscar producto por código");
                 txtBuscar.setForeground(new Color(102, 102, 102));
             }
-        }
+        }*/
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaInventario igu=new VistaInventario();
+        /*VistaInventario igu=new VistaInventario();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_btnVolverActionPerformed
 
 
@@ -423,7 +423,7 @@ public class ActualizarProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecioCompra;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarProveedores() {
+    /*private void cargarProveedores() {
         boxProveedor.removeAllItems();
         for (Proveedor provedor : proveedores) {
             boxProveedor.addItem(provedor.getNombre());
@@ -490,5 +490,5 @@ public class ActualizarProducto extends javax.swing.JFrame {
         String indice = String.format("%03d", num);
         String prov = proveedor.getNombre().substring(0, 3).toUpperCase();
         return codigo + cat + indice + prov;
-    }
+    }*/
 }
