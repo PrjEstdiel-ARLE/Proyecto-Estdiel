@@ -28,11 +28,7 @@ public class Producto implements Serializable {
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
-    
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="stock_id")
-    private Stock stock;
-    
+
     public Producto() {
     }
 
@@ -84,12 +80,4 @@ public class Producto implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
-    
 }
