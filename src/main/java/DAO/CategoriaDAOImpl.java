@@ -1,6 +1,6 @@
 package DAO;
 
-import DAO.exceptions.NonexistentEntityException;
+/*import DAO.exceptions.NonexistentEntityException;
 import Modelo.Categoria;
 import java.util.List;
 import java.util.logging.Level;
@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 
-    private CategoriaJpaController categoriaJpa;
+    /*private CategoriaJpaController categoriaJpa;
 
     public CategoriaDAOImpl() {
         this.categoriaJpa = new CategoriaJpaController();
@@ -52,4 +52,4 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         return categoriaJpa.findByName(nombre);
     }
 
-}
+}*/

@@ -1,6 +1,6 @@
 package DAO;
 
-import DAO.exceptions.NonexistentEntityException;
+/*import DAO.exceptions.NonexistentEntityException;
 import Modelo.Proveedor;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,4 +52,4 @@ public class ProveedorDAOImpl implements ProveedorDAO {
         return provJpa.findByNombre(nombre);
     }
 
-}
+}*/

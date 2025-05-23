@@ -1,6 +1,6 @@
 package DAO;
 
-import DAO.exceptions.NonexistentEntityException;
+/*import DAO.exceptions.NonexistentEntityException;
 import Modelo.Categoria;
 import Modelo.Producto;
 import java.util.List;
@@ -64,4 +64,4 @@ public class ProductoDAOImpl implements ProductoDAO{
         return productoJpa.findByCategory(categoria);
     }
     
-}
+}*/
