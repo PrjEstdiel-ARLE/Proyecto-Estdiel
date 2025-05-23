@@ -1,14 +1,12 @@
 package Modelo;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -20,6 +18,7 @@ public class Producto implements Serializable {
     private int idProducto;
     private String nombre;
     private String codigo;
+    private String decripcion;
     private double precioCompra;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
@@ -78,6 +77,14 @@ public class Producto implements Serializable {
 
     public void setProveedor(Proveedor proveedor) {
         this.proveedor = proveedor;
+    }
+
+    public String getDecripcion() {
+        return decripcion;
+    }
+
+    public void setDecripcion(String decripcion) {
+        this.decripcion = decripcion;
     }
 
 }
