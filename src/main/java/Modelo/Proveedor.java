@@ -22,6 +22,8 @@ public class Proveedor implements Serializable {
     private String RUC;
     @OneToMany(mappedBy = "proveedor")
     private List<Producto> productos;
+    @OneToMany(mappedBy = "proveedor")
+    private List<Pedido> pedidos;
     
     public Proveedor() {
     }
@@ -89,5 +91,12 @@ public class Proveedor implements Serializable {
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
     }
-    
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
 }
