@@ -2,7 +2,7 @@ package Controlador;
 
 public class ControladoraGeneral {
 
-    private final ControladoraProveedor controlProveedor;
+    /*private final ControladoraProveedor controlProveedor;
     private final ControladoraProducto controlProducto;
     private final ControladoraStock controlStock;
     private final ControladoraCategoria controlCategoria;
@@ -29,6 +29,6 @@ public class ControladoraGeneral {
 
     public ControladoraCategoria getControladoraCategoria(){
         return controlCategoria;
-    }
+    }*/
 
 }
