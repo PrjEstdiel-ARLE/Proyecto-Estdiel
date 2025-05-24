@@ -32,6 +32,9 @@ public class Producto implements Serializable {
     
     @OneToMany(mappedBy = "producto")
     private List<DetallePedido> detalles;
+    
+    @OneToMany(mappedBy = "producto")
+    private List<Lote> lotes;
 
     public Producto() {
     }
@@ -106,5 +109,13 @@ public class Producto implements Serializable {
 
     public void setDetalles(List<DetallePedido> detalles) {
         this.detalles = detalles;
+    }
+
+    public List<Lote> getLotes() {
+        return lotes;
+    }
+
+    public void setLotes(List<Lote> lotes) {
+        this.lotes = lotes;
     }
 }
