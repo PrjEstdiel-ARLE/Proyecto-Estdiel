@@ -29,6 +29,9 @@ public class Producto implements Serializable {
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
+    
+    @OneToMany(mappedBy = "producto")
+    private List<DetallePedido> detalles;
 
     public Producto() {
     }
@@ -97,4 +100,11 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
 }

@@ -24,7 +24,7 @@ public class Proveedor implements Serializable {
     private List<Producto> productos;
     @OneToMany(mappedBy = "proveedor")
     private List<Pedido> pedidos;
-    
+
     public Proveedor() {
     }
 
