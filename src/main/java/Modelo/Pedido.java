@@ -1,6 +1,8 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -23,8 +25,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Pedido {
-
+public class Pedido implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idPedido;
@@ -32,9 +33,10 @@ public class Pedido {
     @Builder.Default
     private EstadoPedido estado = EstadoPedido.REGISTRADO;
     @Temporal(TemporalType.DATE)
-    private LocalDate fechaRegistro;
+    private Date fechaRegistro;
     @Builder.Default
-    private LocalDate fechaEstimadoLlegada = null;
+    @Temporal(TemporalType.DATE)
+    private Date fechaEstimadoLlegada = null;
     private double total;
     @ManyToOne
     @JoinColumn(name = "proveedor_id")

@@ -1,6 +1,8 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lote {
+public class Lote implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idLote;
@@ -31,10 +33,10 @@ public class Lote {
     @Builder.Default
     private EstadoLote estado=EstadoLote.ACTIVO;
     @Temporal(TemporalType.DATE)
-    private LocalDate fechaIngreso;
+    private Date fechaIngreso;
     @Temporal(TemporalType.DATE)
     @Builder.Default
-    private LocalDate fechaVencimiento=null;
+    private Date fechaVencimiento=null;
     @ManyToOne
     @JoinColumn(name="producto_id")
     private Producto producto;

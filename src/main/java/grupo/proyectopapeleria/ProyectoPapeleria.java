@@ -1,6 +1,5 @@
 package grupo.proyectopapeleria;
 
-import Vista.ActualizarProducto;
 import Vista.PantallaPrincipal;
 
 public class ProyectoPapeleria {

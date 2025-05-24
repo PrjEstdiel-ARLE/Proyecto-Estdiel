@@ -1,6 +1,8 @@
 package Modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,12 +21,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor 
-public class Salida {
+public class Salida implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSalida;
     @Temporal(TemporalType.DATE)
-    private LocalDate fechaSalida;
+    private Date fechaSalida;
     @ManyToOne
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
