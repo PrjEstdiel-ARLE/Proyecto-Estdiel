@@ -4,5 +4,6 @@ public enum EstadoLote {
     DEFECTUOSO,
     OBSOLETO,
     ACTIVO,
-    VENCIDO
+    VENCIDO,
+    RETIRO_EXITOSO
 }
