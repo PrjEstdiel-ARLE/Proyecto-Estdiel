@@ -12,19 +12,17 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class CategoriaJpaController implements Serializable {
 
+    public CategoriaJpaController() {
+        emf=Persistence.createEntityManagerFactory("persistencia");
+    }
+
     public CategoriaJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
-    public CategoriaJpaController() {
-        emf = Persistence.createEntityManagerFactory("persistencia");
-    }
-
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -184,19 +182,5 @@ public class CategoriaJpaController implements Serializable {
             em.close();
         }
     }
-
-    Categoria findByName(String nombre) {
-        EntityManager em = getEntityManager();
-        String query = "SELECT p FROM Categoria p WHERE LOWER(p.nombre) = LOWER(:nombre)";
-        try {
-            return em.createQuery(query, Categoria.class)
-                    .setParameter("nombre", nombre)
-                    .getSingleResult();
-        } catch (NoResultException e) {
-            return null;
-        } finally {
-            em.close();
-        }
-    }
-
+    
 }

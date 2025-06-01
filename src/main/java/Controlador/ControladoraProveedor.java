@@ -1,12 +1,12 @@
 package Controlador;
 
-import DAO.ProveedorDAO;
+/*import DAO.ProveedorDAO;
 import DAO.ProveedorDAOImpl;
 import Modelo.Proveedor;
-import java.util.List;
+import java.util.List;*/
 
 public class ControladoraProveedor {
-    private ProveedorDAO proveedorDao;
+    /*private ProveedorDAO proveedorDao;
 
     public ControladoraProveedor() {
         this.proveedorDao = new ProveedorDAOImpl(){};
@@ -34,5 +34,5 @@ public class ControladoraProveedor {
     
     public List<Proveedor> leerTodo(){
         return proveedorDao.leerTodo();
-    }
+    }*/
 }

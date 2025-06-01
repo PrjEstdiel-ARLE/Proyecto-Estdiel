@@ -1,13 +1,13 @@
 package Controlador;
 
-import DAO.ProductoDAO;
+/*import DAO.ProductoDAO;
 import DAO.ProductoDAOImpl;
 import Modelo.Categoria;
 import Modelo.Producto;
-import java.util.List;
+import java.util.List;*/
 
 public class ControladoraProducto {
-    private ProductoDAO productoDao;
+    /*private ProductoDAO productoDao;
     
     public ControladoraProducto(){
         this.productoDao=new ProductoDAOImpl(){};
@@ -43,5 +43,5 @@ public class ControladoraProducto {
     
     public List<Producto> leerPorCategoria(Categoria categoria){
         return productoDao.leerPorCategoria(categoria);
-    }
+    }*/
 }

@@ -1,24 +1,24 @@
 package Vista;
 
-import Controlador.ControladoraGeneral;
+/*import Controlador.ControladoraGeneral;
 import Modelo.Producto;
 import java.util.List;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import Extras.Cadenas;
+import Extras.Cadenas;*/
 
 public class MostrarProductos extends javax.swing.JFrame {
 
-    ControladoraGeneral control;
+    /*ControladoraGeneral control;
     List<Producto> productos;
-    String[] titulos = {"Producto", "Cantidad", "Precio de Compra", "Precio de Venta", "Categoria", "Proveedor"};
+    String[] titulos = {"Producto", "Cantidad", "Precio de Compra", "Precio de Venta", "Categoria", "Proveedor"};*/
 
     public MostrarProductos() {
         initComponents();
-        control = new ControladoraGeneral();
+        /*control = new ControladoraGeneral();
         productos = control.getControladoraProducto().leerTodo();
-        cargarTabla();
+        cargarTabla();*/
     }
 
     @SuppressWarnings("unchecked")
@@ -103,10 +103,10 @@ public class MostrarProductos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaInventario pant = new VistaInventario();
+        /*VistaInventario pant = new VistaInventario();
         pant.setVisible(true);
         pant.setLocationRelativeTo(null);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_btnVolverActionPerformed
 
 
@@ -118,7 +118,7 @@ public class MostrarProductos extends javax.swing.JFrame {
     private javax.swing.JTable jtProductos;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarTabla() {
+    /*private void cargarTabla() {
         // Inicializa el modelo de la tabla y establece las columnas
         DefaultTableModel modeloTabla = new DefaultTableModel() {
             @Override
@@ -166,5 +166,5 @@ public class MostrarProductos extends javax.swing.JFrame {
 
     public String validarProveedor(Producto producto) {
         return (producto.getProveedor() == null) ? "-" : producto.getProveedor().getNombre();
-    }
+    }*/
 }
