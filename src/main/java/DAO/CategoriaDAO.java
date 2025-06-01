@@ -3,6 +3,7 @@ package DAO;
 import Modelo.Categoria;
 import java.util.List;
 
+/*Alexis*/
 public interface CategoriaDAO {
     void crear(Categoria categoria);
     
