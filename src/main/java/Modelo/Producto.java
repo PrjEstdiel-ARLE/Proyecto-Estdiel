@@ -22,6 +22,7 @@ public class Producto implements Serializable {
     private String codigo;
     private String descripcion;
     private double precioCompra;
+    private int cantidad;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
@@ -117,5 +118,13 @@ public class Producto implements Serializable {
 
     public void setLotes(List<Lote> lotes) {
         this.lotes = lotes;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }
