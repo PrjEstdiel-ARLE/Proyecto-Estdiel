@@ -15,11 +15,12 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 public class DetallePedidoJpaController implements Serializable {
 
     public DetallePedidoJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public DetallePedidoJpaController(EntityManagerFactory emf) {
@@ -240,5 +241,30 @@ public class DetallePedidoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<DetallePedido> findByPedido(Pedido pedido) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT dp FROM DetallePedido dp WHERE dp.pedido = :pedido", DetallePedido.class
+            ).setParameter("pedido", pedido)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<DetallePedido> findByProducto(Producto producto) {
+        EntityManager em = getEntityManager();
+        try {
+            TypedQuery<DetallePedido> query = em.createQuery(
+                    "SELECT d FROM DetallePedido d WHERE d.producto = :producto", DetallePedido.class
+            );
+            query.setParameter("producto", producto);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

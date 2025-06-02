@@ -3,12 +3,14 @@ package Modelo;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.AllArgsConstructor;
@@ -30,4 +32,6 @@ public class Salida implements Serializable {
     @ManyToOne
     @JoinColumn(name="usuario_id")
     private Usuario usuario;
+    @OneToMany(mappedBy = "salida")
+    private List<DetalleSalida> detalles; 
 }

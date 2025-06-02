@@ -1,17 +1,16 @@
 package Controlador;
 
-/*import DAO.CategoriaDAO;
+import DAO.CategoriaDAO;
 import DAO.CategoriaDAOImpl;
 import Modelo.Categoria;
-import java.util.List;*/
+import java.util.List;
 
 public class ControladoraCategoria {
 
-    /*private CategoriaDAO categoriaDao;
+    private final CategoriaDAO categoriaDao;
 
     public ControladoraCategoria() {
-        this.categoriaDao = new CategoriaDAOImpl() {
-        };
+        this.categoriaDao = new CategoriaDAOImpl();
     }
 
     public void crearCategoria(Categoria categoria) {
@@ -36,5 +35,13 @@ public class ControladoraCategoria {
 
     public Categoria leerPorNombre(String nombre) {
         return categoriaDao.leerPorNombre(nombre);
-    }*/
+    }
+    
+    public List<String> leerNombresCategorias() {
+        return categoriaDao.leerNombresCategorias();
+    }
+
+    public boolean existePorNombres(String Nombre) {
+        return categoriaDao.existePorNombres(Nombre);
+    }
 }
