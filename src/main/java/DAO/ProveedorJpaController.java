@@ -13,12 +13,13 @@ import Modelo.Pedido;
 import Modelo.Proveedor;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class ProveedorJpaController implements Serializable {
 
     public ProveedorJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public ProveedorJpaController(EntityManagerFactory emf) {
@@ -232,5 +233,31 @@ public class ProveedorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public Proveedor findByNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Proveedor p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Proveedor.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public boolean existeProveedorConRUC(String ruc) {
+        EntityManager em = getEntityManager();
+        try {
+            Long count = em.createQuery("SELECT COUNT(p) FROM Proveedor p WHERE p.RUC = :ruc", Long.class)
+                    .setParameter("ruc", ruc)
+                    .getSingleResult();
+            return count > 0;
+        } finally {
+            em.close();
+        }
+    }
+
 }

@@ -12,12 +12,13 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class CategoriaJpaController implements Serializable {
 
     public CategoriaJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public CategoriaJpaController(EntityManagerFactory emf) {
@@ -182,5 +183,43 @@ public class CategoriaJpaController implements Serializable {
             em.close();
         }
     }
+
+    Categoria findByName(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Categoria p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Categoria.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<String> findAllNombresCategoria() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT c.nombre FROM Categoria c", String.class).getResultList();
+        } finally {
+            em.close();
+        }
+    }
     
+
+    public boolean existsCategoriaWithNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        try {
+            Long count = em.createQuery(
+                    "SELECT COUNT(c) FROM Categoria c WHERE c.nombre = :nombre", Long.class
+            ).setParameter("nombre", nombre).getSingleResult();
+            return count > 0;
+        } finally {
+            em.close();
+        }
+    }
+
 }
+
+

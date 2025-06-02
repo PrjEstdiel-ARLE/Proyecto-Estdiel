@@ -15,4 +15,6 @@ public interface ProveedorDAO {
     List<Proveedor> leerTodo();
     
     Proveedor leerPorNombre(String nombre);
+    
+    boolean existePorRuc(String RUC);
 }
