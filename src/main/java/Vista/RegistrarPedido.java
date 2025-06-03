@@ -667,9 +667,26 @@ public class RegistrarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarPedidoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        OpcionesPedido opc = new OpcionesPedido();
-        opc.setVisible(true);
-        this.dispose();
+        detalles = control.getControlDetallePedido().leerPorPedido(pedido);
+            if (detalles.isEmpty()) {
+                boolean conf = Extras.Mensajes.confirmar("¿Desea cancelar el registro del pedido?");
+                if (conf) {
+                    control.getControlPedido().eliminar(pedido.getIdPedido());
+                    OpcionesPedido opc=new OpcionesPedido();
+                    opc.setVisible(true);
+                    this.dispose();
+                }
+            } else {
+                boolean conf=Extras.Mensajes.confirmar("Tiene productos asociados al pedido, ¿Desea cancelar el registro?");
+                if (conf) {
+                    control.getControlPedido().eliminar(pedido.getIdPedido());
+                    OpcionesPedido opc=new OpcionesPedido();
+                    opc.setVisible(true);
+                    this.dispose();
+                }else{
+                    Extras.Mensajes.mostrarMensaje("Valide y guarde el pedido completo", "advertencia");
+                }
+            }
     }//GEN-LAST:event_btnVolverActionPerformed
 
 
