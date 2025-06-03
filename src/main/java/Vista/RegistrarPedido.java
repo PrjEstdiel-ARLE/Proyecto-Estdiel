@@ -670,6 +670,18 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 Extras.Mensajes.mostrarMensaje("Debe ingresar una fecha de llegada estiamda", "error");
                 return;
             }
+
+            // Validar que el producto no esté en el pedido
+            detalles = control.getControlDetallePedido().leerPorPedido(pedido);
+
+            // Versión mejorada (sin necesidad de lista separada)
+            for (DetallePedido detalleRev : detalles) {
+                if (detalleRev.getProducto().getIdProducto() == prodPedido.getIdProducto()) {
+                    Extras.Mensajes.mostrarMensaje("Este producto ya está en el pedido.\nSi necesita cambios edítelo.", "error");
+                    return;
+                }
+            }
+
             //actualizar pedido PRIMERO
             pedido.setFechaRegistro(fechaRegistro);
             pedido.setFechaEstimadoLlegada(fechaLlegadaEstimada);
@@ -906,6 +918,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
         tblDetalles.setRowHeight(35);
         JTableHeader header = tblDetalles.getTableHeader();
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
-        header.setPreferredSize(new Dimension(header.getWidth(), 40)); 
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
 }
