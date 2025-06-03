@@ -52,4 +52,9 @@ public class ProveedorDAOImpl implements ProveedorDAO {
         return provJpa.findByNombre(nombre);
     }
 
+    @Override
+    public boolean existePorRuc(String RUC) {
+        return provJpa.existeProveedorConRUC(RUC);
+    }
+
 }

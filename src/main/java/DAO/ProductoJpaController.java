@@ -7,11 +7,12 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Modelo.Categoria;
-import Modelo.Producto;
 import Modelo.Proveedor;
-import Modelo.Stock;
-import java.util.Collections;
+import Modelo.DetallePedido;
+import java.util.ArrayList;
 import java.util.List;
+import Modelo.Lote;
+import Modelo.Producto;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -19,14 +20,13 @@ import javax.persistence.Persistence;
 
 public class ProductoJpaController implements Serializable {
 
-    public ProductoJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
     public ProductoJpaController() {
         emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
+    public ProductoJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -34,6 +34,12 @@ public class ProductoJpaController implements Serializable {
     }
 
     public void create(Producto producto) {
+        if (producto.getDetalles() == null) {
+            producto.setDetalles(new ArrayList<DetallePedido>());
+        }
+        if (producto.getLotes() == null) {
+            producto.setLotes(new ArrayList<Lote>());
+        }
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -48,11 +54,18 @@ public class ProductoJpaController implements Serializable {
                 proveedor = em.getReference(proveedor.getClass(), proveedor.getIdProveedor());
                 producto.setProveedor(proveedor);
             }
-            Stock stock = producto.getStock();
-            if (stock != null) {
-                stock = em.getReference(stock.getClass(), stock.getIdStock());
-                producto.setStock(stock);
+            List<DetallePedido> attachedDetalles = new ArrayList<DetallePedido>();
+            for (DetallePedido detallesDetallePedidoToAttach : producto.getDetalles()) {
+                detallesDetallePedidoToAttach = em.getReference(detallesDetallePedidoToAttach.getClass(), detallesDetallePedidoToAttach.getIdDetallePedido());
+                attachedDetalles.add(detallesDetallePedidoToAttach);
             }
+            producto.setDetalles(attachedDetalles);
+            List<Lote> attachedLotes = new ArrayList<Lote>();
+            for (Lote lotesLoteToAttach : producto.getLotes()) {
+                lotesLoteToAttach = em.getReference(lotesLoteToAttach.getClass(), lotesLoteToAttach.getIdLote());
+                attachedLotes.add(lotesLoteToAttach);
+            }
+            producto.setLotes(attachedLotes);
             em.persist(producto);
             if (categoria != null) {
                 categoria.getProductos().add(producto);
@@ -62,14 +75,23 @@ public class ProductoJpaController implements Serializable {
                 proveedor.getProductos().add(producto);
                 proveedor = em.merge(proveedor);
             }
-            if (stock != null) {
-                Producto oldProductoOfStock = stock.getProducto();
-                if (oldProductoOfStock != null) {
-                    oldProductoOfStock.setStock(null);
-                    oldProductoOfStock = em.merge(oldProductoOfStock);
+            for (DetallePedido detallesDetallePedido : producto.getDetalles()) {
+                Producto oldProductoOfDetallesDetallePedido = detallesDetallePedido.getProducto();
+                detallesDetallePedido.setProducto(producto);
+                detallesDetallePedido = em.merge(detallesDetallePedido);
+                if (oldProductoOfDetallesDetallePedido != null) {
+                    oldProductoOfDetallesDetallePedido.getDetalles().remove(detallesDetallePedido);
+                    oldProductoOfDetallesDetallePedido = em.merge(oldProductoOfDetallesDetallePedido);
                 }
-                stock.setProducto(producto);
-                stock = em.merge(stock);
+            }
+            for (Lote lotesLote : producto.getLotes()) {
+                Producto oldProductoOfLotesLote = lotesLote.getProducto();
+                lotesLote.setProducto(producto);
+                lotesLote = em.merge(lotesLote);
+                if (oldProductoOfLotesLote != null) {
+                    oldProductoOfLotesLote.getLotes().remove(lotesLote);
+                    oldProductoOfLotesLote = em.merge(oldProductoOfLotesLote);
+                }
             }
             em.getTransaction().commit();
         } finally {
@@ -89,8 +111,10 @@ public class ProductoJpaController implements Serializable {
             Categoria categoriaNew = producto.getCategoria();
             Proveedor proveedorOld = persistentProducto.getProveedor();
             Proveedor proveedorNew = producto.getProveedor();
-            Stock stockOld = persistentProducto.getStock();
-            Stock stockNew = producto.getStock();
+            List<DetallePedido> detallesOld = persistentProducto.getDetalles();
+            List<DetallePedido> detallesNew = producto.getDetalles();
+            List<Lote> lotesOld = persistentProducto.getLotes();
+            List<Lote> lotesNew = producto.getLotes();
             if (categoriaNew != null) {
                 categoriaNew = em.getReference(categoriaNew.getClass(), categoriaNew.getIdCategoria());
                 producto.setCategoria(categoriaNew);
@@ -99,10 +123,20 @@ public class ProductoJpaController implements Serializable {
                 proveedorNew = em.getReference(proveedorNew.getClass(), proveedorNew.getIdProveedor());
                 producto.setProveedor(proveedorNew);
             }
-            if (stockNew != null) {
-                stockNew = em.getReference(stockNew.getClass(), stockNew.getIdStock());
-                producto.setStock(stockNew);
+            List<DetallePedido> attachedDetallesNew = new ArrayList<DetallePedido>();
+            for (DetallePedido detallesNewDetallePedidoToAttach : detallesNew) {
+                detallesNewDetallePedidoToAttach = em.getReference(detallesNewDetallePedidoToAttach.getClass(), detallesNewDetallePedidoToAttach.getIdDetallePedido());
+                attachedDetallesNew.add(detallesNewDetallePedidoToAttach);
             }
+            detallesNew = attachedDetallesNew;
+            producto.setDetalles(detallesNew);
+            List<Lote> attachedLotesNew = new ArrayList<Lote>();
+            for (Lote lotesNewLoteToAttach : lotesNew) {
+                lotesNewLoteToAttach = em.getReference(lotesNewLoteToAttach.getClass(), lotesNewLoteToAttach.getIdLote());
+                attachedLotesNew.add(lotesNewLoteToAttach);
+            }
+            lotesNew = attachedLotesNew;
+            producto.setLotes(lotesNew);
             producto = em.merge(producto);
             if (categoriaOld != null && !categoriaOld.equals(categoriaNew)) {
                 categoriaOld.getProductos().remove(producto);
@@ -120,18 +154,39 @@ public class ProductoJpaController implements Serializable {
                 proveedorNew.getProductos().add(producto);
                 proveedorNew = em.merge(proveedorNew);
             }
-            if (stockOld != null && !stockOld.equals(stockNew)) {
-                stockOld.setProducto(null);
-                stockOld = em.merge(stockOld);
-            }
-            if (stockNew != null && !stockNew.equals(stockOld)) {
-                Producto oldProductoOfStock = stockNew.getProducto();
-                if (oldProductoOfStock != null) {
-                    oldProductoOfStock.setStock(null);
-                    oldProductoOfStock = em.merge(oldProductoOfStock);
+            for (DetallePedido detallesOldDetallePedido : detallesOld) {
+                if (!detallesNew.contains(detallesOldDetallePedido)) {
+                    detallesOldDetallePedido.setProducto(null);
+                    detallesOldDetallePedido = em.merge(detallesOldDetallePedido);
                 }
-                stockNew.setProducto(producto);
-                stockNew = em.merge(stockNew);
+            }
+            for (DetallePedido detallesNewDetallePedido : detallesNew) {
+                if (!detallesOld.contains(detallesNewDetallePedido)) {
+                    Producto oldProductoOfDetallesNewDetallePedido = detallesNewDetallePedido.getProducto();
+                    detallesNewDetallePedido.setProducto(producto);
+                    detallesNewDetallePedido = em.merge(detallesNewDetallePedido);
+                    if (oldProductoOfDetallesNewDetallePedido != null && !oldProductoOfDetallesNewDetallePedido.equals(producto)) {
+                        oldProductoOfDetallesNewDetallePedido.getDetalles().remove(detallesNewDetallePedido);
+                        oldProductoOfDetallesNewDetallePedido = em.merge(oldProductoOfDetallesNewDetallePedido);
+                    }
+                }
+            }
+            for (Lote lotesOldLote : lotesOld) {
+                if (!lotesNew.contains(lotesOldLote)) {
+                    lotesOldLote.setProducto(null);
+                    lotesOldLote = em.merge(lotesOldLote);
+                }
+            }
+            for (Lote lotesNewLote : lotesNew) {
+                if (!lotesOld.contains(lotesNewLote)) {
+                    Producto oldProductoOfLotesNewLote = lotesNewLote.getProducto();
+                    lotesNewLote.setProducto(producto);
+                    lotesNewLote = em.merge(lotesNewLote);
+                    if (oldProductoOfLotesNewLote != null && !oldProductoOfLotesNewLote.equals(producto)) {
+                        oldProductoOfLotesNewLote.getLotes().remove(lotesNewLote);
+                        oldProductoOfLotesNewLote = em.merge(oldProductoOfLotesNewLote);
+                    }
+                }
             }
             em.getTransaction().commit();
         } catch (Exception ex) {
@@ -172,10 +227,15 @@ public class ProductoJpaController implements Serializable {
                 proveedor.getProductos().remove(producto);
                 proveedor = em.merge(proveedor);
             }
-            Stock stock = producto.getStock();
-            if (stock != null) {
-                stock.setProducto(null);
-                stock = em.merge(stock);
+            List<DetallePedido> detalles = producto.getDetalles();
+            for (DetallePedido detallesDetallePedido : detalles) {
+                detallesDetallePedido.setProducto(null);
+                detallesDetallePedido = em.merge(detallesDetallePedido);
+            }
+            List<Lote> lotes = producto.getLotes();
+            for (Lote lotesLote : lotes) {
+                lotesLote.setProducto(null);
+                lotesLote = em.merge(lotesLote);
             }
             em.remove(producto);
             em.getTransaction().commit();
@@ -231,8 +291,21 @@ public class ProductoJpaController implements Serializable {
             em.close();
         }
     }
+
+    public List<Producto> findByCategoria(int idCategoria) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Producto p WHERE p.categoria.idCategoria = :idCategoria", Producto.class
+            )
+                    .setParameter("idCategoria", idCategoria)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
     
-     public Producto findByNombre(String nombre) {
+       public Producto findByNombre(String nombre) {
         EntityManager em = getEntityManager();
         String query = "SELECT p FROM Producto p WHERE LOWER(p.nombre) = LOWER(:nombre)";
         try {
@@ -254,7 +327,6 @@ public class ProductoJpaController implements Serializable {
             List<Producto> resultados = em.createQuery(query, Producto.class)
                     .setParameter("codigo", codigo)
                     .getResultList();
-            System.out.println("Resultados encontrados: " + resultados.size());
             return resultados.isEmpty() ? null : resultados.get(0);
         } catch (NoResultException e) {
             return null;
@@ -262,19 +334,21 @@ public class ProductoJpaController implements Serializable {
             em.close();
         }
     }
-
-    List<Producto> findByCategory(Categoria categoria) {
-        EntityManager em = getEntityManager();
-        String query = "SELECT d FROM Producto d WHERE d.categoria = :categoria";
-        try {
-            return em.createQuery(query, Producto.class)
-                    .setParameter("categoria", categoria)
-                    .getResultList();
-        } catch (NoResultException e) {
-            return Collections.emptyList();
-        } finally {
-            em.close();
+    
+    public void actualizarCantidad(int idProducto, int nuevaCantidad) {
+    EntityManager em = getEntityManager();
+    try {
+        em.getTransaction().begin();
+        Producto producto = em.find(Producto.class, idProducto);
+        if (producto != null) {
+            producto.setCantidad(nuevaCantidad);
+            em.merge(producto);
         }
+        em.getTransaction().commit();
+    } finally {
+        em.close();
     }
+}
+
 
 }

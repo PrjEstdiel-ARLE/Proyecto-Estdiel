@@ -17,14 +17,13 @@ import javax.persistence.Persistence;
 
 public class CategoriaJpaController implements Serializable {
 
-    public CategoriaJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
     public CategoriaJpaController() {
         emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
+    public CategoriaJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -199,4 +198,28 @@ public class CategoriaJpaController implements Serializable {
         }
     }
 
+    public List<String> findAllNombresCategoria() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery("SELECT c.nombre FROM Categoria c", String.class).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
+
+    public boolean existsCategoriaWithNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        try {
+            Long count = em.createQuery(
+                    "SELECT COUNT(c) FROM Categoria c WHERE c.nombre = :nombre", Long.class
+            ).setParameter("nombre", nombre).getSingleResult();
+            return count > 0;
+        } finally {
+            em.close();
+        }
+    }
+
 }
+
+

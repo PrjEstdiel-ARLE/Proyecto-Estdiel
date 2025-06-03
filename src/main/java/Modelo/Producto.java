@@ -1,14 +1,14 @@
 package Modelo;
 
 import java.io.Serializable;
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -20,7 +20,9 @@ public class Producto implements Serializable {
     private int idProducto;
     private String nombre;
     private String codigo;
+    private String descripcion;
     private double precioCompra;
+    private int cantidad;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
@@ -29,10 +31,12 @@ public class Producto implements Serializable {
     @JoinColumn(name = "proveedor_id")
     private Proveedor proveedor;
     
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="stock_id")
-    private Stock stock;
+    @OneToMany(mappedBy = "producto")
+    private List<DetallePedido> detalles;
     
+    @OneToMany(mappedBy = "producto")
+    private List<Lote> lotes;
+
     public Producto() {
     }
 
@@ -84,12 +88,43 @@ public class Producto implements Serializable {
         this.proveedor = proveedor;
     }
 
-    public Stock getStock() {
-        return stock;
+    public String getDecripcion() {
+        return descripcion;
     }
 
-    public void setStock(Stock stock) {
-        this.stock = stock;
+    public void setDecripcion(String decripcion) {
+        this.descripcion = decripcion;
     }
-    
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public List<DetallePedido> getDetalles() {
+        return detalles;
+    }
+
+    public void setDetalles(List<DetallePedido> detalles) {
+        this.detalles = detalles;
+    }
+
+    public List<Lote> getLotes() {
+        return lotes;
+    }
+
+    public void setLotes(List<Lote> lotes) {
+        this.lotes = lotes;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+    }
 }

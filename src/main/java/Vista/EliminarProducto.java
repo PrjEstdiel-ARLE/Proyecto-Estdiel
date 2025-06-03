@@ -1,29 +1,29 @@
 package Vista;
 
-import Controlador.ControladoraGeneral;
+/*import Controlador.ControladoraGeneral;
 import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import java.awt.Color;
 import java.util.List;
 import Extras.Mensajes;
-import Extras.Cadenas;
+import Extras.Cadenas;*/
 
 public class EliminarProducto extends javax.swing.JFrame {
 
-    ControladoraGeneral control;
+    /*ControladoraGeneral control;
     List<Proveedor> proveedores;
     List<Categoria> categorias;
     Categoria categoria;
     Proveedor proveedor;
-    Producto prod;
+    Producto prod;*/
 
     public EliminarProducto() {
         initComponents();
-        control = new ControladoraGeneral();
+        /*control = new ControladoraGeneral();
         prod = new Producto();
         proveedores = control.getControladoraProveedor().leerTodo();
-        categorias = control.getControladoraCategoria().leerTodo();
+        categorias = control.getControladoraCategoria().leerTodo();*/
     }
 
     @SuppressWarnings("unchecked")
@@ -153,23 +153,23 @@ public class EliminarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtBuscarFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusGained
-        if (txtBuscar.getText().equals("Buscar producto por código")) {
+        /*if (txtBuscar.getText().equals("Buscar producto por código")) {
             txtBuscar.setText("");
             txtBuscar.setForeground(Color.BLACK);
-        }
+        }*/
     }//GEN-LAST:event_txtBuscarFocusGained
 
     private void txtBuscarFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtBuscarFocusLost
-        if (txtBuscar.getText().equals("")) {
+        /*if (txtBuscar.getText().equals("")) {
             txtBuscar.setText("Buscar producto por código");
             txtBuscar.setForeground(new Color(204, 204, 204));
         } else {
             txtBuscar.setForeground(Color.BLACK);
-        }
+        }*/
     }//GEN-LAST:event_txtBuscarFocusLost
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        if (txtBuscar.getText().equals("") || txtBuscar.getText().equals("Buscar producto por código")) {
+        /*if (txtBuscar.getText().equals("") || txtBuscar.getText().equals("Buscar producto por código")) {
             Mensajes.mostrarMensaje("Escriba el proveedor a buscar", "error");
         } else {
             prod = control.getControladoraProducto().leerPorCodigo(txtBuscar.getText());
@@ -180,18 +180,18 @@ public class EliminarProducto extends javax.swing.JFrame {
             } else {
                 generarTexto(prod);
             }
-        }
+        }*/
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        VistaInventario pant = new VistaInventario();
+        /*VistaInventario pant = new VistaInventario();
         pant.setVisible(true);
         pant.setLocationRelativeTo(null);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        boolean conf = Mensajes.confirmar("El producto aparecerá como descontinuado en todas las referencias que tenga.\n¿Desea proceder con la eliminación?");
+        /*boolean conf = Mensajes.confirmar("El producto aparecerá como descontinuado en todas las referencias que tenga.\n¿Desea proceder con la eliminación?");
         if (conf) {
             control.getControladoraProducto().eliminarProducto(prod.getIdProducto());
             Mensajes.mostrarMensaje("El producto fue eliminado", "informacion");
@@ -199,7 +199,7 @@ public class EliminarProducto extends javax.swing.JFrame {
             pant.setVisible(true);
             pant.setLocationRelativeTo(null);
             this.dispose();
-        }
+        }*/
     }//GEN-LAST:event_btnEliminarActionPerformed
 
 
@@ -214,12 +214,12 @@ public class EliminarProducto extends javax.swing.JFrame {
     private javax.swing.JTextArea txtInfo;
     // End of variables declaration//GEN-END:variables
 
-    private void generarTexto(Producto prod) {
+    /*private void generarTexto(Producto prod) {
         String nom = "El nombre es: " + prod.getNombre() + "\n";
         String cant = "Su cantidad actual es: " + prod.getStock().getCantidad() + "\n";
         String prov = "Su proveedor es: " + prod.getProveedor().getNombre() + "\n";
         String cat = "Su categoria es: " + prod.getCategoria().getNombre() + "\n";
         String prec = "Su precio es: " + Cadenas.formatoSoles(prod.getPrecioCompra(), false);
         txtInfo.setText(nom + cant + prov + cat + prec);
-    }
+    }*/
 }

@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 public class CategoriaDAOImpl implements CategoriaDAO {
 
-    private CategoriaJpaController categoriaJpa;
+    private final CategoriaJpaController categoriaJpa;
 
     public CategoriaDAOImpl() {
         this.categoriaJpa = new CategoriaJpaController();
@@ -50,6 +50,16 @@ public class CategoriaDAOImpl implements CategoriaDAO {
     @Override
     public Categoria leerPorNombre(String nombre) {
         return categoriaJpa.findByName(nombre);
+    }
+
+    @Override
+    public List<String> leerNombresCategorias() {
+        return categoriaJpa.findAllNombresCategoria();
+    }
+
+    @Override
+    public boolean existePorNombres(String Nombre) {
+        return categoriaJpa.existsCategoriaWithNombre(Nombre);
     }
 
 }

@@ -15,7 +15,7 @@ public class Categoria implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCategoria;
     private String nombre;
-    private double ganancia;
+    private int tiempo_estimado_almacen;
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
 
@@ -38,20 +38,20 @@ public class Categoria implements Serializable {
         this.nombre = nombre;
     }
 
-    public double getGanancia() {
-        return ganancia;
-    }
-
-    public void setGanancia(double ganancia) {
-        this.ganancia = ganancia;
-    }
-
     public List<Producto> getProductos() {
         return productos;
     }
 
     public void setProductos(List<Producto> productos) {
         this.productos = productos;
+    }
+
+    public int getTiempo_estimado_almacen() {
+        return tiempo_estimado_almacen;
+    }
+
+    public void setTiempo_estimado_almacen(int tiempo_estimado_almacen) {
+        this.tiempo_estimado_almacen = tiempo_estimado_almacen;
     }
 
 }

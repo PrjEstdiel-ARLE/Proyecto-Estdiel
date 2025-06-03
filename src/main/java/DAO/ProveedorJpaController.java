@@ -7,9 +7,10 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Modelo.Producto;
-import Modelo.Proveedor;
 import java.util.ArrayList;
 import java.util.List;
+import Modelo.Pedido;
+import Modelo.Proveedor;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -17,14 +18,13 @@ import javax.persistence.Persistence;
 
 public class ProveedorJpaController implements Serializable {
 
-    public ProveedorJpaController(EntityManagerFactory emf) {
-        this.emf = emf;
-    }
-
     public ProveedorJpaController() {
         emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
+    public ProveedorJpaController(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -34,6 +34,9 @@ public class ProveedorJpaController implements Serializable {
     public void create(Proveedor proveedor) {
         if (proveedor.getProductos() == null) {
             proveedor.setProductos(new ArrayList<Producto>());
+        }
+        if (proveedor.getPedidos() == null) {
+            proveedor.setPedidos(new ArrayList<Pedido>());
         }
         EntityManager em = null;
         try {
@@ -45,6 +48,12 @@ public class ProveedorJpaController implements Serializable {
                 attachedProductos.add(productosProductoToAttach);
             }
             proveedor.setProductos(attachedProductos);
+            List<Pedido> attachedPedidos = new ArrayList<Pedido>();
+            for (Pedido pedidosPedidoToAttach : proveedor.getPedidos()) {
+                pedidosPedidoToAttach = em.getReference(pedidosPedidoToAttach.getClass(), pedidosPedidoToAttach.getIdPedido());
+                attachedPedidos.add(pedidosPedidoToAttach);
+            }
+            proveedor.setPedidos(attachedPedidos);
             em.persist(proveedor);
             for (Producto productosProducto : proveedor.getProductos()) {
                 Proveedor oldProveedorOfProductosProducto = productosProducto.getProveedor();
@@ -53,6 +62,15 @@ public class ProveedorJpaController implements Serializable {
                 if (oldProveedorOfProductosProducto != null) {
                     oldProveedorOfProductosProducto.getProductos().remove(productosProducto);
                     oldProveedorOfProductosProducto = em.merge(oldProveedorOfProductosProducto);
+                }
+            }
+            for (Pedido pedidosPedido : proveedor.getPedidos()) {
+                Proveedor oldProveedorOfPedidosPedido = pedidosPedido.getProveedor();
+                pedidosPedido.setProveedor(proveedor);
+                pedidosPedido = em.merge(pedidosPedido);
+                if (oldProveedorOfPedidosPedido != null) {
+                    oldProveedorOfPedidosPedido.getPedidos().remove(pedidosPedido);
+                    oldProveedorOfPedidosPedido = em.merge(oldProveedorOfPedidosPedido);
                 }
             }
             em.getTransaction().commit();
@@ -71,6 +89,8 @@ public class ProveedorJpaController implements Serializable {
             Proveedor persistentProveedor = em.find(Proveedor.class, proveedor.getIdProveedor());
             List<Producto> productosOld = persistentProveedor.getProductos();
             List<Producto> productosNew = proveedor.getProductos();
+            List<Pedido> pedidosOld = persistentProveedor.getPedidos();
+            List<Pedido> pedidosNew = proveedor.getPedidos();
             List<Producto> attachedProductosNew = new ArrayList<Producto>();
             for (Producto productosNewProductoToAttach : productosNew) {
                 productosNewProductoToAttach = em.getReference(productosNewProductoToAttach.getClass(), productosNewProductoToAttach.getIdProducto());
@@ -78,6 +98,13 @@ public class ProveedorJpaController implements Serializable {
             }
             productosNew = attachedProductosNew;
             proveedor.setProductos(productosNew);
+            List<Pedido> attachedPedidosNew = new ArrayList<Pedido>();
+            for (Pedido pedidosNewPedidoToAttach : pedidosNew) {
+                pedidosNewPedidoToAttach = em.getReference(pedidosNewPedidoToAttach.getClass(), pedidosNewPedidoToAttach.getIdPedido());
+                attachedPedidosNew.add(pedidosNewPedidoToAttach);
+            }
+            pedidosNew = attachedPedidosNew;
+            proveedor.setPedidos(pedidosNew);
             proveedor = em.merge(proveedor);
             for (Producto productosOldProducto : productosOld) {
                 if (!productosNew.contains(productosOldProducto)) {
@@ -93,6 +120,23 @@ public class ProveedorJpaController implements Serializable {
                     if (oldProveedorOfProductosNewProducto != null && !oldProveedorOfProductosNewProducto.equals(proveedor)) {
                         oldProveedorOfProductosNewProducto.getProductos().remove(productosNewProducto);
                         oldProveedorOfProductosNewProducto = em.merge(oldProveedorOfProductosNewProducto);
+                    }
+                }
+            }
+            for (Pedido pedidosOldPedido : pedidosOld) {
+                if (!pedidosNew.contains(pedidosOldPedido)) {
+                    pedidosOldPedido.setProveedor(null);
+                    pedidosOldPedido = em.merge(pedidosOldPedido);
+                }
+            }
+            for (Pedido pedidosNewPedido : pedidosNew) {
+                if (!pedidosOld.contains(pedidosNewPedido)) {
+                    Proveedor oldProveedorOfPedidosNewPedido = pedidosNewPedido.getProveedor();
+                    pedidosNewPedido.setProveedor(proveedor);
+                    pedidosNewPedido = em.merge(pedidosNewPedido);
+                    if (oldProveedorOfPedidosNewPedido != null && !oldProveedorOfPedidosNewPedido.equals(proveedor)) {
+                        oldProveedorOfPedidosNewPedido.getPedidos().remove(pedidosNewPedido);
+                        oldProveedorOfPedidosNewPedido = em.merge(oldProveedorOfPedidosNewPedido);
                     }
                 }
             }
@@ -129,6 +173,11 @@ public class ProveedorJpaController implements Serializable {
             for (Producto productosProducto : productos) {
                 productosProducto.setProveedor(null);
                 productosProducto = em.merge(productosProducto);
+            }
+            List<Pedido> pedidos = proveedor.getPedidos();
+            for (Pedido pedidosPedido : pedidos) {
+                pedidosPedido.setProveedor(null);
+                pedidosPedido = em.merge(pedidosPedido);
             }
             em.remove(proveedor);
             em.getTransaction().commit();
@@ -194,6 +243,18 @@ public class ProveedorJpaController implements Serializable {
                     .getSingleResult();
         } catch (NoResultException e) {
             return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public boolean existeProveedorConRUC(String ruc) {
+        EntityManager em = getEntityManager();
+        try {
+            Long count = em.createQuery("SELECT COUNT(p) FROM Proveedor p WHERE p.RUC = :ruc", Long.class)
+                    .setParameter("ruc", ruc)
+                    .getSingleResult();
+            return count > 0;
         } finally {
             em.close();
         }

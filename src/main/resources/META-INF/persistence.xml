@@ -3,9 +3,15 @@
   <persistence-unit name="persistencia" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Modelo.Categoria</class>
+    <class>Modelo.DetallePedido</class>
+    <class>Modelo.DetalleSalida</class>
+    <class>Modelo.Lote</class>
+    <class>Modelo.Pedido</class>
     <class>Modelo.Producto</class>
     <class>Modelo.Proveedor</class>
-    <class>Modelo.Stock</class>
+    <class>Modelo.Rol</class>
+    <class>Modelo.Salida</class>
+    <class>Modelo.Usuario</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/papeleria?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

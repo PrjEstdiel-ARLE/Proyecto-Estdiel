@@ -1,31 +1,31 @@
 package Vista;
 
-import Controlador.ControladoraGeneral;
+/*mport Controlador.ControladoraGeneral;
 import Modelo.Categoria;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import Modelo.Stock;
 import java.util.List;
 import javax.swing.JOptionPane;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.StringUtils;*/
 
 public class AgregarProducto extends javax.swing.JFrame {
 
-    ControladoraGeneral control;
+    /*ControladoraGeneral control;
     List<Proveedor> proveedores;
     List<Categoria> categorias;
     Producto producto;
     Proveedor proveedor;
-    Categoria categoria;
+    Categoria categoria;*/
 
     public AgregarProducto() {
         initComponents();
-        control = new ControladoraGeneral();
+        /*control = new ControladoraGeneral();
         proveedores = control.getControladoraProveedor().leerTodo();
         categorias = control.getControladoraCategoria().leerTodo();
         cargarProveedores();
         cargarCategorias();
-        producto = new Producto();
+        producto = new Producto();*/
     }
 
     @SuppressWarnings("unchecked")
@@ -280,19 +280,19 @@ public class AgregarProducto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
-        VistaInventario igu = new VistaInventario();
+        /*VistaInventario igu = new VistaInventario();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
-        this.dispose();
+        this.dispose();*/
     }//GEN-LAST:event_btnVolverActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        limpiar();
+        //limpiar();
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnAñadirProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAñadirProductoActionPerformed
         //validar
-        String nombre = StringUtils.trim(txtNombre.getText());
+        /*String nombre = StringUtils.trim(txtNombre.getText());
         String precio = StringUtils.trim(txtPrecioCompra.getText());
         String cantidad = StringUtils.trim(txtCantidad.getText());
 
@@ -318,7 +318,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         proveedor = control.getControladoraProveedor().leerPorNombre(prov);
         //codigo
         /*Traer los productos de la categoria*/
-        List<Producto> productos = control.getControladoraProducto().leerPorCategoria(categoria);
+        /*List<Producto> productos = control.getControladoraProducto().leerPorCategoria(categoria);
         String codigo = generarCodigo(proveedor, categoria, productos);
         //Crear stock
         Stock stock = new Stock();
@@ -337,7 +337,7 @@ public class AgregarProducto extends javax.swing.JFrame {
         stock.setProducto(producto);
         control.getControladoraStock().actualizarStock(stock);
         mostrarMensaje("Producto creado correctamente", "informacion");
-        limpiar();
+        limpiar();*/
     }//GEN-LAST:event_btnAñadirProductoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -363,7 +363,7 @@ public class AgregarProducto extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecioCompra;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarProveedores() {
+    /*private void cargarProveedores() {
         boxProveedor.removeAllItems();
         for (Proveedor provedor : proveedores) {
             boxProveedor.addItem(provedor.getNombre());
@@ -436,5 +436,5 @@ public class AgregarProducto extends javax.swing.JFrame {
         String indice = String.format("%03d", num);
         String prov = proveedor.getNombre().substring(0, 3).toUpperCase();
         return codigo + cat + indice + prov;
-    }
+    }*/
 }
