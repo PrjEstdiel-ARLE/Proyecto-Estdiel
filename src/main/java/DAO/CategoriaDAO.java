@@ -3,8 +3,7 @@ package DAO;
 import Modelo.Categoria;
 import java.util.List;
 
-/*Alex*/
-/*Alvaro*/
+
 public interface CategoriaDAO {
     void crear(Categoria categoria);
     
