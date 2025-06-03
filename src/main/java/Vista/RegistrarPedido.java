@@ -112,10 +112,10 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel1.setBackground(new java.awt.Color(137, 6, 6));
-        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 80)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(137, 6, 6));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Detalle Pedido");
+        jLabel1.setText("Pedido");
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo.png"))); // NOI18N
 

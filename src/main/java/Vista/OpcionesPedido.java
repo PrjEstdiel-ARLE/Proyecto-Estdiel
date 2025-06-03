@@ -40,7 +40,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel1.setBackground(new java.awt.Color(137, 6, 6));
-        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 80)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(137, 6, 6));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Pedidos");
@@ -77,6 +77,11 @@ public class OpcionesPedido extends javax.swing.JFrame {
         btnPedidos.setBorder(null);
         btnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPedidos.setFocusPainted(false);
+        btnPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidosActionPerformed(evt);
+            }
+        });
 
         btnRegistrarPedido.setBackground(new java.awt.Color(239, 228, 210));
         btnRegistrarPedido.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 45)); // NOI18N
@@ -186,6 +191,12 @@ public class OpcionesPedido extends javax.swing.JFrame {
         reg.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegistrarPedidoActionPerformed
+
+    private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
+       Pedidos ped=new Pedidos();
+       ped.setVisible(true);
+       this.dispose();
+    }//GEN-LAST:event_btnPedidosActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
