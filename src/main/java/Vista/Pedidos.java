@@ -53,7 +53,7 @@ public class Pedidos extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
         jPanel1.setPreferredSize(new java.awt.Dimension(1920, 1080));
 
-        jLayeredPane8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 0, 0)));
+        jLayeredPane8.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         btnVolver.setBackground(new java.awt.Color(239, 228, 210));
         btnVolver.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
@@ -85,7 +85,7 @@ public class Pedidos extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 0, 0)));
+        jLayeredPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel1.setBackground(new java.awt.Color(137, 6, 6));
         jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
@@ -237,7 +237,7 @@ public class Pedidos extends javax.swing.JFrame {
         btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.setPreferredSize(new java.awt.Dimension(140, 50));
 
-        jLayeredPane9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 3, 0, new java.awt.Color(0, 0, 0)));
+        jLayeredPane9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo_Pedidos.png"))); // NOI18N
 
