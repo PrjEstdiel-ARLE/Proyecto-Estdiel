@@ -15,6 +15,10 @@ public interface CategoriaDAO {
     
     List<Categoria> leerTodo();
     
-    public Categoria leerPorNombre(String nombre);
+    Categoria leerPorNombre(String nombre);
+    
+    List<String> leerNombresCategorias ();
+    
+    boolean existePorNombres(String Nombre);
 
 }
