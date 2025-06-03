@@ -19,7 +19,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jLabel1 = new javax.swing.JLabel();
         btnPedidos = new javax.swing.JButton();
-        btnRegistrarPedido1 = new javax.swing.JButton();
+        btnRegistrarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -80,13 +80,18 @@ public class OpcionesPedido extends javax.swing.JFrame {
         btnPedidos.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnPedidos.setFocusPainted(false);
 
-        btnRegistrarPedido1.setBackground(new java.awt.Color(239, 228, 210));
-        btnRegistrarPedido1.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 45)); // NOI18N
-        btnRegistrarPedido1.setForeground(new java.awt.Color(137, 6, 6));
-        btnRegistrarPedido1.setText("Registrar Pedido");
-        btnRegistrarPedido1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
-        btnRegistrarPedido1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnRegistrarPedido1.setFocusPainted(false);
+        btnRegistrarPedido.setBackground(new java.awt.Color(239, 228, 210));
+        btnRegistrarPedido.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 45)); // NOI18N
+        btnRegistrarPedido.setForeground(new java.awt.Color(137, 6, 6));
+        btnRegistrarPedido.setText("Registrar Pedido");
+        btnRegistrarPedido.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 2, true));
+        btnRegistrarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnRegistrarPedido.setFocusPainted(false);
+        btnRegistrarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarPedidoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,7 +103,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnRegistrarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegistrarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(371, 371, 371)
                         .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -117,7 +122,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
                 .addGap(204, 204, 204)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegistrarPedido1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnRegistrarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(505, Short.MAX_VALUE))
         );
 
@@ -143,11 +148,17 @@ public class OpcionesPedido extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnMenuActionPerformed
 
+    private void btnRegistrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPedidoActionPerformed
+        RegistrarPedido reg=new RegistrarPedido();
+        reg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegistrarPedidoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnMenu;
     private javax.swing.JButton btnPedidos;
-    private javax.swing.JButton btnRegistrarPedido1;
+    private javax.swing.JButton btnRegistrarPedido;
     private javax.swing.JButton btnVolver;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLayeredPane jLayeredPane1;
