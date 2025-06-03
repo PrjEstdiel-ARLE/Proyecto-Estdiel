@@ -8,6 +8,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Modelo.Proveedor;
 import Modelo.DetallePedido;
+import Modelo.EstadoPedido;
 import Modelo.Pedido;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +19,7 @@ import javax.persistence.Persistence;
 public class PedidoJpaController implements Serializable {
 
     public PedidoJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public PedidoJpaController(EntityManagerFactory emf) {
@@ -211,5 +212,43 @@ public class PedidoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public void actualizarEstado(int idPedido, EstadoPedido nuevoEstado) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Pedido pedido = em.find(Pedido.class, idPedido);
+            if (pedido != null) {
+                pedido.setEstado(nuevoEstado);
+                em.merge(pedido);
+            }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Pedido> findPedidosPorEstado(EstadoPedido estado) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Pedido p WHERE p.estado = :estado", Pedido.class
+            ).setParameter("estado", estado).getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Pedido> findPedidosPorProveedor(int idProveedor) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Pedido p WHERE p.proveedor.idProveedor = :idProveedor", Pedido.class
+            ).setParameter("idProveedor", idProveedor)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

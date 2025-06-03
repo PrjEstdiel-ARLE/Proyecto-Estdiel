@@ -1,6 +1,11 @@
 package DAO;
+<<<<<<< HEAD
 //Richard
 /*import DAO.exceptions.NonexistentEntityException;
+=======
+
+import DAO.exceptions.NonexistentEntityException;
+>>>>>>> main
 import Modelo.Proveedor;
 import java.util.List;
 import java.util.logging.Level;
@@ -52,4 +57,9 @@ public class ProveedorDAOImpl implements ProveedorDAO {
         return provJpa.findByNombre(nombre);
     }
 
-}*/
+    @Override
+    public boolean existePorRuc(String RUC) {
+        return provJpa.existeProveedorConRUC(RUC);
+    }
+
+}

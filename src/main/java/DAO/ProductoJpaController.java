@@ -15,12 +15,13 @@ import Modelo.Lote;
 import Modelo.Producto;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class ProductoJpaController implements Serializable {
 
     public ProductoJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public ProductoJpaController(EntityManagerFactory emf) {
@@ -290,5 +291,64 @@ public class ProductoJpaController implements Serializable {
             em.close();
         }
     }
+
+    public List<Producto> findByCategoria(int idCategoria) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT p FROM Producto p WHERE p.categoria.idCategoria = :idCategoria", Producto.class
+            )
+                    .setParameter("idCategoria", idCategoria)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
     
+       public Producto findByNombre(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Producto p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Producto.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
+    public Producto findByCodigo(String codigo) {
+        EntityManager em = getEntityManager();
+        System.out.println("Query ejecutada con código: [" + codigo + "]");
+        String query = "SELECT p FROM Producto p WHERE UPPER(p.codigo) = UPPER(:codigo)";
+        try {
+            List<Producto> resultados = em.createQuery(query, Producto.class)
+                    .setParameter("codigo", codigo)
+                    .getResultList();
+            return resultados.isEmpty() ? null : resultados.get(0);
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+    
+    public void actualizarCantidad(int idProducto, int nuevaCantidad) {
+    EntityManager em = getEntityManager();
+    try {
+        em.getTransaction().begin();
+        Producto producto = em.find(Producto.class, idProducto);
+        if (producto != null) {
+            producto.setCantidad(nuevaCantidad);
+            em.merge(producto);
+        }
+        em.getTransaction().commit();
+    } finally {
+        em.close();
+    }
+}
+
+
 }

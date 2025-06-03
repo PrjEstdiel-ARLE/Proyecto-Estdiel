@@ -9,16 +9,18 @@ import javax.persistence.criteria.Root;
 import Modelo.Producto;
 import Modelo.DetallePedido;
 import Modelo.DetalleSalida;
+import Modelo.EstadoLote;
 import Modelo.Lote;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 
 public class LoteJpaController implements Serializable {
 
     public LoteJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public LoteJpaController(EntityManagerFactory emf) {
@@ -228,5 +230,48 @@ public class LoteJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<Lote> findLotesDisponiblesPorProducto(int idProducto) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT l FROM Lote l WHERE l.producto.idProducto = :idProducto AND l.estado = :estado ORDER BY l.fechaIngreso ASC",
+                    Lote.class
+            )
+                    .setParameter("idProducto", idProducto)
+                    .setParameter("estado", EstadoLote.ACTIVO)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void actualizarEstado(int idLote, EstadoLote nuevoEstado) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Lote lote = em.find(Lote.class, idLote);
+            if (lote != null) {
+                lote.setEstado(nuevoEstado);
+                em.merge(lote);
+            }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public Lote findLoteByCodigo(String codigo) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT l FROM Lote l WHERE l.codigo = :codigo", Lote.class
+            ).setParameter("codigo", codigo).getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
+
 }

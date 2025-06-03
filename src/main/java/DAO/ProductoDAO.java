@@ -20,4 +20,6 @@ public interface ProductoDAO {
     List<Producto> leerTodo();
     
     List<Producto> leerPorCategoria(Categoria categoria);
+    
+    void actualizarCantidad(Producto producto, int nuevaCantidad);
 }

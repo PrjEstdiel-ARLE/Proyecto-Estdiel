@@ -8,6 +8,8 @@ import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Modelo.Lote;
+import Modelo.Salida;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,7 +18,7 @@ import javax.persistence.Persistence;
 public class DetalleSalidaJpaController implements Serializable {
 
     public DetalleSalidaJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public DetalleSalidaJpaController(EntityManagerFactory emf) {
@@ -33,21 +35,43 @@ public class DetalleSalidaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+
+            // Lote
             Lote lote = detalleSalida.getLote();
             if (lote != null) {
                 lote = em.getReference(lote.getClass(), lote.getIdLote());
                 detalleSalida.setLote(lote);
             }
+
+            // Salida
+            Salida salida = detalleSalida.getSalida();
+            if (salida != null) {
+                salida = em.getReference(salida.getClass(), salida.getIdSalida());
+                detalleSalida.setSalida(salida);
+            }
+
             em.persist(detalleSalida);
+
+            // Relación bidireccional con Lote
             if (lote != null) {
-                DetalleSalida oldDetalleSalidaOfLote = lote.getDetalleSalida();
-                if (oldDetalleSalidaOfLote != null) {
-                    oldDetalleSalidaOfLote.setLote(null);
-                    oldDetalleSalidaOfLote = em.merge(oldDetalleSalidaOfLote);
+                DetalleSalida oldDetalle = lote.getDetalleSalida();
+                if (oldDetalle != null) {
+                    oldDetalle.setLote(null);
+                    em.merge(oldDetalle);
                 }
                 lote.setDetalleSalida(detalleSalida);
-                lote = em.merge(lote);
+                em.merge(lote);
             }
+
+            // Relación bidireccional con Salida
+            if (salida != null) {
+                if (salida.getDetalles() == null) {
+                    salida.setDetalles(new ArrayList<>());
+                }
+                salida.getDetalles().add(detalleSalida);
+                em.merge(salida);
+            }
+
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -61,35 +85,60 @@ public class DetalleSalidaJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            DetalleSalida persistentDetalleSalida = em.find(DetalleSalida.class, detalleSalida.getIdDetalleSalida());
-            Lote loteOld = persistentDetalleSalida.getLote();
+
+            DetalleSalida persistent = em.find(DetalleSalida.class, detalleSalida.getIdDetalleSalida());
+            Lote loteOld = persistent.getLote();
             Lote loteNew = detalleSalida.getLote();
+
+            Salida salidaOld = persistent.getSalida();
+            Salida salidaNew = detalleSalida.getSalida();
+
+            // Actualizar lote
             if (loteNew != null) {
                 loteNew = em.getReference(loteNew.getClass(), loteNew.getIdLote());
                 detalleSalida.setLote(loteNew);
             }
+
+            // Actualizar salida
+            if (salidaNew != null) {
+                salidaNew = em.getReference(salidaNew.getClass(), salidaNew.getIdSalida());
+                detalleSalida.setSalida(salidaNew);
+            }
+
             detalleSalida = em.merge(detalleSalida);
+
+            // Actualizar relación con Lote
             if (loteOld != null && !loteOld.equals(loteNew)) {
                 loteOld.setDetalleSalida(null);
-                loteOld = em.merge(loteOld);
+                em.merge(loteOld);
             }
             if (loteNew != null && !loteNew.equals(loteOld)) {
-                DetalleSalida oldDetalleSalidaOfLote = loteNew.getDetalleSalida();
-                if (oldDetalleSalidaOfLote != null) {
-                    oldDetalleSalidaOfLote.setLote(null);
-                    oldDetalleSalidaOfLote = em.merge(oldDetalleSalidaOfLote);
+                DetalleSalida oldDetalle = loteNew.getDetalleSalida();
+                if (oldDetalle != null && !oldDetalle.equals(detalleSalida)) {
+                    oldDetalle.setLote(null);
+                    em.merge(oldDetalle);
                 }
                 loteNew.setDetalleSalida(detalleSalida);
-                loteNew = em.merge(loteNew);
+                em.merge(loteNew);
             }
+
+            // Actualizar relación con Salida
+            if (salidaOld != null && !salidaOld.equals(salidaNew)) {
+                salidaOld.getDetalles().remove(detalleSalida);
+                em.merge(salidaOld);
+            }
+            if (salidaNew != null && !salidaNew.equals(salidaOld)) {
+                if (salidaNew.getDetalles() == null) {
+                    salidaNew.setDetalles(new ArrayList<>());
+                }
+                salidaNew.getDetalles().add(detalleSalida);
+                em.merge(salidaNew);
+            }
+
             em.getTransaction().commit();
         } catch (Exception ex) {
-            String msg = ex.getLocalizedMessage();
-            if (msg == null || msg.length() == 0) {
-                int id = detalleSalida.getIdDetalleSalida();
-                if (findDetalleSalida(id) == null) {
-                    throw new NonexistentEntityException("The detalleSalida with id " + id + " no longer exists.");
-                }
+            if (detalleSalida.getIdDetalleSalida() == 0 || findDetalleSalida(detalleSalida.getIdDetalleSalida()) == null) {
+                throw new NonexistentEntityException("El detalleSalida con ID " + detalleSalida.getIdDetalleSalida() + " no existe.", ex);
             }
             throw ex;
         } finally {
@@ -109,13 +158,23 @@ public class DetalleSalidaJpaController implements Serializable {
                 detalleSalida = em.getReference(DetalleSalida.class, id);
                 detalleSalida.getIdDetalleSalida();
             } catch (EntityNotFoundException enfe) {
-                throw new NonexistentEntityException("The detalleSalida with id " + id + " no longer exists.", enfe);
+                throw new NonexistentEntityException("El detalleSalida con ID " + id + " no existe.", enfe);
             }
+
+            // Lote
             Lote lote = detalleSalida.getLote();
             if (lote != null) {
                 lote.setDetalleSalida(null);
-                lote = em.merge(lote);
+                em.merge(lote);
             }
+
+            // Salida
+            Salida salida = detalleSalida.getSalida();
+            if (salida != null) {
+                salida.getDetalles().remove(detalleSalida);
+                em.merge(salida);
+            }
+
             em.remove(detalleSalida);
             em.getTransaction().commit();
         } finally {
@@ -170,5 +229,17 @@ public class DetalleSalidaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<DetalleSalida> findBySalida(Salida salida) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT ds FROM DetalleSalida ds WHERE ds.salida = :salida", DetalleSalida.class)
+                    .setParameter("salida", salida)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
