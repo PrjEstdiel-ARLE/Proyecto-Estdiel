@@ -2,20 +2,20 @@ package Vista;
 
 import Controlador.ControladoraGeneral;
 import Extras.Cadenas;
-import Extras.Mensajes;
 import Modelo.DetallePedido;
 import Modelo.Pedido;
 import Modelo.Producto;
 import Modelo.Proveedor;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import javax.swing.JFrame;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class RegistrarPedido extends javax.swing.JFrame {
 
@@ -24,6 +24,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
     private List<Producto> productos;
     private Pedido pedido;
     private List<DetallePedido> detalles;
+    private DetallePedido detalleEnEdicion = null;
 
     public RegistrarPedido() {
         initComponents();
@@ -31,11 +32,10 @@ public class RegistrarPedido extends javax.swing.JFrame {
         this.proveedores = control.getControlProveedor().leerTodo();
         pedido = new Pedido();
         pedido.setTotal(0);
-        this.detalles = new ArrayList<>();
         control.getControlPedido().crear(pedido);
         cargarProveedores();
         setFechaRegistro();
-        cargarDetalles();
+        cargarDetalles(pedido.getDetalles());
         this.setExtendedState(MAXIMIZED_BOTH);
     }
 
@@ -173,6 +173,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        tblDetalles.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         tblDetalles.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -184,6 +185,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblDetalles.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblDetalles);
 
         jLabel2.setBackground(new java.awt.Color(137, 6, 6));
@@ -228,7 +230,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(137, 6, 6));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel3.setText("Proveedor:");
+        jLabel3.setText("Producto:");
 
         cmbProducto.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         cmbProducto.addActionListener(new java.awt.event.ActionListener() {
@@ -432,6 +434,11 @@ public class RegistrarPedido extends javax.swing.JFrame {
         btnEditar.setText("Editar");
         btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.setPreferredSize(new java.awt.Dimension(140, 50));
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnGuardarPedido.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarPedido.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -495,7 +502,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLayeredPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(6, 6, 6)
                                 .addComponent(jSeparator4)
@@ -524,7 +531,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(394, 394, 394)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 703, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(522, Short.MAX_VALUE)))
+                    .addContainerGap(528, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -577,9 +584,7 @@ public class RegistrarPedido extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1619, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1625, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -616,78 +621,179 @@ public class RegistrarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarProductoMouseExited
 
     private void btnGuardarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProductoActionPerformed
-        //leer datos
-        Object valor = spnCantidad.getValue();
-        int cantidad = (int) valor;
-        String proveedor = (String) cmbProveedor.getSelectedItem();
-        Proveedor provPedido = control.getControlProveedor().leerPorNombre(proveedor);
-        String producto = (String) cmbProducto.getSelectedItem();
-        Producto prodPedido = control.getControlProducto().leerPorNombre(producto);
-        String precioFormato = txtPrecioCompra.getText();
-        double precioCompra = Extras.Cadenas.obtenerPrecioLimpio(precioFormato);
-        double subtotal = precioCompra * cantidad;
-        Date fechaRegistro = new Date();
-        Date fechaLlegadaEstimada = fechaLlegada.getDate();
+        if (detalleEnEdicion != null) {
+            // Leer nuevos datos del formulario
+            Object valor = spnCantidad.getValue();
+            int nuevaCantidad = (int) valor;
+            String precioFormato = txtPrecioCompra.getText();
+            double nuevoPrecio = Extras.Cadenas.obtenerPrecioLimpio(precioFormato);
+            double nuevoSubtotal = nuevoPrecio * nuevaCantidad;
 
-        //actualizar pedido PRIMERO
-        pedido.setFechaRegistro(fechaRegistro);
-        pedido.setFechaEstimadoLlegada(fechaLlegadaEstimada);
-        pedido.setProveedor(provPedido);
+            // Calcular diferencia en el total del pedido
+            double subtotalAnterior = detalleEnEdicion.getSubtotal();
+            double diferencia = nuevoSubtotal - subtotalAnterior;
 
-        //ACTUALIZAR total
-        double totalAct = pedido.getTotal();
-        double nuevoTotal = totalAct + subtotal;
-        pedido.setTotal(nuevoTotal);
+            // Actualizar el detalle
+            detalleEnEdicion.setCantidad(nuevaCantidad);
+            detalleEnEdicion.setSubtotal(nuevoSubtotal);
 
-        // ACTUALIZAR el pedido ANTES de crear
-        control.getControlPedido().actualizar(pedido);
+            // Actualizar el total del pedido
+            double totalActual = pedido.getTotal();
+            pedido.setTotal(totalActual + diferencia);
 
-        //crear detalle pedido
-        DetallePedido detalle = new DetallePedido();
-        detalle.setCantidad(cantidad);
-        detalle.setProducto(prodPedido);
-        detalle.setSubtotal(subtotal);
-        detalle.setPedido(pedido);
+            // Guardar en base de datos
+            control.getControlDetallePedido().actualizar(detalleEnEdicion);
+            control.getControlPedido().actualizar(pedido);
 
-        detalles.add(detalle);
+            // Limpiar modo edición
+            finalizarEdicion();
 
-        //guardar detalle
-        control.getControlDetallePedido().crear(detalle);
-        cargarDetalles();
-        
-        cmbProveedor.setEnabled(false);
+            // Recargar tabla
+            Pedido pedidoActualizado = control.getControlPedido().leer(pedido.getIdPedido());
+            cargarDetalles(pedidoActualizado.getDetalles());
+        } else {
+            //leer datos
+            Object valor = spnCantidad.getValue();
+            int cantidad = (int) valor;
+            String proveedor = (String) cmbProveedor.getSelectedItem();
+            Proveedor provPedido = control.getControlProveedor().leerPorNombre(proveedor);
+            String producto = (String) cmbProducto.getSelectedItem();
+            Producto prodPedido = control.getControlProducto().leerPorNombre(producto);
+            String precioFormato = txtPrecioCompra.getText();
+            double precioCompra = Extras.Cadenas.obtenerPrecioLimpio(precioFormato);
+            double subtotal = precioCompra * cantidad;
+            Date fechaRegistro = new Date();
+            Date fechaLlegadaEstimada = fechaLlegada.getDate();
+
+            //validar fecha
+            if (fechaLlegadaEstimada == null) {
+                Extras.Mensajes.mostrarMensaje("Debe ingresar una fecha de llegada estiamda", "error");
+                return;
+            }
+            //actualizar pedido PRIMERO
+            pedido.setFechaRegistro(fechaRegistro);
+            pedido.setFechaEstimadoLlegada(fechaLlegadaEstimada);
+            pedido.setProveedor(provPedido);
+
+            //ACTUALIZAR total
+            double totalAct = pedido.getTotal();
+            double nuevoTotal = totalAct + subtotal;
+            pedido.setTotal(nuevoTotal);
+
+            // ACTUALIZAR el pedido ANTES de crear
+            control.getControlPedido().actualizar(pedido);
+
+            //crear detalle pedido
+            DetallePedido detalle = new DetallePedido();
+            detalle.setCantidad(cantidad);
+            detalle.setProducto(prodPedido);
+            detalle.setSubtotal(subtotal);
+            detalle.setPedido(pedido);
+
+            List<DetallePedido> detallesActuales = pedido.getDetalles();
+            detallesActuales.add(detalle);
+
+            //guardar detalle
+            control.getControlDetallePedido().crear(detalle);
+            cargarDetalles(pedido.getDetalles());
+
+            cmbProveedor.setEnabled(false);
+            spnCantidad.setValue(1);
+        }
     }//GEN-LAST:event_btnGuardarProductoActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if (tblDetalles.getRowCount() > 0) {
+            int filaSelect = tblDetalles.getSelectedRow();
+            //Asegurar selección
+            if (filaSelect != -1) {
+                detalles = control.getControlDetallePedido().leerPorPedido(pedido);
+                DetallePedido detalleSelect = detalles.get(filaSelect);
+                boolean conf = Extras.Mensajes.confirmar("¿Desea eliminar este elemento?");
+                if (conf) {
+                    double subtotal = detalleSelect.getSubtotal();
+                    double total = pedido.getTotal();
+                    double nTotal = total - subtotal;
+                    pedido.setTotal(nTotal);
+                    control.getControlPedido().actualizar(pedido);
+                    control.getControlDetallePedido().eliminar(detalleSelect.getIdDetallePedido());
+                    detalles.remove(filaSelect);
+                    Pedido pedidoActualizado = control.getControlPedido().leer(pedido.getIdPedido());
+                    cargarDetalles(pedidoActualizado.getDetalles());
+                }
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione la fila a eliminar", "advertencia");
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void btnGuardarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarPedidoActionPerformed
-        // TODO add your handling code here:
+        detalles = control.getControlDetallePedido().leerPorPedido(pedido);
+        if (!detalles.isEmpty()) {
+            boolean conf = Extras.Mensajes.confirmar("¿Desea registrar el pedido\n con todos los productos asociados?");
+            if (conf) {
+                Extras.Mensajes.mostrarMensaje("Pedido guardado exitosamente", "informacion");
+                Pedidos igu = new Pedidos();
+                igu.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            Extras.Mensajes.mostrarMensaje("Se requiere mínimo un producto asociado.\nAgregue un producto.", "advertencia");
+        }
     }//GEN-LAST:event_btnGuardarPedidoActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         detalles = control.getControlDetallePedido().leerPorPedido(pedido);
-            if (detalles.isEmpty()) {
-                boolean conf = Extras.Mensajes.confirmar("¿Desea cancelar el registro del pedido?");
-                if (conf) {
-                    control.getControlPedido().eliminar(pedido.getIdPedido());
-                    OpcionesPedido opc=new OpcionesPedido();
-                    opc.setVisible(true);
-                    this.dispose();
+        if (detalles.isEmpty()) {
+            boolean conf = Extras.Mensajes.confirmar("¿Desea cancelar el registro del pedido?");
+            if (conf) {
+                control.getControlPedido().eliminar(pedido.getIdPedido());
+                OpcionesPedido opc = new OpcionesPedido();
+                opc.setVisible(true);
+                this.dispose();
+            }
+        } else {
+            boolean conf = Extras.Mensajes.confirmar("Tiene productos asociados al pedido, ¿Desea cancelar el registro?");
+            if (conf) {
+                control.getControlPedido().eliminar(pedido.getIdPedido());
+                for (DetallePedido detalle : detalles) {
+                    control.getControlDetallePedido().eliminar(detalle.getIdDetallePedido());
                 }
+                OpcionesPedido opc = new OpcionesPedido();
+                opc.setVisible(true);
+                this.dispose();
             } else {
-                boolean conf=Extras.Mensajes.confirmar("Tiene productos asociados al pedido, ¿Desea cancelar el registro?");
-                if (conf) {
-                    control.getControlPedido().eliminar(pedido.getIdPedido());
-                    OpcionesPedido opc=new OpcionesPedido();
-                    opc.setVisible(true);
-                    this.dispose();
-                }else{
-                    Extras.Mensajes.mostrarMensaje("Valide y guarde el pedido completo", "advertencia");
+                Extras.Mensajes.mostrarMensaje("Valide y registre el pedido completo", "advertencia");
+            }
+        }
+    }//GEN-LAST:event_btnVolverActionPerformed
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (detalleEnEdicion != null) {
+            finalizarEdicion();
+            Extras.Mensajes.mostrarMensaje("Edición Cancelada", "informacion");
+        } else {
+            if (tblDetalles.getRowCount() > 0) {
+                int filaSelect = tblDetalles.getSelectedRow();
+                if (filaSelect != -1) {
+                    // Marcar que estamos en modo edición
+                    detalles = control.getControlDetallePedido().leerPorPedido(pedido);
+                    detalleEnEdicion = detalles.get(filaSelect);
+                    cmbProducto.setEnabled(false);
+                    //cargar datos
+                    double precio = detalleEnEdicion.getSubtotal() / detalleEnEdicion.getCantidad();
+                    txtPrecioCompra.setText(Extras.Cadenas.formatoSoles(precio, true));
+                    spnCantidad.setValue(detalleEnEdicion.getCantidad());
+                    // Cambiar el texto del botón para indicar que estamos editando
+                    btnGuardarProducto.setText("Actualizar Producto");
+                    btnEditar.setText("Cancelar Edición");
+                    Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar Producto'", "informacion");
+                } else {
+                    Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
                 }
             }
-    }//GEN-LAST:event_btnVolverActionPerformed
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -751,8 +857,20 @@ public class RegistrarPedido extends javax.swing.JFrame {
         txtFechaRegistro.setText(fechaHoy);
     }
 
-    private void cargarDetalles() {
-        // Inicializa el modelo de la tabla y establece las columnas
+    private void finalizarEdicion() {
+        detalleEnEdicion = null;
+        btnGuardarProducto.setText("Agregar Producto");
+        btnEditar.setText("Editar");
+        cmbProducto.setEnabled(true);
+        // Limpiar campos
+        spnCantidad.setValue(1);
+        String producto = (String) cmbProducto.getSelectedItem();
+        Producto prodSlct = control.getControlProducto().leerPorNombre(producto);
+        txtPrecioCompra.setText(Cadenas.formatoSoles(prodSlct.getPrecioCompra(), true));
+    }
+
+    private void cargarDetalles(List<DetallePedido> detalles) {
+// Inicializa el modelo de la tabla y establece las columnas
         DefaultTableModel modeloTabla = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -783,5 +901,11 @@ public class RegistrarPedido extends javax.swing.JFrame {
         for (int i = 0; i < tblDetalles.getColumnCount(); i++) {
             tblDetalles.getColumnModel().getColumn(i).setCellRenderer(centrado);
         }
+        cmbProducto.setEnabled(true);
+        //formatear el tamaño de texto
+        tblDetalles.setRowHeight(35);
+        JTableHeader header = tblDetalles.getTableHeader();
+        header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40)); 
     }
 }
