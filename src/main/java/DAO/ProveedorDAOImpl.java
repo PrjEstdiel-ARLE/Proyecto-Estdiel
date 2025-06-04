@@ -1,10 +1,7 @@
 package DAO;
-<<<<<<< HEAD
-//Richard
-/*import DAO.exceptions.NonexistentEntityException;
-=======
 
-import DAO.exceptions.NonexistentEntityException;
+
+/*import DAO.exceptions.NonexistentEntityException;
 >>>>>>> main
 import Modelo.Proveedor;
 import java.util.List;
