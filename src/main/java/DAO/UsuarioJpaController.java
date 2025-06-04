@@ -182,5 +182,18 @@ public class UsuarioJpaController implements Serializable {
             em.close();
         }
     }
+    public Usuario findUsuarioByDniAndPassword(String dni, String password) {
+    EntityManager em = getEntityManager();
+    try {
+        Query query = em.createQuery("SELECT u FROM Usuario u WHERE u.dni = :dni AND u.password = :password");
+        query.setParameter("dni", dni);
+        query.setParameter("password", password);
+
+        List<Usuario> usuarios = query.getResultList();
+        return usuarios.isEmpty() ? null : usuarios.get(0);
+    } finally {
+        em.close();
+    }
+}
     
 }

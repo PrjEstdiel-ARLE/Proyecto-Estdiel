@@ -2,8 +2,11 @@ package DAO;
 
 import DAO.exceptions.NonexistentEntityException;
 import Modelo.Rol;
+import Modelo.Usuario;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
@@ -130,5 +133,13 @@ public class RolJpaController implements Serializable {
             em.close();
         }
     }
-    
+    public Set<Rol> findRolesByUsuario(Long idUsuario) {
+    EntityManager em = getEntityManager();
+    try {
+        Usuario usuario = em.find(Usuario.class, idUsuario);
+        return usuario != null ? usuario.getRoles() : new HashSet<>();
+    } finally {
+        em.close();
+    }
+}
 }
