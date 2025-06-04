@@ -6,7 +6,6 @@ public class OpcionesPedido extends javax.swing.JFrame {
 
     public OpcionesPedido() {
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     @SuppressWarnings("unchecked")
