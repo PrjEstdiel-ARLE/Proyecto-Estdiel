@@ -41,6 +41,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,6 +50,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnProductos.setBackground(new java.awt.Color(239, 228, 210));
         btnProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Produc.png"))); // NOI18N
         btnProductos.setBorderPainted(false);
+        btnProductos.setContentAreaFilled(false);
         btnProductos.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnProductos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -59,6 +61,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnLotes.setBackground(new java.awt.Color(239, 228, 210));
         btnLotes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Lotes.png"))); // NOI18N
         btnLotes.setBorderPainted(false);
+        btnLotes.setContentAreaFilled(false);
         btnLotes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLotesActionPerformed(evt);
@@ -68,6 +71,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnProveedores.setBackground(new java.awt.Color(239, 228, 210));
         btnProveedores.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Proveedor.png"))); // NOI18N
         btnProveedores.setBorderPainted(false);
+        btnProveedores.setContentAreaFilled(false);
         btnProveedores.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProveedoresActionPerformed(evt);
@@ -78,16 +82,35 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnSalidasLotes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_SalidaLote.png"))); // NOI18N
         btnSalidasLotes.setText("jButton4");
         btnSalidasLotes.setBorderPainted(false);
+        btnSalidasLotes.setContentAreaFilled(false);
+        btnSalidasLotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalidasLotesActionPerformed(evt);
+            }
+        });
 
         btnProd_Prov.setBackground(new java.awt.Color(239, 228, 210));
         btnProd_Prov.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Prod_Prov.png"))); // NOI18N
         btnProd_Prov.setText("jButton4");
         btnProd_Prov.setBorderPainted(false);
+        btnProd_Prov.setContentAreaFilled(false);
+        btnProd_Prov.setDefaultCapable(false);
+        btnProd_Prov.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProd_ProvActionPerformed(evt);
+            }
+        });
 
         btnPedidos.setBackground(new java.awt.Color(239, 228, 210));
         btnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Pedidos.png"))); // NOI18N
         btnPedidos.setText("jButton4");
         btnPedidos.setBorderPainted(false);
+        btnPedidos.setContentAreaFilled(false);
+        btnPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPedidosActionPerformed(evt);
+            }
+        });
 
         jLabel5.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(137, 6, 6));
@@ -102,10 +125,22 @@ public class MenuAdministrador extends javax.swing.JFrame {
         btnConfig.setBackground(new java.awt.Color(239, 228, 210));
         btnConfig.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Perfil_Conf.png"))); // NOI18N
         btnConfig.setBorderPainted(false);
+        btnConfig.setContentAreaFilled(false);
+        btnConfig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfigActionPerformed(evt);
+            }
+        });
 
         btnRegresar.setBackground(new java.awt.Color(239, 228, 210));
         btnRegresar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Regresar.png"))); // NOI18N
         btnRegresar.setBorderPainted(false);
+        btnRegresar.setContentAreaFilled(false);
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -115,6 +150,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Casita.png"))); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -139,21 +176,21 @@ public class MenuAdministrador extends javax.swing.JFrame {
                     .addComponent(btnProd_Prov, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                 .addContainerGap(86, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(52, 52, 52)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel6)
                         .addGap(47, 47, 47)
-                        .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 674, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(81, 81, 81)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -182,7 +219,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
                                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(70, 70, 70)
-                                    .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(btnConfig, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGap(18, 18, 18)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -215,16 +253,52 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductosActionPerformed
-        // TODO add your handling code here:
+        Productos prod=new Productos();
+        prod.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnProductosActionPerformed
 
     private void btnLotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLotesActionPerformed
-        // TODO add your handling code here:
+        Lotes lot=new Lotes();
+        lot.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnLotesActionPerformed
 
     private void btnProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveedoresActionPerformed
-        // TODO add your handling code here:
+        Proveedores prov=new Proveedores();
+        prov.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnProveedoresActionPerformed
+
+    private void btnPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidosActionPerformed
+         OpcionesPedido ped=new OpcionesPedido();
+        ped.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPedidosActionPerformed
+
+    private void btnSalidasLotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalidasLotesActionPerformed
+         SalidasLote SL=new SalidasLote();
+        SL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnSalidasLotesActionPerformed
+
+    private void btnProd_ProvActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProd_ProvActionPerformed
+        ProductoProveedor PP=new ProductoProveedor();
+        PP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnProd_ProvActionPerformed
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        Login lo=new Login();
+        lo.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfigActionPerformed
+       Usuario us=new Usuario();
+        us.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnConfigActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,6 +345,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSalidasLotes;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;

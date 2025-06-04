@@ -36,7 +36,6 @@ public class RegistrarPedido extends javax.swing.JFrame {
         cargarProveedores();
         setFechaRegistro();
         cargarDetalles(pedido.getDetalles());
-        this.setExtendedState(MAXIMIZED_BOTH);
     }
 
     @SuppressWarnings("unchecked")
