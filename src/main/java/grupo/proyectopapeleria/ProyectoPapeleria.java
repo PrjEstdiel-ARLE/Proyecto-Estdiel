@@ -11,7 +11,7 @@ import DAO.RolJpaController;
 import DAO.SalidaJpaController;
 import DAO.UsuarioJpaController;
 import Modelo.Proveedor;
-import Vista.PantallaPrincipal;
+import Vista.Login;
 
 public class ProyectoPapeleria {
 
@@ -26,7 +26,7 @@ public class ProyectoPapeleria {
         new RolJpaController();
         new SalidaJpaController();
         new UsuarioJpaController();
-        PantallaPrincipal igu = new PantallaPrincipal();
+        Login igu = new Login();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
     }
