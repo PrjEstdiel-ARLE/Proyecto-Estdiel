@@ -1,8 +1,9 @@
 package DAO;
 
 
-/*import DAO.exceptions.NonexistentEntityException;
->>>>>>> main
+
+
+import DAO.exceptions.NonexistentEntityException;
 import Modelo.Proveedor;
 import java.util.List;
 import java.util.logging.Level;
