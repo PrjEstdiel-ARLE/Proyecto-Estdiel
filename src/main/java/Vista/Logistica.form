@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" alignment="0" pref="1148" max="32767" attributes="0"/>
+          <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -44,33 +44,36 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" groupAlignment="1" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
                           <Component id="btnProductosVistaEmpleado" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Component id="btnSolicitarSalida" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="jLabel4" min="-2" pref="147" max="-2" attributes="0"/>
+                              <Component id="jSeparator3" min="-2" pref="137" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
                                   <Component id="jLabel2" min="-2" pref="154" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="btnUsuario" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Component id="jSeparator1" alignment="0" min="-2" pref="469" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="106" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
                               <Component id="jSeparator2" min="-2" pref="137" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="605" max="-2" attributes="0"/>
+                  <EmptySpace pref="55" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -78,41 +81,36 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" pref="165" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                  <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jSeparator1" pref="15" max="32767" attributes="0"/>
-                              <Component id="jSeparator2" max="32767" attributes="0"/>
-                          </Group>
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel4" min="-2" pref="123" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnUsuario" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" min="-2" pref="165" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="btnSolicitarSalida" min="-2" max="-2" attributes="0"/>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Component id="btnProductosVistaEmpleado" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="jSeparator1" pref="15" max="32767" attributes="0"/>
+                          <Component id="jSeparator2" max="32767" attributes="0"/>
                       </Group>
+                      <Component id="jSeparator3" alignment="0" pref="15" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="45" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="btnProductosVistaEmpleado" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSolicitarSalida" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -145,7 +143,11 @@
               <Image iconType="3" name="/Img/IB_Produc.png"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProductosVistaEmpleadoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnSolicitarSalida">
           <Properties>
@@ -156,7 +158,11 @@
               <Image iconType="3" name="/Img/IB_SolicitarSalida.png"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSolicitarSalidaActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRegresar">
           <Properties>
@@ -167,18 +173,11 @@
               <Image iconType="3" name="/Img/Regresar.png"/>
             </Property>
             <Property name="borderPainted" type="boolean" value="false"/>
+            <Property name="contentAreaFilled" type="boolean" value="false"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnUsuario">
-          <Properties>
-            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="d2" green="e4" red="ef" type="rgb"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/Img/Perfil_Conf.png"/>
-            </Property>
-            <Property name="borderPainted" type="boolean" value="false"/>
-          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegresarActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
           <Properties>
@@ -193,6 +192,25 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JSeparator" name="jSeparator2">
+          <Properties>
+            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="0" green="0" red="0" type="rgb"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
+                <LineBorder/>
+              </Border>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Img/Casita.png"/>
+            </Property>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JSeparator" name="jSeparator3">
           <Properties>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="0" green="0" red="0" type="rgb"/>
