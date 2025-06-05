@@ -63,4 +63,9 @@ public class LoteDAOImpl implements LoteDAO {
     public Lote buscarPorCodigo(String codigo) {
         return loteJpa.findLoteByCodigo(codigo);
     }
+
+    @Override
+    public List<Lote> lotesPorProducto(Producto producto) {
+        return loteJpa.findLoteByProducto(producto.getIdProducto());
+    }
 }

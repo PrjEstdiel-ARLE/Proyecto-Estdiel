@@ -45,4 +45,8 @@ public class ControladoraLote {
     public Lote buscarPorCodigo(String codigo){
         return loteDao.buscarPorCodigo(codigo);
     }
+    
+    public List<Lote> lotesPorProducto(Producto producto){
+        return loteDao.lotesPorProducto(producto);
+    }
 }

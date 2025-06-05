@@ -274,4 +274,18 @@ public class LoteJpaController implements Serializable {
         }
     }
 
+    List<Lote> findLoteByProducto(int idProducto) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT l FROM Lote l WHERE l.producto.idProducto = :idProducto ORDER BY l.fechaIngreso ASC",
+                    Lote.class
+            )
+                    .setParameter("idProducto", idProducto)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
