@@ -26,6 +26,7 @@ public class ProyectoPapeleria {
         new RolJpaController();
         new SalidaJpaController();
         new UsuarioJpaController();
+
         Login igu = new Login();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
