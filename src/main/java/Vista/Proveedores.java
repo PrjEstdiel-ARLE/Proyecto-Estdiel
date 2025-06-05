@@ -1,20 +1,30 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
 
-/**
- *
- * @author ALVARO
- */
+import Modelo.Proveedor;
+import Controlador.ControladoraGeneral;
+import java.awt.Dimension;
+import java.awt.Font;
+
+import java.util.List;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 public class Proveedores extends javax.swing.JFrame {
 
     /**
      * Creates new form Proveedores
      */
+    private final ControladoraGeneral control;
+    private List<Proveedor> proveedores;
+    private Proveedor proveedorEnEdicion = null;
+
     public Proveedores() {
         initComponents();
+
+        control = new ControladoraGeneral();
+        cargarProveedor(control.getControlProveedor().leerTodo());
     }
 
     /**
@@ -34,8 +44,6 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        txtId = new javax.swing.JTextField();
         txtTelefono = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
@@ -47,7 +55,6 @@ public class Proveedores extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProveedores = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
@@ -94,16 +101,6 @@ public class Proveedores extends javax.swing.JFrame {
         jLabel10.setForeground(new java.awt.Color(30, 58, 81));
         jLabel10.setText("Teléfono:");
 
-        jLabel11.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(30, 58, 81));
-        jLabel11.setText("ID:");
-
-        txtId.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
-            }
-        });
-
         jLabel12.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(30, 58, 81));
         jLabel12.setText("Correo:");
@@ -118,13 +115,13 @@ public class Proveedores extends javax.swing.JFrame {
 
         tblProveedores.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Nombre", "Teléfono", "Correo", "Dirección", "Ruc"
+                "Nombre", "Teléfono", "Correo", "Dirección", "Ruc"
             }
         ));
         jScrollPane1.setViewportView(tblProveedores);
@@ -136,16 +133,6 @@ public class Proveedores extends javax.swing.JFrame {
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditarActionPerformed(evt);
-            }
-        });
-
-        btnLimpiar.setBackground(new java.awt.Color(30, 58, 81));
-        btnLimpiar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
-        btnLimpiar.setForeground(new java.awt.Color(239, 228, 210));
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
             }
         });
 
@@ -179,14 +166,14 @@ public class Proveedores extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jSeparator5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel4))
                             .addComponent(jSeparator4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -195,24 +182,22 @@ public class Proveedores extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel9)
-                                            .addComponent(jLabel10)
-                                            .addComponent(jLabel11))
+                                            .addComponent(jLabel10))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(54, 54, 54)
-                                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(63, 63, 63)
+                                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(124, 124, 124)
+                                        .addGap(67, 67, 67)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addGroup(jPanel1Layout.createSequentialGroup()
                                                 .addComponent(jLabel12)
@@ -224,16 +209,14 @@ public class Proveedores extends javax.swing.JFrame {
                                                 .addGap(18, 18, 18)
                                                 .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(8, 8, 8)
-                                        .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(36, 36, 36)
-                                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(76, 76, 76)
+                                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                        .addGap(99, 99, 99)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jLabel13)
                                         .addGap(18, 18, 18)
                                         .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(25, 25, 25)))))
+                                .addGap(264, 264, 264)))))
                 .addGap(78, 78, 78))
         );
         jPanel1Layout.setVerticalGroup(
@@ -260,27 +243,24 @@ public class Proveedores extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel13)
+                    .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
-                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(txtRuc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
@@ -303,27 +283,130 @@ public class Proveedores extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
+        // Leer datos del formulario
+        String nombre = txtNombre.getText();
+        String telefono = txtTelefono.getText();
+        String correo = txtCorreo.getText();
+        String direccion = txtDireccion.getText();
+        String ruc = txtRuc.getText();
+
+        // Validaciones básicas
+        if (nombre.isEmpty() || telefono.isEmpty() || correo.isEmpty() || direccion.isEmpty() || ruc.isEmpty()) {
+            Extras.Mensajes.mostrarMensaje("Debe llenar todos los campos", "error");
+            return;
+        }
+
+        // Validar correo electrónico
+        if (!correo.matches("^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")) {
+            Extras.Mensajes.mostrarMensaje("Ingrese un correo válido", "error");
+            return;
+        }
+
+        // Validar teléfono (solo dígitos 9 caracteres)
+        if (!telefono.matches("^\\d{9}$")) {
+            Extras.Mensajes.mostrarMensaje("Ingrese un número de teléfono válido (9 dígitos)", "error");
+            return;
+        }
+
+        // Validar RUC (11 dígitos numéricos en Perú)
+        if (!ruc.matches("^\\d{11}$")) {
+            Extras.Mensajes.mostrarMensaje("El RUC debe contener exactamente 11 dígitos numéricos", "error");
+            return;
+        }
+        if (proveedorEnEdicion != null) {
+            // Modo edición: actualizar proveedor existente
+            proveedorEnEdicion.setNombre(nombre);
+            proveedorEnEdicion.setTelefono(telefono);
+            proveedorEnEdicion.setCorreo(correo);
+            proveedorEnEdicion.setDireccion(direccion);
+            proveedorEnEdicion.setRUC(ruc);
+
+            control.getControlProveedor().actualizarProveedor(proveedorEnEdicion);
+
+            Extras.Mensajes.mostrarMensaje("Proveedor actualizado correctamente", "informacion");
+
+            finalizarEdicion(); // Limpiar modo edición
+            List<Proveedor> proveedoresActualizados = control.getControlProveedor().leerTodo();
+            cargarProveedor(proveedoresActualizados);
+
+        } else {
+
+            Proveedor proveedores = new Proveedor();
+            proveedores.setNombre(nombre);
+            proveedores.setCorreo(correo);
+            proveedores.setDireccion(direccion);
+            proveedores.setIdProveedor(PROPERTIES);
+            proveedores.setRUC(ruc);
+            proveedores.setTelefono(telefono);
+
+            List<Proveedor> provee = control.getControlProveedor().leerTodo();
+            provee.add(proveedores);
+
+            //guardar 
+            control.getControlProveedor().crearProveedor(proveedores);
+            cargarProveedor(control.getControlProveedor().leerTodo());
+
+            txtNombre.setText("");
+            txtTelefono.setText("");
+            txtCorreo.setText("");
+            txtDireccion.setText("");
+            txtRuc.setText("");
+        }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        // TODO add your handling code here:
+        if (proveedorEnEdicion != null) {
+            finalizarEdicion();
+            Extras.Mensajes.mostrarMensaje("Edición Cancelada", "informacion");
+        } else {
+            if (tblProveedores.getRowCount() > 0) {
+                int filaSelect = tblProveedores.getSelectedRow();
+                if (filaSelect != -1) {
+                    // Marcar que estamos en modo edición
+                    proveedores = control.getControlProveedor().leerTodo();
+                    proveedorEnEdicion = proveedores.get(filaSelect);
+
+                    // Cargar datos del proveedor seleccionado en los campos de texto
+                    txtNombre.setText(proveedorEnEdicion.getNombre());
+                    txtTelefono.setText(proveedorEnEdicion.getTelefono());
+                    txtCorreo.setText(proveedorEnEdicion.getCorreo());
+                    txtDireccion.setText(proveedorEnEdicion.getDireccion());
+                    txtRuc.setText(proveedorEnEdicion.getRUC());
+
+                    // Cambiar el texto del botón para indicar que estamos editando
+                    btnGuardar.setText("Actualizar Proveedor");
+                    btnEditar.setText("Cancelar Edición");
+
+                    Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar Proveedor'", "informacion");
+                } else {
+                    Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
+                }
+            }
+        }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnLimpiarActionPerformed
-
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if (tblProveedores.getRowCount() > 0) {
+            int filaSelect = tblProveedores.getSelectedRow();
+            //Asegurar selección
+            if (filaSelect != -1) {
+                proveedores = control.getControlProveedor().leerTodo();
+                Proveedor proveedoresseleccionado = proveedores.get(filaSelect);
+                boolean conf = Extras.Mensajes.confirmar("¿Desea eliminar este elemento?");
+                if (conf) {
+                    control.getControlProveedor().eliminarProveedor(proveedoresseleccionado.getIdProveedor());
+                    proveedores.remove(filaSelect);
+                    List<Proveedor> proveedoresActualizados = control.getControlProveedor().leerTodo();
+                    cargarProveedor(proveedoresActualizados);
+                }
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione la fila a eliminar", "advertencia");
+            }
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void txtIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtIdActionPerformed
-
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        MenuAdministrador madmin=new MenuAdministrador();
+        MenuAdministrador madmin = new MenuAdministrador();
         madmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -363,15 +446,69 @@ public class Proveedores extends javax.swing.JFrame {
         });
     }
 
+    private void cargarProveedor(List<Proveedor> proveedores) {
+// Inicializa el modelo de la tabla y establece las columnas
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        String[] titulos = {"Nombre", "Telefono", "Correo", "Direccion", "Ruc"};
+        modeloTabla.setColumnIdentifiers(titulos);
+        modeloTabla.setRowCount(0);
+
+        // Itera sobre los detalles y los agrega a la tabla
+        for (Proveedor proveedor : proveedores) {
+            Object[] obj = {
+                proveedor.getNombre(),
+                proveedor.getTelefono(),
+                proveedor.getCorreo(),
+                proveedor.getDireccion(),
+                proveedor.getRUC()
+            };
+            modeloTabla.addRow(obj);
+        }
+
+        tblProveedores.setModel(modeloTabla);
+
+        // Centra el texto en todas las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplica el render centrado a cada columna
+        for (int i = 0; i < tblProveedores.getColumnCount(); i++) {
+            tblProveedores.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        }
+        //formatear el tamaño de texto
+        tblProveedores.setRowHeight(35);
+        JTableHeader header = tblProveedores.getTableHeader();
+        header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+    }
+
+    private void finalizarEdicion() {
+        proveedorEnEdicion = null;
+        btnGuardar.setText("Agregar Producto");
+        btnEditar.setText("Editar");
+        // Limpiar campos del formulario de proveedor
+        txtNombre.setText("");
+        txtTelefono.setText("");
+        txtCorreo.setText("");
+        txtDireccion.setText("");
+        txtRuc.setText("");
+
+        // Habilitar campos o combos si fuera necesario
+        txtRuc.setEnabled(true);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
@@ -386,7 +523,6 @@ public class Proveedores extends javax.swing.JFrame {
     private javax.swing.JTable tblProveedores;
     private javax.swing.JTextField txtCorreo;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtRuc;
     private javax.swing.JTextField txtTelefono;
