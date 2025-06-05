@@ -396,7 +396,8 @@ public class Pedidos extends javax.swing.JFrame {
                         Producto prodAsoc = detalle.getProducto();
                         int tiempoAlmacen = prodAsoc.getCategoria().getTiempo_estimado_almacen();
                         int cantidad = detalle.getCantidad();
-
+                        //editar cantidad en producto
+                        control.getControlProducto().actualizarCantidad(prodAsoc, cantidad+prodAsoc.getCantidad());
                         // calcalar fecha
                         cal.setTime(hoy);
                         cal.add(Calendar.DAY_OF_YEAR, tiempoAlmacen);
