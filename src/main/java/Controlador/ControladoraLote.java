@@ -5,6 +5,7 @@ import DAO.LoteDAOImpl;
 import Modelo.EstadoLote;
 import Modelo.Lote;
 import Modelo.Producto;
+import java.util.Date;
 import java.util.List;
 
 public class ControladoraLote {
@@ -48,5 +49,9 @@ public class ControladoraLote {
     
     public List<Lote> lotesPorProducto(Producto producto){
         return loteDao.lotesPorProducto(producto);
+    }
+    
+    public List<Date> encontrarFechasUnicas(){
+        return loteDao.encontrarFechasUnicas();
     }
 }

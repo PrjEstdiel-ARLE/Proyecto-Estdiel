@@ -4,6 +4,7 @@ import DAO.exceptions.NonexistentEntityException;
 import Modelo.EstadoLote;
 import Modelo.Lote;
 import Modelo.Producto;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,5 +68,10 @@ public class LoteDAOImpl implements LoteDAO {
     @Override
     public List<Lote> lotesPorProducto(Producto producto) {
         return loteJpa.findLoteByProducto(producto.getIdProducto());
+    }
+
+    @Override
+    public List<Date> encontrarFechasUnicas() {
+        return loteJpa.findFechasIngresoUnicas();
     }
 }

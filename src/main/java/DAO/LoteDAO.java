@@ -3,6 +3,7 @@ package DAO;
 import Modelo.EstadoLote;
 import Modelo.Lote;
 import Modelo.Producto;
+import java.util.Date;
 import java.util.List;
 
 
@@ -24,4 +25,6 @@ public interface LoteDAO {
     Lote buscarPorCodigo(String codigo);
 
     public List<Lote> lotesPorProducto(Producto producto);
+    
+    List<Date> encontrarFechasUnicas();
 }

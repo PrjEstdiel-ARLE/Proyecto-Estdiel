@@ -11,6 +11,7 @@ import Modelo.DetallePedido;
 import Modelo.DetalleSalida;
 import Modelo.EstadoLote;
 import Modelo.Lote;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -283,6 +284,18 @@ public class LoteJpaController implements Serializable {
             )
                     .setParameter("idProducto", idProducto)
                     .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Date> findFechasIngresoUnicas() {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT DISTINCT l.fechaIngreso FROM Lote l ORDER BY l.fechaIngreso DESC",
+                    Date.class
+            ).getResultList();
         } finally {
             em.close();
         }
