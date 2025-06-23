@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Extras.Mensajes;
+
 /**
  *
  * @author Richard
@@ -52,6 +54,15 @@ public class SolicitarSalida extends javax.swing.JFrame {
         btnEditar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuArchivo = new javax.swing.JMenu();
+        itemCerrar = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        itemSalir = new javax.swing.JMenuItem();
+        menuLogistica = new javax.swing.JMenu();
+        itemProducts = new javax.swing.JMenuItem();
+        menuSalidas = new javax.swing.JMenu();
+        itemSolicitarSalida = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -254,8 +265,62 @@ public class SolicitarSalida extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnEliminar)
                     .addComponent(btnLimpiar))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
+
+        menuArchivo.setText("Archivo");
+        menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCerrar.setText("Cerrar Sesión");
+        itemCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCerrarActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemCerrar);
+        menuArchivo.add(jSeparator5);
+
+        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSalir.setText("Salir");
+        itemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalirActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemSalir);
+
+        jMenuBar1.add(menuArchivo);
+
+        menuLogistica.setText("Logística");
+        menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemProducts.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemProducts.setText("Productos");
+        itemProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemProductsActionPerformed(evt);
+            }
+        });
+        menuLogistica.add(itemProducts);
+
+        jMenuBar1.add(menuLogistica);
+
+        menuSalidas.setText("Salidas");
+        menuSalidas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemSolicitarSalida.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSolicitarSalida.setText("Solicitar Salida");
+        itemSolicitarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSolicitarSalidaActionPerformed(evt);
+            }
+        });
+        menuSalidas.add(itemSolicitarSalida);
+
+        jMenuBar1.add(menuSalidas);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -280,6 +345,34 @@ public class SolicitarSalida extends javax.swing.JFrame {
         logis.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void itemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrarActionPerformed
+        boolean conf = Mensajes.confirmar("¿Desea cerrar sesión?");
+        if (conf) {
+            Login lo = new Login();
+            lo.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_itemCerrarActionPerformed
+
+    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
+        boolean conf = Mensajes.confirmar("¿Desea cerrar la ventana completa?");
+        if (conf) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_itemSalirActionPerformed
+
+    private void itemProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductsActionPerformed
+        ProductosEmpleado pEm = new ProductosEmpleado();
+        pEm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemProductsActionPerformed
+
+    private void itemSolicitarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSolicitarSalidaActionPerformed
+        SolicitarSalida SS = new SolicitarSalida();
+        SS.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemSolicitarSalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -321,6 +414,10 @@ public class SolicitarSalida extends javax.swing.JFrame {
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGenerar;
     private javax.swing.JButton btnLimpiar;
+    private javax.swing.JMenuItem itemCerrar;
+    private javax.swing.JMenuItem itemProducts;
+    private javax.swing.JMenuItem itemSalir;
+    private javax.swing.JMenuItem itemSolicitarSalida;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -331,12 +428,17 @@ public class SolicitarSalida extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenu menuLogistica;
+    private javax.swing.JMenu menuSalidas;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtFechaLlegada;
     private javax.swing.JTextField txtFechaRegistro;

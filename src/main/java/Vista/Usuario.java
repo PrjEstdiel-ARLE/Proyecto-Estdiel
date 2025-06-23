@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Extras.Mensajes;
+
 /**
  *
  * @author Richard
@@ -54,6 +56,23 @@ public class Usuario extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        MenuBar = new javax.swing.JMenuBar();
+        menuArchivo = new javax.swing.JMenu();
+        itemCerrar = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JPopupMenu.Separator();
+        itemSalir = new javax.swing.JMenuItem();
+        menuGestion = new javax.swing.JMenu();
+        itemProductos = new javax.swing.JMenuItem();
+        itemProveedores = new javax.swing.JMenuItem();
+        itemCategorias = new javax.swing.JMenuItem();
+        itemUsuarios = new javax.swing.JMenuItem();
+        menuInventario = new javax.swing.JMenu();
+        itemLotes = new javax.swing.JMenuItem();
+        itemFiltro = new javax.swing.JMenuItem();
+        menuLogistica = new javax.swing.JMenu();
+        itemRegistrarPedido = new javax.swing.JMenuItem();
+        itemVerPedidos = new javax.swing.JMenuItem();
+        itemSalidas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -165,7 +184,7 @@ public class Usuario extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -276,8 +295,132 @@ public class Usuario extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(6, 6, 6)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(81, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
+
+        MenuBar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+
+        menuArchivo.setText("Archivo");
+        menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCerrar.setText("Cerrar Sesión");
+        itemCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCerrarActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemCerrar);
+        menuArchivo.add(jSeparator4);
+
+        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSalir.setText("Salir");
+        itemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalirActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemSalir);
+
+        MenuBar.add(menuArchivo);
+
+        menuGestion.setText("Gestión");
+        menuGestion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemProductos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemProductos.setText("Productos");
+        itemProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemProductosActionPerformed(evt);
+            }
+        });
+        menuGestion.add(itemProductos);
+
+        itemProveedores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemProveedores.setText("Proveedores");
+        itemProveedores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemProveedoresActionPerformed(evt);
+            }
+        });
+        menuGestion.add(itemProveedores);
+
+        itemCategorias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCategorias.setText("Categorías");
+        itemCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCategoriasActionPerformed(evt);
+            }
+        });
+        menuGestion.add(itemCategorias);
+
+        itemUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemUsuarios.setText("Usuarios");
+        itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemUsuariosActionPerformed(evt);
+            }
+        });
+        menuGestion.add(itemUsuarios);
+
+        MenuBar.add(menuGestion);
+
+        menuInventario.setText("Inventario");
+        menuInventario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemLotes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemLotes.setText("Lotes");
+        itemLotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemLotesActionPerformed(evt);
+            }
+        });
+        menuInventario.add(itemLotes);
+
+        itemFiltro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemFiltro.setText("Filtro de Productos");
+        itemFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemFiltroActionPerformed(evt);
+            }
+        });
+        menuInventario.add(itemFiltro);
+
+        MenuBar.add(menuInventario);
+
+        menuLogistica.setText("Logística");
+        menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemRegistrarPedido.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemRegistrarPedido.setText("Registrar Pedido");
+        itemRegistrarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemRegistrarPedidoActionPerformed(evt);
+            }
+        });
+        menuLogistica.add(itemRegistrarPedido);
+
+        itemVerPedidos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemVerPedidos.setText("Ver Pedidos");
+        itemVerPedidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemVerPedidosActionPerformed(evt);
+            }
+        });
+        menuLogistica.add(itemVerPedidos);
+
+        itemSalidas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSalidas.setText("Salidas");
+        itemSalidas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalidasActionPerformed(evt);
+            }
+        });
+        menuLogistica.add(itemSalidas);
+
+        MenuBar.add(menuLogistica);
+
+        setJMenuBar(MenuBar);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -298,6 +441,76 @@ public class Usuario extends javax.swing.JFrame {
         ma.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void itemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrarActionPerformed
+        boolean conf = Mensajes.confirmar("¿Desea cerrar sesión?");
+        if (conf) {
+            Login lo = new Login();
+            lo.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_itemCerrarActionPerformed
+
+    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
+        boolean conf = Mensajes.confirmar("¿Desea cerrar la ventana completa?");
+        if (conf) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_itemSalirActionPerformed
+
+    private void itemProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductosActionPerformed
+        Productos prod = new Productos();
+        prod.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemProductosActionPerformed
+
+    private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
+        Proveedores prov = new Proveedores();
+        prov.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemProveedoresActionPerformed
+
+    private void itemCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriasActionPerformed
+        Categorias cat = new Categorias();
+        cat.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemCategoriasActionPerformed
+
+    private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
+        Usuario us = new Usuario();
+        us.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemUsuariosActionPerformed
+
+    private void itemLotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLotesActionPerformed
+        Lotes lot = new Lotes();
+        lot.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemLotesActionPerformed
+
+    private void itemFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFiltroActionPerformed
+        ProductoProveedor PP = new ProductoProveedor();
+        PP.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemFiltroActionPerformed
+
+    private void itemRegistrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarPedidoActionPerformed
+        RegistrarPedido reg = new RegistrarPedido();
+        reg.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemRegistrarPedidoActionPerformed
+
+    private void itemVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerPedidosActionPerformed
+        Pedidos ped = new Pedidos();
+        ped.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemVerPedidosActionPerformed
+
+    private void itemSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalidasActionPerformed
+        SalidasLote SL = new SalidasLote();
+        SL.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemSalidasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,11 +548,23 @@ public class Usuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegresar;
+    private javax.swing.JMenuItem itemCategorias;
+    private javax.swing.JMenuItem itemCerrar;
+    private javax.swing.JMenuItem itemFiltro;
+    private javax.swing.JMenuItem itemLotes;
+    private javax.swing.JMenuItem itemProductos;
+    private javax.swing.JMenuItem itemProveedores;
+    private javax.swing.JMenuItem itemRegistrarPedido;
+    private javax.swing.JMenuItem itemSalidas;
+    private javax.swing.JMenuItem itemSalir;
+    private javax.swing.JMenuItem itemUsuarios;
+    private javax.swing.JMenuItem itemVerPedidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -356,7 +581,12 @@ public class Usuario extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenu menuGestion;
+    private javax.swing.JMenu menuInventario;
+    private javax.swing.JMenu menuLogistica;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNombre;

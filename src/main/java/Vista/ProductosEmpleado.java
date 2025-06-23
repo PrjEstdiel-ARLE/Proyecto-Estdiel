@@ -4,6 +4,8 @@
  */
 package Vista;
 
+import Extras.Mensajes;
+
 /**
  *
  * @author Richard
@@ -52,6 +54,15 @@ public class ProductosEmpleado extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        menuArchivo = new javax.swing.JMenu();
+        itemCerrar = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JPopupMenu.Separator();
+        itemSalir = new javax.swing.JMenuItem();
+        menuLogistica = new javax.swing.JMenu();
+        itemProducts = new javax.swing.JMenuItem();
+        menuSalidas = new javax.swing.JMenu();
+        itemSolicitarSalida = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -243,7 +254,7 @@ public class ProductosEmpleado extends javax.swing.JFrame {
                         .addComponent(btnRegresar)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -284,12 +295,66 @@ public class ProductosEmpleado extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnSolicitar)
                             .addComponent(btnLimpiar))
                         .addGap(29, 29, 29))))
         );
+
+        menuArchivo.setText("Archivo");
+        menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCerrar.setText("Cerrar Sesión");
+        itemCerrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCerrarActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemCerrar);
+        menuArchivo.add(jSeparator5);
+
+        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSalir.setText("Salir");
+        itemSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalirActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemSalir);
+
+        jMenuBar1.add(menuArchivo);
+
+        menuLogistica.setText("Logística");
+        menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemProducts.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemProducts.setText("Productos");
+        itemProducts.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemProductsActionPerformed(evt);
+            }
+        });
+        menuLogistica.add(itemProducts);
+
+        jMenuBar1.add(menuLogistica);
+
+        menuSalidas.setText("Salidas");
+        menuSalidas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemSolicitarSalida.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSolicitarSalida.setText("Solicitar Salida");
+        itemSolicitarSalida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSolicitarSalidaActionPerformed(evt);
+            }
+        });
+        menuSalidas.add(itemSolicitarSalida);
+
+        jMenuBar1.add(menuSalidas);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -326,6 +391,34 @@ public class ProductosEmpleado extends javax.swing.JFrame {
         logis.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void itemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrarActionPerformed
+        boolean conf = Mensajes.confirmar("¿Desea cerrar sesión?");
+        if (conf) {
+            Login lo = new Login();
+            lo.setVisible(true);
+            this.dispose();
+        }
+    }//GEN-LAST:event_itemCerrarActionPerformed
+
+    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
+        boolean conf = Mensajes.confirmar("¿Desea cerrar la ventana completa?");
+        if (conf) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_itemSalirActionPerformed
+
+    private void itemProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductsActionPerformed
+        ProductosEmpleado pEm = new ProductosEmpleado();
+        pEm.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemProductsActionPerformed
+
+    private void itemSolicitarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSolicitarSalidaActionPerformed
+        SolicitarSalida SS = new SolicitarSalida();
+        SS.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_itemSolicitarSalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -366,6 +459,10 @@ public class ProductosEmpleado extends javax.swing.JFrame {
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSolicitar;
+    private javax.swing.JMenuItem itemCerrar;
+    private javax.swing.JMenuItem itemProducts;
+    private javax.swing.JMenuItem itemSalir;
+    private javax.swing.JMenuItem itemSolicitarSalida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -376,12 +473,17 @@ public class ProductosEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTable jTable1;
+    private javax.swing.JMenu menuArchivo;
+    private javax.swing.JMenu menuLogistica;
+    private javax.swing.JMenu menuSalidas;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigo;
