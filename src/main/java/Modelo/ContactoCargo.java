@@ -1,0 +1,12 @@
+package Modelo;
+
+public enum ContactoCargo {
+    ADMINISTRADOR, 
+    ASESOR_DE_CLIENTES, 
+    ENCARGADO_DE_FACTURACIÓN, 
+    ENCARGADO_DE_PEDIDOS, 
+    GERENTE_DE_VENTAS, 
+    JEFE_DE_LOGISTICA, 
+    OTRO, 
+    REPRESENTANTE_COMERCIAL
+}
