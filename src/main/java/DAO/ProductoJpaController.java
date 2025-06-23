@@ -341,7 +341,7 @@ public class ProductoJpaController implements Serializable {
         em.getTransaction().begin();
         Producto producto = em.find(Producto.class, idProducto);
         if (producto != null) {
-            producto.setCantidad(nuevaCantidad);
+            producto.setCantidadLotes(nuevaCantidad);
             em.merge(producto);
         }
         em.getTransaction().commit();

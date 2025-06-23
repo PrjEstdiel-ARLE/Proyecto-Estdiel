@@ -10,8 +10,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Table(name = "producto")
 public class Producto implements Serializable {
 
@@ -20,9 +28,12 @@ public class Producto implements Serializable {
     private int idProducto;
     private String nombre;
     private String codigo;
-    private String descripcion;
+    private int cantidadPresentacionLote;
+    private int cantidadPresentacionProducto;
+    private ProductoPresentacionLote presentacionLote;
+    private ProductoPresentacionProducto presentacionProducto;
     private double precioCompra;
-    private int cantidad;
+    private int cantidadLotes;
     @ManyToOne
     @JoinColumn(name = "categoria_id")
     private Categoria categoria;
@@ -36,95 +47,4 @@ public class Producto implements Serializable {
     
     @OneToMany(mappedBy = "producto")
     private List<Lote> lotes;
-
-    public Producto() {
-    }
-
-    public int getIdProducto() {
-        return idProducto;
-    }
-
-    public void setIdProducto(int idProducto) {
-        this.idProducto = idProducto;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
-    public double getPrecioCompra() {
-        return precioCompra;
-    }
-
-    public void setPrecioCompra(double precioCompra) {
-        this.precioCompra = precioCompra;
-    }
-
-    public Categoria getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(Categoria categoria) {
-        this.categoria = categoria;
-    }
-
-    public Proveedor getProveedor() {
-        return proveedor;
-    }
-
-    public void setProveedor(Proveedor proveedor) {
-        this.proveedor = proveedor;
-    }
-
-    public String getDecripcion() {
-        return descripcion;
-    }
-
-    public void setDecripcion(String decripcion) {
-        this.descripcion = decripcion;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    public List<DetallePedido> getDetalles() {
-        return detalles;
-    }
-
-    public void setDetalles(List<DetallePedido> detalles) {
-        this.detalles = detalles;
-    }
-
-    public List<Lote> getLotes() {
-        return lotes;
-    }
-
-    public void setLotes(List<Lote> lotes) {
-        this.lotes = lotes;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
-    }
 }
