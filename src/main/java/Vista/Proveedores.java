@@ -491,31 +491,46 @@ public class Proveedores extends javax.swing.JFrame {
         String ruc = txtRuc.getText();
 
         // Validaciones básicas
-        if (nombre.isEmpty() || correo.isEmpty() || direccion.isEmpty() || ruc.isEmpty() || web.isEmpty()) {
-            Extras.Mensajes.mostrarMensaje("Debe llenar todos los campos", "error");
-            return;
+        StringBuilder errores = new StringBuilder();
+
+        if (nombre.isEmpty()) {
+            errores.append("- El nombre es obligatorio.\n");
+        }
+        if (web.isEmpty()) {
+            errores.append("- La web es obligatoria.\n");
+        }
+        if (correo.isEmpty()) {
+            errores.append("- El correo es obligatorio.\n");
+        }
+        if (direccion.isEmpty()) {
+            errores.append("- La dirección es obligatoria.\n");
+        }
+        if (ruc.isEmpty()) {
+            errores.append("- El RUC es obligatorio.\n");
         }
 
+        if (errores.length() > 0) {
+            Mensajes.mostrarMensaje(errores.toString(), "error");
+            return;
+        }
         // Validar correo electrónico
         if (!correo.matches("^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")) {
             Extras.Mensajes.mostrarMensaje("Ingrese un correo válido", "error");
             return;
         }
-
         // Validar dirección web si no está vacía
         if (!web.matches("^(https?://)?([\\w-]+\\.)+[\\w-]{2,}(\\/[\\w\\-./?%&=]*)?$")) {
             Extras.Mensajes.mostrarMensaje("Ingrese una dirección web válida", "error");
             return;
         }
-
-        /*// Validar teléfono (solo dígitos 9 caracteres)
-        if (!telefono.matches("^\\d{9}$")) {
-            Extras.Mensajes.mostrarMensaje("Ingrese un número de teléfono válido (9 dígitos)", "error");
-            return;
-        }*/
         // Validar RUC (11 dígitos numéricos en Perú)
         if (!ruc.matches("^\\d{11}$")) {
             Extras.Mensajes.mostrarMensaje("El RUC debe contener exactamente 11 dígitos numéricos", "error");
+            return;
+        }
+        // Validar que solo tenga letras y espacios
+        if (!nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")) {
+            Extras.Mensajes.mostrarMensaje("El nombre solo debe contener letras", "error");
             return;
         }
         if (proveedorEnEdicion != null) {
@@ -728,7 +743,7 @@ public class Proveedores extends javax.swing.JFrame {
                 // Marcar que estamos en modo edición
                 proveedores = control.getControlProveedor().leerTodo();
                 Proveedor provedorCont = proveedores.get(filaSelect);
-                ProveedoresContactos igu=new ProveedoresContactos(provedorCont);
+                ProveedoresContactos igu = new ProveedoresContactos(provedorCont);
                 igu.setVisible(true);
                 this.dispose();
             } else {
