@@ -18,12 +18,13 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class ProveedoresContactos extends javax.swing.JFrame {
-
+    
     private final ControladoraGeneral control;
     private ContactoProveedor contacto;
+    private List<ContactoProveedor> contactos;
     private ContactoProveedor contactoEnEdicion = null;
     private final Proveedor prov;
-
+    
     public ProveedoresContactos(Proveedor proveedor) {
         this.prov = proveedor;
         initComponents();
@@ -31,7 +32,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         cargarCargos();
         cargarContactos(proveedor);
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -526,11 +527,51 @@ public class ProveedoresContactos extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalidasActionPerformed
 
     private void btnEliminarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContactoActionPerformed
-        // TODO add your handling code here:
+        if (tblContactos.getRowCount() > 0) {
+            int filaSelect = tblContactos.getSelectedRow();
+            //Asegurar selección
+            if (filaSelect != -1) {
+                contactos = control.getControlContactoProveedor().leerPorProveedor(prov);
+                ContactoProveedor contSelect = contactos.get(filaSelect);
+                boolean conf = Extras.Mensajes.confirmar("¿Desea eliminar este elemento?");
+                if (conf) {
+                    control.getControlContactoProveedor().eliminar(contSelect.getIdContacto());
+                    contactos.remove(filaSelect);
+                    cargarContactos(prov);
+                }
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione la fila a eliminar", "advertencia");
+            }
+        }
     }//GEN-LAST:event_btnEliminarContactoActionPerformed
 
     private void btnEditarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarContactoActionPerformed
-        // TODO add your handling code here:
+        if (contactoEnEdicion != null) {
+            finalizarEdicion();
+            Mensajes.mostrarMensaje("Edición cancelada", "informacion");
+        } else {
+            if (tblContactos.getRowCount() > 0) {
+                int filaSelect = tblContactos.getSelectedRow();
+                if (filaSelect != -1) {
+                    // Marcar que estamos en modo edición
+                    contactos = control.getControlContactoProveedor().leerPorProveedor(prov);
+                    contactoEnEdicion = contactos.get(filaSelect);
+                    // Cargar datos en los campos
+                    txtNombreContacto.setText(contactoEnEdicion.getNombre());
+                    txtApellidoContacto.setText(contactoEnEdicion.getApellido());
+                    txtTelefonoContacto.setText(contactoEnEdicion.getTelefono());
+                    txtCorreoContacto.setText(contactoEnEdicion.getCorreo());
+                    cmbCargos.setSelectedItem(contactoEnEdicion.getCargo().name());
+                    // Cambiar el texto del botón para indicar que estamos editando
+                    btnGuardarContacto.setText("Actualizar");
+                    btnEditarContacto.setText("Cancelar");
+                    btnCopiarContacto.setEnabled(true);
+                    Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar'", "informacion");
+                } else {
+                    Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
+                }
+            }
+        }
     }//GEN-LAST:event_btnEditarContactoActionPerformed
 
     private void btnGuardarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarContactoActionPerformed
@@ -542,7 +583,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         ContactoCargo cargo = ContactoCargo.valueOf((String) cmbCargos.getSelectedItem());
         //validar datos
         StringBuilder errores = new StringBuilder();
-
+        
         if (nombre.isEmpty() || apellido.isEmpty()) {
             errores.append("- Nombre y apellido son obligatorios.\n");
         }
@@ -552,7 +593,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         if (correo.isEmpty()) {
             errores.append("- Un correo es obligatorio.\n");
         }
-
+        
         if (errores.length() > 0) {
             Mensajes.mostrarMensaje(errores.toString(), "error");
             return;
@@ -578,23 +619,37 @@ public class ProveedoresContactos extends javax.swing.JFrame {
             Extras.Mensajes.mostrarMensaje("El nombre solo debe contener letras", "error");
             return;
         }
-        //guardar datos
-        contacto = new ContactoProveedor();
-        contacto.setApellido(apellido);
-        contacto.setNombre(nombre);
-        contacto.setCargo(cargo);
-        contacto.setCorreo(correo);
-        contacto.setTelefono(telefono);
-        contacto.setProveedor(prov);
-        control.getControlContactoProveedor().crear(contacto);
-        cargarContactos(prov);
-        limpiar();
-        Mensajes.mostrarMensaje("Contacto creado correctamente", "informacion");
+        if (contactoEnEdicion != null) {
+            //actualizacion
+            contactoEnEdicion.setApellido(apellido);
+            contactoEnEdicion.setNombre(nombre);
+            contactoEnEdicion.setTelefono(telefono);
+            contactoEnEdicion.setCorreo(correo);
+            contactoEnEdicion.setCargo(cargo);
+            control.getControlContactoProveedor().actualizar(contactoEnEdicion);
+            Mensajes.mostrarMensaje("Edición exitosa", "informacion");
+            //terminar edicion
+            finalizarEdicion();
+            cargarContactos(prov);
+        } else {
+            //guardar datos
+            contacto = new ContactoProveedor();
+            contacto.setApellido(apellido);
+            contacto.setNombre(nombre);
+            contacto.setCargo(cargo);
+            contacto.setCorreo(correo);
+            contacto.setTelefono(telefono);
+            contacto.setProveedor(prov);
+            control.getControlContactoProveedor().crear(contacto);
+            cargarContactos(prov);
+            limpiar();
+            Mensajes.mostrarMensaje("Contacto creado correctamente", "informacion");
+        }
     }//GEN-LAST:event_btnGuardarContactoActionPerformed
 
     private void btnCopiarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiarContactoActionPerformed
         String correo = txtCorreoContacto.getText().trim();
-
+        
         if (correo.isEmpty()) {
             Extras.Mensajes.mostrarMensaje("El campo de correo está vacío", "error");
             return;
@@ -604,7 +659,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         StringSelection seleccion = new StringSelection(correo);
         Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
         portapapeles.setContents(seleccion, null);
-
+        
         Extras.Mensajes.mostrarMensaje("Correo copiado al portapapeles", "informacion");
     }//GEN-LAST:event_btnCopiarContactoActionPerformed
 
@@ -665,7 +720,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
             cmbCargos.addItem(cargo.name());
         }
     }
-
+    
     private void cargarContactos(Proveedor proveedor) {
         // Inicializa el modelo de la tabla y establece las columnas
         DefaultTableModel modeloTabla = new DefaultTableModel() {
@@ -674,12 +729,12 @@ public class ProveedoresContactos extends javax.swing.JFrame {
                 return false;
             }
         };
-
+        
         String[] titulos = {"Nombre", "Cargo", "Telefono", "Correo"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
-
-        List<ContactoProveedor> contactos = control.getControlContactoProveedor().leerPorProveedor(proveedor);
+        
+        contactos = control.getControlContactoProveedor().leerPorProveedor(proveedor);
 
         // Itera sobre los detalles y los agrega a la tabla
         for (ContactoProveedor cont : contactos) {
@@ -691,7 +746,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
             };
             modeloTabla.addRow(obj);
         }
-
+        
         tblContactos.setModel(modeloTabla);
 
         // Centra el texto en todas las celdas
@@ -708,16 +763,24 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
-
+    
     private String cargarNombre(ContactoProveedor contacto) {
         return contacto.getNombre() + " " + contacto.getApellido();
     }
-
+    
     private void limpiar() {
         txtApellidoContacto.setText("");
         txtNombreContacto.setText("");
         txtTelefonoContacto.setText("");
         txtCorreoContacto.setText("");
         cargarCargos();
+    }
+    
+    private void finalizarEdicion() {
+        btnGuardarContacto.setText("Guardar");
+        btnEditarContacto.setText("Editar");
+        btnCopiarContacto.setEnabled(false);
+        limpiar();
+        contactoEnEdicion=null;
     }
 }
