@@ -114,7 +114,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         panelContacto.setBackground(new java.awt.Color(239, 228, 210));
         panelContacto.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 3), "Contactos de "+prov.getNombre(), javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6)));
 
-        tblContactos.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 14)); // NOI18N
+        tblContactos.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         tblContactos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -541,7 +541,43 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         String telefono = txtTelefonoContacto.getText();
         ContactoCargo cargo = ContactoCargo.valueOf((String) cmbCargos.getSelectedItem());
         //validar datos
+        StringBuilder errores = new StringBuilder();
 
+        if (nombre.isEmpty() || apellido.isEmpty()) {
+            errores.append("- Nombre y apellido son obligatorios.\n");
+        }
+        if (telefono.isEmpty()) {
+            errores.append("- Un teléfono es obligatorio.\n");
+        }
+        if (correo.isEmpty()) {
+            errores.append("- Un correo es obligatorio.\n");
+        }
+
+        if (errores.length() > 0) {
+            Mensajes.mostrarMensaje(errores.toString(), "error");
+            return;
+        }
+        //validacion de formato
+        if (!correo.matches("^[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,}$")) {
+            Extras.Mensajes.mostrarMensaje("Ingrese un correo válido", "error");
+            return;
+        }
+
+        // Validar teléfono (solo dígitos 9 caracteres)
+        if (!telefono.matches("^\\d{9}$")) {
+            Extras.Mensajes.mostrarMensaje("Ingrese un número de teléfono válido (9 dígitos)", "error");
+            return;
+        }
+        // Validar que solo tenga letras y espacios
+        if (!nombre.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")) {
+            Extras.Mensajes.mostrarMensaje("El nombre solo debe contener letras", "error");
+            return;
+        }
+        // Validar que solo tenga letras y espacios
+        if (!apellido.matches("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")) {
+            Extras.Mensajes.mostrarMensaje("El nombre solo debe contener letras", "error");
+            return;
+        }
         //guardar datos
         contacto = new ContactoProveedor();
         contacto.setApellido(apellido);
