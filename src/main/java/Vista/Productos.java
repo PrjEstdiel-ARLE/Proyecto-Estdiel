@@ -561,7 +561,7 @@ public class Productos extends javax.swing.JFrame {
             productoEnEdicion.setCategoria(catProducto);
             productoEnEdicion.setProveedor(proProducto);
             productoEnEdicion.setPrecioCompra(precioCompra);
-            productoEnEdicion.setDecripcion(descipcionProd);
+            //productoEnEdicion.setDecripcion(descipcionProd);
 
             // Guardar en base de datos
             control.getControlProducto().actualizarProducto(productoEnEdicion);
@@ -581,10 +581,10 @@ public class Productos extends javax.swing.JFrame {
             newproductos.setCategoria(catProducto);
             newproductos.setNombre(nombreProd);
             newproductos.setPrecioCompra(precioCompra);
-            newproductos.setDecripcion(descipcionProd);
+            //newproductos.setDecripcion(descipcionProd);
             newproductos.setProveedor(proProducto);
             newproductos.setCodigo(codigo);
-            newproductos.setCantidad(0);
+            newproductos.setCantidadLotes(0);
             List<Producto> produc = control.getControlProducto().leerTodo();
             produc.add(newproductos);
 
@@ -632,7 +632,7 @@ public class Productos extends javax.swing.JFrame {
                     productos = control.getControlProducto().leerTodo();
                     productoEnEdicion = productos.get(filaSelect);
                     txtNombre.setText(productoEnEdicion.getNombre());
-                    txtDescripcion.setText(productoEnEdicion.getDecripcion());
+                    //txtDescripcion.setText(productoEnEdicion.getDecripcion());
                     cbxCategoria.setEnabled(false);
                     cbxProveedor.setEnabled(false);
                     //cargar datos
@@ -834,9 +834,9 @@ public class Productos extends javax.swing.JFrame {
                 produc.getNombre(),
                 produc.getProveedor().getNombre(),
                 Extras.Cadenas.formatoSoles(produc.getPrecioCompra(), true),
-                produc.getDecripcion(),
+                //produc.getDecripcion(),
                 produc.getCodigo(),
-                produc.getCantidad()};
+                produc.getCantidadLotes()};
             modeloTabla.addRow(obj);
         }
 
