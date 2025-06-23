@@ -12,6 +12,7 @@ public class ControladoraGeneral {
     private final ControladoraRol controlRol;
     private final ControladoraSalida controlSalida;
     private final ControladoraUsuario controlUsuario;
+    private final ControladoraContactosProveedor controlContactoProveedor;
 
     public ControladoraGeneral() {
         this.controlProveedor = new ControladoraProveedor();
@@ -24,6 +25,7 @@ public class ControladoraGeneral {
         this.controlRol = new ControladoraRol();
         this.controlSalida = new ControladoraSalida();
         this.controlUsuario = new ControladoraUsuario();
+        this.controlContactoProveedor = new ControladoraContactosProveedor();
     }
 
     // Métodos para obtener las controladoras específicas
@@ -65,6 +67,10 @@ public class ControladoraGeneral {
 
     public ControladoraUsuario getControlUsuario() {
         return controlUsuario;
+    }
+
+    public ControladoraContactosProveedor getControlContactoProveedor() {
+        return controlContactoProveedor;
     }
 
 }
