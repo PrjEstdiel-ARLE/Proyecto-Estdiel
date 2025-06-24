@@ -89,7 +89,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
         btnPedidos.setBackground(new java.awt.Color(239, 228, 210));
         btnPedidos.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 45)); // NOI18N
         btnPedidos.setForeground(new java.awt.Color(137, 6, 6));
-        btnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Pedidos.png"))); // NOI18N
+        btnPedidos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_DetallePedido.png"))); // NOI18N
         btnPedidos.setBorder(null);
         btnPedidos.setBorderPainted(false);
         btnPedidos.setContentAreaFilled(false);
@@ -104,7 +104,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
         btnRegistrarPedido.setBackground(new java.awt.Color(239, 228, 210));
         btnRegistrarPedido.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 45)); // NOI18N
         btnRegistrarPedido.setForeground(new java.awt.Color(137, 6, 6));
-        btnRegistrarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_DetallePedido.png"))); // NOI18N
+        btnRegistrarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/IB_Pedidos.png"))); // NOI18N
         btnRegistrarPedido.setBorder(null);
         btnRegistrarPedido.setBorderPainted(false);
         btnRegistrarPedido.setContentAreaFilled(false);
@@ -162,7 +162,7 @@ public class OpcionesPedido extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(89, 89, 89)
                 .addComponent(btnRegistrarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 348, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(238, 238, 238)
+                .addGap(235, 235, 235)
                 .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 342, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -183,11 +183,11 @@ public class OpcionesPedido extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(116, 116, 116)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(128, 128, 128)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnRegistrarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnPedidos, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(178, Short.MAX_VALUE))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
