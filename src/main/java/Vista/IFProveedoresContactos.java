@@ -1,38 +1,40 @@
 package Vista;
 
-import Modelo.Proveedor;
 import Controlador.ControladoraGeneral;
 import Extras.Mensajes;
 import Modelo.ContactoCargo;
 import Modelo.ContactoProveedor;
+import Modelo.Proveedor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
-
 import java.util.List;
+import javax.swing.JDesktopPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class ProveedoresContactos extends javax.swing.JFrame {
-    
+public class IFProveedoresContactos extends javax.swing.JInternalFrame {
+
     private final ControladoraGeneral control;
     private ContactoProveedor contacto;
     private List<ContactoProveedor> contactos;
     private ContactoProveedor contactoEnEdicion = null;
     private final Proveedor prov;
-    
-    public ProveedoresContactos(Proveedor proveedor) {
+    private final JDesktopPane pantalla;
+
+    public IFProveedoresContactos(JDesktopPane desktopPane, Proveedor proveedor) {
         this.prov = proveedor;
         initComponents();
         control = new ControladoraGeneral();
         cargarCargos();
         cargarContactos(proveedor);
+        this.pantalla=desktopPane;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,25 +64,6 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         btnGuardarContacto = new javax.swing.JButton();
         btnEditarContacto = new javax.swing.JButton();
         btnEliminarContacto = new javax.swing.JButton();
-        MenuBar3 = new javax.swing.JMenuBar();
-        menuArchivo3 = new javax.swing.JMenu();
-        itemCerrar3 = new javax.swing.JMenuItem();
-        jSeparator7 = new javax.swing.JPopupMenu.Separator();
-        itemSalir = new javax.swing.JMenuItem();
-        menuGestion = new javax.swing.JMenu();
-        itemProductos = new javax.swing.JMenuItem();
-        itemProveedores = new javax.swing.JMenuItem();
-        itemCategorias = new javax.swing.JMenuItem();
-        itemUsuarios = new javax.swing.JMenuItem();
-        menuInventario = new javax.swing.JMenu();
-        itemLotes = new javax.swing.JMenuItem();
-        itemFiltro = new javax.swing.JMenuItem();
-        menuLogistica = new javax.swing.JMenu();
-        itemRegistrarPedido = new javax.swing.JMenuItem();
-        itemVerPedidos = new javax.swing.JMenuItem();
-        itemSalidas = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
         jPanel1.setPreferredSize(new java.awt.Dimension(1046, 710));
@@ -267,24 +250,25 @@ public class ProveedoresContactos extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(113, 113, 113)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(134, 134, 134)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(254, 254, 254)
+                        .addGap(6, 6, 6)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 537, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(254, 254, 254)
                         .addComponent(jLabel2)
-                        .addGap(12, 12, 12)
+                        .addGap(34, 34, 34)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(116, 116, 116))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(115, Short.MAX_VALUE)
                 .addComponent(panelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(207, 207, 207))
         );
@@ -298,7 +282,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(53, 53, 53)
                                 .addComponent(jLabel1))
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(10, 10, 10)
                                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -313,266 +297,45 @@ public class ProveedoresContactos extends javax.swing.JFrame {
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(panelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        MenuBar3.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-
-        menuArchivo3.setText("Archivo");
-        menuArchivo3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemCerrar3.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCerrar3.setText("Cerrar Sesión");
-        itemCerrar3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCerrar3ActionPerformed(evt);
-            }
-        });
-        menuArchivo3.add(itemCerrar3);
-        menuArchivo3.add(jSeparator7);
-
-        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSalir.setText("Salir");
-        itemSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSalirActionPerformed(evt);
-            }
-        });
-        menuArchivo3.add(itemSalir);
-
-        MenuBar3.add(menuArchivo3);
-
-        menuGestion.setText("Gestión");
-        menuGestion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemProductos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemProductos.setText("Productos");
-        itemProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemProductosActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemProductos);
-
-        itemProveedores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemProveedores.setText("Proveedores");
-        itemProveedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemProveedoresActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemProveedores);
-
-        itemCategorias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCategorias.setText("Categorías");
-        itemCategorias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCategoriasActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemCategorias);
-
-        itemUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemUsuarios.setText("Usuarios");
-        itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemUsuariosActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemUsuarios);
-
-        MenuBar3.add(menuGestion);
-
-        menuInventario.setText("Inventario");
-        menuInventario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemLotes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemLotes.setText("Lotes");
-        itemLotes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemLotesActionPerformed(evt);
-            }
-        });
-        menuInventario.add(itemLotes);
-
-        itemFiltro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemFiltro.setText("Filtro de Productos");
-        itemFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemFiltroActionPerformed(evt);
-            }
-        });
-        menuInventario.add(itemFiltro);
-
-        MenuBar3.add(menuInventario);
-
-        menuLogistica.setText("Logística");
-        menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemRegistrarPedido.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemRegistrarPedido.setText("Registrar Pedido");
-        itemRegistrarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRegistrarPedidoActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemRegistrarPedido);
-
-        itemVerPedidos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemVerPedidos.setText("Ver Pedidos");
-        itemVerPedidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemVerPedidosActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemVerPedidos);
-
-        itemSalidas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSalidas.setText("Salidas");
-        itemSalidas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSalidasActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemSalidas);
-
-        MenuBar3.add(menuLogistica);
-
-        setJMenuBar(MenuBar3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 1362, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1261, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 688, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void itemCerrar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrar3ActionPerformed
-        boolean conf = Mensajes.confirmar("¿Desea cerrar sesión?");
-        if (conf) {
-            Login lo = new Login();
-            lo.setVisible(true);
-            this.dispose();
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        IFProveedores provee=new IFProveedores(pantalla);
+        pantalla.add(provee);
+        provee.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnCopiarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiarContactoActionPerformed
+        String correo = txtCorreoContacto.getText().trim();
+
+        if (correo.isEmpty()) {
+            Extras.Mensajes.mostrarMensaje("El campo de correo está vacío", "error");
+            return;
         }
-    }//GEN-LAST:event_itemCerrar3ActionPerformed
 
-    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-        boolean conf = Mensajes.confirmar("¿Desea cerrar la ventana completa?");
-        if (conf) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_itemSalirActionPerformed
+        // Copiar al portapapeles
+        StringSelection seleccion = new StringSelection(correo);
+        Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
+        portapapeles.setContents(seleccion, null);
 
-    private void itemProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductosActionPerformed
-        Productos prod = new Productos();
-        prod.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemProductosActionPerformed
-
-    private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
-        Proveedores provIGU = new Proveedores();
-        provIGU.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemProveedoresActionPerformed
-
-    private void itemCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriasActionPerformed
-        Categorias cat = new Categorias();
-        cat.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemCategoriasActionPerformed
-
-    private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        Usuario us = new Usuario();
-        us.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemUsuariosActionPerformed
-
-    private void itemLotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLotesActionPerformed
-        Lotes lot = new Lotes();
-        lot.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemLotesActionPerformed
-
-    private void itemFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFiltroActionPerformed
-        ProductoProveedor PP = new ProductoProveedor();
-        PP.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemFiltroActionPerformed
-
-    private void itemRegistrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarPedidoActionPerformed
-        RegistrarPedido reg = new RegistrarPedido();
-        reg.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemRegistrarPedidoActionPerformed
-
-    private void itemVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerPedidosActionPerformed
-        Pedidos ped = new Pedidos();
-        ped.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemVerPedidosActionPerformed
-
-    private void itemSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalidasActionPerformed
-        SalidasLote SL = new SalidasLote();
-        SL.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemSalidasActionPerformed
-
-    private void btnEliminarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContactoActionPerformed
-        if (tblContactos.getRowCount() > 0) {
-            int filaSelect = tblContactos.getSelectedRow();
-            //Asegurar selección
-            if (filaSelect != -1) {
-                contactos = control.getControlContactoProveedor().leerPorProveedor(prov);
-                ContactoProveedor contSelect = contactos.get(filaSelect);
-                boolean conf = Extras.Mensajes.confirmar("¿Desea eliminar este elemento?");
-                if (conf) {
-                    control.getControlContactoProveedor().eliminar(contSelect.getIdContacto());
-                    contactos.remove(filaSelect);
-                    cargarContactos(prov);
-                }
-            } else {
-                Extras.Mensajes.mostrarMensaje("Seleccione la fila a eliminar", "advertencia");
-            }
-        }
-    }//GEN-LAST:event_btnEliminarContactoActionPerformed
-
-    private void btnEditarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarContactoActionPerformed
-        if (contactoEnEdicion != null) {
-            finalizarEdicion();
-            Mensajes.mostrarMensaje("Edición cancelada", "informacion");
-        } else {
-            if (tblContactos.getRowCount() > 0) {
-                int filaSelect = tblContactos.getSelectedRow();
-                if (filaSelect != -1) {
-                    // Marcar que estamos en modo edición
-                    contactos = control.getControlContactoProveedor().leerPorProveedor(prov);
-                    contactoEnEdicion = contactos.get(filaSelect);
-                    // Cargar datos en los campos
-                    txtNombreContacto.setText(contactoEnEdicion.getNombre());
-                    txtApellidoContacto.setText(contactoEnEdicion.getApellido());
-                    txtTelefonoContacto.setText(contactoEnEdicion.getTelefono());
-                    txtCorreoContacto.setText(contactoEnEdicion.getCorreo());
-                    cmbCargos.setSelectedItem(contactoEnEdicion.getCargo().name());
-                    // Cambiar el texto del botón para indicar que estamos editando
-                    btnGuardarContacto.setText("Actualizar");
-                    btnEditarContacto.setText("Cancelar");
-                    btnCopiarContacto.setEnabled(true);
-                    Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar'", "informacion");
-                } else {
-                    Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
-                }
-            }
-        }
-    }//GEN-LAST:event_btnEditarContactoActionPerformed
+        Extras.Mensajes.mostrarMensaje("Correo copiado al portapapeles", "informacion");
+    }//GEN-LAST:event_btnCopiarContactoActionPerformed
 
     private void btnGuardarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarContactoActionPerformed
         //leer datos
@@ -583,7 +346,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         ContactoCargo cargo = ContactoCargo.valueOf((String) cmbCargos.getSelectedItem());
         //validar datos
         StringBuilder errores = new StringBuilder();
-        
+
         if (nombre.isEmpty() || apellido.isEmpty()) {
             errores.append("- Nombre y apellido son obligatorios.\n");
         }
@@ -593,7 +356,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         if (correo.isEmpty()) {
             errores.append("- Un correo es obligatorio.\n");
         }
-        
+
         if (errores.length() > 0) {
             Mensajes.mostrarMensaje(errores.toString(), "error");
             return;
@@ -647,47 +410,62 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnGuardarContactoActionPerformed
 
-    private void btnCopiarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCopiarContactoActionPerformed
-        String correo = txtCorreoContacto.getText().trim();
-        
-        if (correo.isEmpty()) {
-            Extras.Mensajes.mostrarMensaje("El campo de correo está vacío", "error");
-            return;
+    private void btnEditarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarContactoActionPerformed
+        if (contactoEnEdicion != null) {
+            finalizarEdicion();
+            Mensajes.mostrarMensaje("Edición cancelada", "informacion");
+        } else {
+            if (tblContactos.getRowCount() > 0) {
+                int filaSelect = tblContactos.getSelectedRow();
+                if (filaSelect != -1) {
+                    // Marcar que estamos en modo edición
+                    contactos = control.getControlContactoProveedor().leerPorProveedor(prov);
+                    contactoEnEdicion = contactos.get(filaSelect);
+                    // Cargar datos en los campos
+                    txtNombreContacto.setText(contactoEnEdicion.getNombre());
+                    txtApellidoContacto.setText(contactoEnEdicion.getApellido());
+                    txtTelefonoContacto.setText(contactoEnEdicion.getTelefono());
+                    txtCorreoContacto.setText(contactoEnEdicion.getCorreo());
+                    cmbCargos.setSelectedItem(contactoEnEdicion.getCargo().name());
+                    // Cambiar el texto del botón para indicar que estamos editando
+                    btnGuardarContacto.setText("Actualizar");
+                    btnEditarContacto.setText("Cancelar");
+                    btnCopiarContacto.setEnabled(true);
+                    Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar'", "informacion");
+                } else {
+                    Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
+                }
+            }
         }
+    }//GEN-LAST:event_btnEditarContactoActionPerformed
 
-        // Copiar al portapapeles
-        StringSelection seleccion = new StringSelection(correo);
-        Clipboard portapapeles = Toolkit.getDefaultToolkit().getSystemClipboard();
-        portapapeles.setContents(seleccion, null);
-        
-        Extras.Mensajes.mostrarMensaje("Correo copiado al portapapeles", "informacion");
-    }//GEN-LAST:event_btnCopiarContactoActionPerformed
+    private void btnEliminarContactoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarContactoActionPerformed
+        if (tblContactos.getRowCount() > 0) {
+            int filaSelect = tblContactos.getSelectedRow();
+            //Asegurar selección
+            if (filaSelect != -1) {
+                contactos = control.getControlContactoProveedor().leerPorProveedor(prov);
+                ContactoProveedor contSelect = contactos.get(filaSelect);
+                boolean conf = Extras.Mensajes.confirmar("¿Desea eliminar este elemento?");
+                if (conf) {
+                    control.getControlContactoProveedor().eliminar(contSelect.getIdContacto());
+                    contactos.remove(filaSelect);
+                    cargarContactos(prov);
+                }
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione la fila a eliminar", "advertencia");
+            }
+        }
+    }//GEN-LAST:event_btnEliminarContactoActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        Proveedores madmin = new Proveedores();
-        madmin.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar MenuBar3;
     private javax.swing.JButton btnCopiarContacto;
     private javax.swing.JButton btnEditarContacto;
     private javax.swing.JButton btnEliminarContacto;
     private javax.swing.JButton btnGuardarContacto;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox<String> cmbCargos;
-    private javax.swing.JMenuItem itemCategorias;
-    private javax.swing.JMenuItem itemCerrar3;
-    private javax.swing.JMenuItem itemFiltro;
-    private javax.swing.JMenuItem itemLotes;
-    private javax.swing.JMenuItem itemProductos;
-    private javax.swing.JMenuItem itemProveedores;
-    private javax.swing.JMenuItem itemRegistrarPedido;
-    private javax.swing.JMenuItem itemSalidas;
-    private javax.swing.JMenuItem itemSalir;
-    private javax.swing.JMenuItem itemUsuarios;
-    private javax.swing.JMenuItem itemVerPedidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
@@ -701,11 +479,6 @@ public class ProveedoresContactos extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JPopupMenu.Separator jSeparator7;
-    private javax.swing.JMenu menuArchivo3;
-    private javax.swing.JMenu menuGestion;
-    private javax.swing.JMenu menuInventario;
-    private javax.swing.JMenu menuLogistica;
     private javax.swing.JPanel panelContacto;
     private javax.swing.JTable tblContactos;
     private javax.swing.JTextField txtApellidoContacto;
@@ -713,14 +486,13 @@ public class ProveedoresContactos extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombreContacto;
     private javax.swing.JTextField txtTelefonoContacto;
     // End of variables declaration//GEN-END:variables
-
-    private void cargarCargos() {
+private void cargarCargos() {
         cmbCargos.removeAllItems();
         for (ContactoCargo cargo : ContactoCargo.values()) {
             cmbCargos.addItem(cargo.name());
         }
     }
-    
+
     private void cargarContactos(Proveedor proveedor) {
         // Inicializa el modelo de la tabla y establece las columnas
         DefaultTableModel modeloTabla = new DefaultTableModel() {
@@ -729,11 +501,11 @@ public class ProveedoresContactos extends javax.swing.JFrame {
                 return false;
             }
         };
-        
+
         String[] titulos = {"Nombre", "Cargo", "Telefono", "Correo"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
-        
+
         contactos = control.getControlContactoProveedor().leerPorProveedor(proveedor);
 
         // Itera sobre los detalles y los agrega a la tabla
@@ -746,7 +518,7 @@ public class ProveedoresContactos extends javax.swing.JFrame {
             };
             modeloTabla.addRow(obj);
         }
-        
+
         tblContactos.setModel(modeloTabla);
 
         // Centra el texto en todas las celdas
@@ -763,11 +535,11 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
-    
+
     private String cargarNombre(ContactoProveedor contacto) {
         return contacto.getNombre() + " " + contacto.getApellido();
     }
-    
+
     private void limpiar() {
         txtApellidoContacto.setText("");
         txtNombreContacto.setText("");
@@ -775,12 +547,12 @@ public class ProveedoresContactos extends javax.swing.JFrame {
         txtCorreoContacto.setText("");
         cargarCargos();
     }
-    
+
     private void finalizarEdicion() {
         btnGuardarContacto.setText("Guardar");
         btnEditarContacto.setText("Editar");
         btnCopiarContacto.setEnabled(false);
         limpiar();
-        contactoEnEdicion=null;
+        contactoEnEdicion = null;
     }
 }
