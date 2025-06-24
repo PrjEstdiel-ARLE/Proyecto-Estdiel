@@ -1,21 +1,19 @@
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
  */
 package Vista;
 
-import Extras.Mensajes;
-
 /**
  *
- * @author Richard
+ * @author andre
  */
-public class ProductosEmpleado extends javax.swing.JFrame {
+public class IFProductosEmpleado extends javax.swing.JInternalFrame {
 
     /**
-     * Creates new form ProductosEmpleado
+     * Creates new form IFProductosEmpleado
      */
-    public ProductosEmpleado() {
+    public IFProductosEmpleado() {
         initComponents();
     }
 
@@ -54,17 +52,6 @@ public class ProductosEmpleado extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        jMenuBar1 = new javax.swing.JMenuBar();
-        menuArchivo = new javax.swing.JMenu();
-        itemCerrar = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        itemSalir = new javax.swing.JMenuItem();
-        menuLogistica = new javax.swing.JMenu();
-        itemProducts = new javax.swing.JMenuItem();
-        menuSalidas = new javax.swing.JMenu();
-        itemSolicitarSalida = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -213,7 +200,7 @@ public class ProductosEmpleado extends javax.swing.JFrame {
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 69, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,60 +289,6 @@ public class ProductosEmpleado extends javax.swing.JFrame {
                         .addGap(29, 29, 29))))
         );
 
-        menuArchivo.setText("Archivo");
-        menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCerrar.setText("Cerrar Sesión");
-        itemCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCerrarActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(itemCerrar);
-        menuArchivo.add(jSeparator5);
-
-        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSalir.setText("Salir");
-        itemSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSalirActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(itemSalir);
-
-        jMenuBar1.add(menuArchivo);
-
-        menuLogistica.setText("Logística");
-        menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemProducts.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemProducts.setText("Productos");
-        itemProducts.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemProductsActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemProducts);
-
-        jMenuBar1.add(menuLogistica);
-
-        menuSalidas.setText("Salidas");
-        menuSalidas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemSolicitarSalida.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSolicitarSalida.setText("Solicitar Salida");
-        itemSolicitarSalida.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSolicitarSalidaActionPerformed(evt);
-            }
-        });
-        menuSalidas.add(itemSolicitarSalida);
-
-        jMenuBar1.add(menuSalidas);
-
-        setJMenuBar(jMenuBar1);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -369,6 +302,10 @@ public class ProductosEmpleado extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
@@ -386,83 +323,11 @@ public class ProductosEmpleado extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
-    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        Logistica logis=new Logistica();
-        logis.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void itemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrarActionPerformed
-        boolean conf = Mensajes.confirmar("¿Desea cerrar sesión?");
-        if (conf) {
-            Login lo = new Login();
-            lo.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_itemCerrarActionPerformed
-
-    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-        boolean conf = Mensajes.confirmar("¿Desea cerrar la ventana completa?");
-        if (conf) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_itemSalirActionPerformed
-
-    private void itemProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductsActionPerformed
-        ProductosEmpleado pEm = new ProductosEmpleado();
-        pEm.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemProductsActionPerformed
-
-    private void itemSolicitarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSolicitarSalidaActionPerformed
-        SolicitarSalida SS = new SolicitarSalida();
-        SS.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemSolicitarSalidaActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(ProductosEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(ProductosEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(ProductosEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(ProductosEmpleado.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new ProductosEmpleado().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSolicitar;
-    private javax.swing.JMenuItem itemCerrar;
-    private javax.swing.JMenuItem itemProducts;
-    private javax.swing.JMenuItem itemSalir;
-    private javax.swing.JMenuItem itemSolicitarSalida;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -473,17 +338,12 @@ public class ProductosEmpleado extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JTable jTable1;
-    private javax.swing.JMenu menuArchivo;
-    private javax.swing.JMenu menuLogistica;
-    private javax.swing.JMenu menuSalidas;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtCodigo;

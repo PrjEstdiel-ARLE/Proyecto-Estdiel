@@ -1,30 +1,22 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
 
 import Controlador.ControladoraGeneral;
-import Extras.Cadenas;
-import Extras.Mensajes;
 import Modelo.Categoria;
-import Modelo.DetallePedido;
 import Modelo.Producto;
 import Modelo.Proveedor;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.util.Date;
+import java.beans.PropertyVetoException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDesktopPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-/**
- *
- * @author arnol richard
- */
-public class Productos extends javax.swing.JFrame {
+public class IFProductos extends javax.swing.JInternalFrame {
 
     private final ControladoraGeneral control;
     private List<Categoria> categorias;
@@ -32,8 +24,9 @@ public class Productos extends javax.swing.JFrame {
     private List<Producto> productos;
     private Producto producto;
     private Producto productoEnEdicion = null;
+    private final JDesktopPane pantalla;
 
-    public Productos() {
+    public IFProductos(JDesktopPane desktopPane) {
         initComponents();
         control = new ControladoraGeneral();
         this.categorias = control.getControlCategoria().leerTodo();
@@ -42,6 +35,7 @@ public class Productos extends javax.swing.JFrame {
         cargarCategoria();
         cargarProveedores();
         cargarProductos(control.getControlProducto().leerTodo());
+        this.pantalla = desktopPane;
     }
 
     /**
@@ -80,25 +74,6 @@ public class Productos extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnAgregarCat = new javax.swing.JButton();
-        MenuBar = new javax.swing.JMenuBar();
-        menuArchivo = new javax.swing.JMenu();
-        itemCerrar = new javax.swing.JMenuItem();
-        jSeparator5 = new javax.swing.JPopupMenu.Separator();
-        itemSalir = new javax.swing.JMenuItem();
-        menuGestion = new javax.swing.JMenu();
-        itemProductos = new javax.swing.JMenuItem();
-        itemProveedores = new javax.swing.JMenuItem();
-        itemCategorias = new javax.swing.JMenuItem();
-        itemUsuarios = new javax.swing.JMenuItem();
-        menuInventario = new javax.swing.JMenu();
-        itemLotes = new javax.swing.JMenuItem();
-        itemFiltro = new javax.swing.JMenuItem();
-        menuLogistica = new javax.swing.JMenu();
-        itemRegistrarPedido = new javax.swing.JMenuItem();
-        itemVerPedidos = new javax.swing.JMenuItem();
-        itemSalidas = new javax.swing.JMenuItem();
-
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -379,130 +354,6 @@ public class Productos extends javax.swing.JFrame {
                 .addGap(17, 17, 17))
         );
 
-        MenuBar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
-
-        menuArchivo.setText("Archivo");
-        menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCerrar.setText("Cerrar Sesión");
-        itemCerrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCerrarActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(itemCerrar);
-        menuArchivo.add(jSeparator5);
-
-        itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSalir.setText("Salir");
-        itemSalir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSalirActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(itemSalir);
-
-        MenuBar.add(menuArchivo);
-
-        menuGestion.setText("Gestión");
-        menuGestion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemProductos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemProductos.setText("Productos");
-        itemProductos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemProductosActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemProductos);
-
-        itemProveedores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemProveedores.setText("Proveedores");
-        itemProveedores.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemProveedoresActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemProveedores);
-
-        itemCategorias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCategorias.setText("Categorías");
-        itemCategorias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCategoriasActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemCategorias);
-
-        itemUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemUsuarios.setText("Usuarios");
-        itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemUsuariosActionPerformed(evt);
-            }
-        });
-        menuGestion.add(itemUsuarios);
-
-        MenuBar.add(menuGestion);
-
-        menuInventario.setText("Inventario");
-        menuInventario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemLotes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemLotes.setText("Lotes");
-        itemLotes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemLotesActionPerformed(evt);
-            }
-        });
-        menuInventario.add(itemLotes);
-
-        itemFiltro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemFiltro.setText("Filtro de Productos");
-        itemFiltro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemFiltroActionPerformed(evt);
-            }
-        });
-        menuInventario.add(itemFiltro);
-
-        MenuBar.add(menuInventario);
-
-        menuLogistica.setText("Logística");
-        menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        itemRegistrarPedido.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemRegistrarPedido.setText("Registrar Pedido");
-        itemRegistrarPedido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemRegistrarPedidoActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemRegistrarPedido);
-
-        itemVerPedidos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemVerPedidos.setText("Ver Pedidos");
-        itemVerPedidos.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemVerPedidosActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemVerPedidos);
-
-        itemSalidas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSalidas.setText("Salidas");
-        itemSalidas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemSalidasActionPerformed(evt);
-            }
-        });
-        menuLogistica.add(itemSalidas);
-
-        MenuBar.add(menuLogistica);
-
-        setJMenuBar(MenuBar);
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -518,8 +369,6 @@ public class Productos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        MenuAdministrador madmin = new MenuAdministrador();
-        madmin.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -538,12 +387,6 @@ public class Productos extends javax.swing.JFrame {
     private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPrecioActionPerformed
-
-    private void btnAgregarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCatActionPerformed
-        Categorias cat = new Categorias();
-        cat.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAgregarCatActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
@@ -588,7 +431,7 @@ public class Productos extends javax.swing.JFrame {
             List<Producto> produc = control.getControlProducto().leerTodo();
             produc.add(newproductos);
 
-            //guardar 
+            //guardar
             control.getControlProducto().crearProducto(newproductos);
             cargarProductos(control.getControlProducto().leerTodo());
 
@@ -649,114 +492,15 @@ public class Productos extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
-    private void itemCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCerrarActionPerformed
-        boolean conf = Mensajes.confirmar("¿Desea cerrar sesión?");
-        if (conf) {
-            Login lo = new Login();
-            lo.setVisible(true);
-            this.dispose();
-        }
-    }//GEN-LAST:event_itemCerrarActionPerformed
-
-    private void itemSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalirActionPerformed
-        boolean conf = Mensajes.confirmar("¿Desea cerrar la ventana completa?");
-        if (conf) {
-            this.dispose();
-        }
-    }//GEN-LAST:event_itemSalirActionPerformed
-
-    private void itemProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductosActionPerformed
-        Productos prod = new Productos();
-        prod.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemProductosActionPerformed
-
-    private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
-        Proveedores prov = new Proveedores();
-        prov.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemProveedoresActionPerformed
-
-    private void itemCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriasActionPerformed
-        Categorias cat = new Categorias();
+    private void btnAgregarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCatActionPerformed
+        IFCategorias cat = new IFCategorias(pantalla);
+        pantalla.add(cat);
         cat.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_itemCategoriasActionPerformed
+    }//GEN-LAST:event_btnAgregarCatActionPerformed
 
-    private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        Usuario us = new Usuario();
-        us.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemUsuariosActionPerformed
-
-    private void itemLotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemLotesActionPerformed
-        Lotes lot = new Lotes();
-        lot.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemLotesActionPerformed
-
-    private void itemFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemFiltroActionPerformed
-        ProductoProveedor PP = new ProductoProveedor();
-        PP.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemFiltroActionPerformed
-
-    private void itemRegistrarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemRegistrarPedidoActionPerformed
-        RegistrarPedido reg = new RegistrarPedido();
-        reg.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemRegistrarPedidoActionPerformed
-
-    private void itemVerPedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemVerPedidosActionPerformed
-        Pedidos ped = new Pedidos();
-        ped.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemVerPedidosActionPerformed
-
-    private void itemSalidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalidasActionPerformed
-        SalidasLote SL = new SalidasLote();
-        SL.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_itemSalidasActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Productos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Productos().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuBar MenuBar;
     private javax.swing.JButton btnAgregarCat;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
@@ -764,17 +508,6 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     public javax.swing.JComboBox<String> cbxCategoria;
     public javax.swing.JComboBox<String> cbxProveedor;
-    private javax.swing.JMenuItem itemCategorias;
-    private javax.swing.JMenuItem itemCerrar;
-    private javax.swing.JMenuItem itemFiltro;
-    private javax.swing.JMenuItem itemLotes;
-    private javax.swing.JMenuItem itemProductos;
-    private javax.swing.JMenuItem itemProveedores;
-    private javax.swing.JMenuItem itemRegistrarPedido;
-    private javax.swing.JMenuItem itemSalidas;
-    private javax.swing.JMenuItem itemSalir;
-    private javax.swing.JMenuItem itemUsuarios;
-    private javax.swing.JMenuItem itemVerPedidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel13;
@@ -791,16 +524,12 @@ public class Productos extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JPopupMenu.Separator jSeparator5;
-    private javax.swing.JMenu menuArchivo;
-    private javax.swing.JMenu menuGestion;
-    private javax.swing.JMenu menuInventario;
-    private javax.swing.JMenu menuLogistica;
     public javax.swing.JTable tblProductos;
     public javax.swing.JTextArea txtDescripcion;
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+
     private void cargarCategoria() {
         cbxCategoria.removeAllItems();
         for (Categoria categoria : categorias) {
