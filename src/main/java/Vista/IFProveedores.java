@@ -521,7 +521,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                     btnWeb.setEnabled(true);
                     btnCopiarProv.setEnabled(true);
                     txtBuscar.setEnabled(false);
-                    btnGuardar.setEnabled(false);
+                    btnBuscar.setEnabled(false);
                     Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar'", "informacion");
                 } else {
                     Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
