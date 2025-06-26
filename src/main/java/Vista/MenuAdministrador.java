@@ -271,7 +271,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemProveedoresActionPerformed
 
     private void itemCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriasActionPerformed
-        IFCategorias cat=new IFCategorias(pantalla);
+        IFCategorias cat=new IFCategorias(pantalla,true);
         cargarIF(cat);
     }//GEN-LAST:event_itemCategoriasActionPerformed
 
