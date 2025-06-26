@@ -1,8 +1,10 @@
 package Vista;
 
 import Controlador.ControladoraGeneral;
+import Extras.Mensajes;
 import Modelo.Categoria;
 import Modelo.Producto;
+import Modelo.ProductoPresentacionProducto;
 import Modelo.Proveedor;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -302,7 +304,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                         .addGap(81, 81, 81)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1053, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1198, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,7 +321,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -493,7 +495,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarCatActionPerformed
-        IFCategorias cat = new IFCategorias(pantalla);
+        IFCategorias cat = new IFCategorias(pantalla, false);
         pantalla.add(cat);
         cat.setVisible(true);
         this.dispose();
@@ -552,7 +554,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Categoria", "Nombre", "Proveedor", "Precio", "Descripcion", "Codigo", "Cantidad"};
+        String[] titulos = {"Categoria", "Nombre", "Proveedor", "Precio", "Descripcion Producto", "Codigo", "Cantidad"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -561,9 +563,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
             Object[] obj = {
                 produc.getCategoria().getNombre(),
                 produc.getNombre(),
-                produc.getProveedor().getNombre(),
+                validarProveedor(produc),
                 Extras.Cadenas.formatoSoles(produc.getPrecioCompra(), true),
-                //produc.getDecripcion(),
+                descripcionProducto(produc),
                 produc.getCodigo(),
                 produc.getCantidadLotes()};
             modeloTabla.addRow(obj);
@@ -604,5 +606,24 @@ public class IFProductos extends javax.swing.JInternalFrame {
         cbxCategoria.setEnabled(true);
         cbxProveedor.setEnabled(true);
 
+    }
+
+    private Object validarProveedor(Producto produc) {
+        Proveedor provProd = produc.getProveedor();
+        if (provProd == null) {
+            return "Proveedor Eliminado";
+        } else {
+            return provProd.getNombre();
+        }
+    }
+
+    private Object descripcionProducto(Producto produc) {
+        StringBuilder mensaje = new StringBuilder();
+        if(produc.getPresentacionProducto()==ProductoPresentacionProducto.UNIDAD){
+            mensaje.append(produc.getPresentacionProducto());
+        }else{
+            mensaje.append(produc.getPresentacionProducto()).append(" de ").append(produc.getCantidadPresentacionProducto()).append(" unidades");
+        }
+        return mensaje.toString();
     }
 }

@@ -8,10 +8,12 @@ import Modelo.EstadoPedido;
 import Modelo.Lote;
 import Modelo.Pedido;
 import Modelo.Producto;
+import Modelo.Proveedor;
 import com.toedter.calendar.JDateChooser;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 import javax.swing.JDesktopPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -42,8 +45,10 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         formatoControl.setTimeZone(TimeZone.getTimeZone("UTC"));
         control = new ControladoraGeneral();
         cargarEstados();
-        cargarTablaPedidos(control.getControlPedido().leerTodo());
-        this.pantalla=desktopPane;
+        this.pedidos = control.getControlPedido().leerTodo();
+        cargarTablaPedidos(pedidos);
+        this.pantalla = desktopPane;
+        cargarFiltros();
     }
 
     @SuppressWarnings("unchecked")
@@ -54,8 +59,18 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jLayeredPane9 = new javax.swing.JLayeredPane();
         btnVolver1 = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
-        jLabel1 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        btnFiltrar = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        fechaDesde = new com.toedter.calendar.JDateChooser();
+        fechaHasta = new com.toedter.calendar.JDateChooser();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        cmbProveedores = new javax.swing.JComboBox<>();
+        jPanel5 = new javax.swing.JPanel();
+        cmbEstadosFiltro = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new javax.swing.JTable();
         jLayeredPane2 = new javax.swing.JLayeredPane();
@@ -112,41 +127,180 @@ public class IFPedidos extends javax.swing.JInternalFrame {
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setBackground(new java.awt.Color(137, 6, 6));
-        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(137, 6, 6));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Detalle Pedido");
-
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo.png"))); // NOI18N
 
-        jLayeredPane1.setLayer(jLabel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jPanel1.setBackground(new java.awt.Color(239, 228, 210));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+
+        btnFiltrar.setBackground(new java.awt.Color(30, 58, 81));
+        btnFiltrar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        btnFiltrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnFiltrar.setText("Filtrar");
+        btnFiltrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnFiltrar.setPreferredSize(new java.awt.Dimension(140, 50));
+        btnFiltrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFiltrarActionPerformed(evt);
+            }
+        });
+
+        jPanel3.setBackground(new java.awt.Color(239, 228, 210));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Fecha Estimada de Llegada", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+
+        fechaDesde.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 14)); // NOI18N
+
+        fechaHasta.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 14)); // NOI18N
+
+        jLabel10.setBackground(new java.awt.Color(137, 6, 6));
+        jLabel10.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(137, 6, 6));
+        jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel10.setText("Hasta:");
+
+        jLabel11.setBackground(new java.awt.Color(137, 6, 6));
+        jLabel11.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(137, 6, 6));
+        jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel11.setText("Desde:");
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(49, 49, 49)
+                        .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(82, 82, 82)
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(8, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fechaHasta, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(fechaDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        jPanel4.setBackground(new java.awt.Color(239, 228, 210));
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Proveedores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+
+        cmbProveedores.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        cmbProveedores.setForeground(new java.awt.Color(0, 0, 0));
+        cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbProveedores, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbProveedores, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel5.setBackground(new java.awt.Color(239, 228, 210));
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Estados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+
+        cmbEstadosFiltro.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
+        cmbEstadosFiltro.setForeground(new java.awt.Color(0, 0, 0));
+        cmbEstadosFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(cmbEstadosFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(cmbEstadosFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(107, 107, 107)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnFiltrar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
         jLayeredPane1.setLayer(jLabel8, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(43, 43, 43)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jLabel8)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel8))
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 34, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(271, 6, -1, 206));
+        jPanel2.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 26, 910, 260));
 
         tblPedidos.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         tblPedidos.setModel(new javax.swing.table.DefaultTableModel(
@@ -163,7 +317,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         tblPedidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblPedidos);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 241, 1290, 256));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 1290, 256));
 
         jLabel2.setBackground(new java.awt.Color(137, 6, 6));
         jLabel2.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -199,7 +353,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 531, -1, -1));
+        jPanel2.add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 560, -1, -1));
 
         jLabel7.setBackground(new java.awt.Color(137, 6, 6));
         jLabel7.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -234,7 +388,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(934, 531, -1, -1));
+        jPanel2.add(jLayeredPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 560, -1, -1));
 
         btnGuardarCambios.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarCambios.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -248,7 +402,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnGuardarCambiosActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGuardarCambios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 620, 247, 54));
+        jPanel2.add(btnGuardarCambios, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 630, 247, 54));
 
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -268,7 +422,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(172, 625, 247, 54));
+        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 640, 247, 54));
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -281,7 +435,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(599, 627, 247, -1));
+        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 640, 247, -1));
 
         jLayeredPane10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
@@ -294,18 +448,19 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jLayeredPane10Layout.setHorizontalGroup(
             jLayeredPane10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel9))
+                .addContainerGap()
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jLayeredPane10Layout.setVerticalGroup(
             jLayeredPane10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane10Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jLayeredPane10Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel9)
-                .addGap(17, 17, 17))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 36, -1, -1));
+        jPanel2.add(jLayeredPane10, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 36, -1, 180));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1388, 720));
 
@@ -367,7 +522,6 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                     pedidoEnEdicion.setFechaEstimadoLlegada(new Date());
                     control.getControlPedido().actualizar(pedidoEnEdicion);
                     Mensajes.mostrarMensaje("Actualización exitosa\nLotes generados exitosamente", "informacion");
-                    finalizarEdicion();
                     cargarTablaPedidos(control.getControlPedido().leerTodo());
                 }
             } else {
@@ -375,9 +529,10 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 pedidoEnEdicion.setFechaEstimadoLlegada(fechaLlegadaEstimada);
                 control.getControlPedido().actualizar(pedidoEnEdicion);
                 Mensajes.mostrarMensaje("Actualización exitosa", "informacion");
-                finalizarEdicion();
                 cargarTablaPedidos(control.getControlPedido().leerTodo());
             }
+            finalizarEdicion();
+            enEdicion(false);
         }
     }//GEN-LAST:event_btnGuardarCambiosActionPerformed
 
@@ -396,6 +551,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (pedidoEnEdicion != null) {
             finalizarEdicion();
+            enEdicion(false);
             Extras.Mensajes.mostrarMensaje("Edición Cancelada", "informacion");
         } else {
             if (tblPedidos.getRowCount() > 0) {
@@ -418,6 +574,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                     // Cambiar el texto del botón para indicar que estamos editando
                     btnGuardarCambios.setEnabled(true);
                     btnEditar.setText("Cancelar Edición");
+                    enEdicion(true);
                     Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Guardar Cambios'", "informacion");
                 } else {
                     Extras.Mensajes.mostrarMensaje("Seleccione la fila a editar", "advertencia");
@@ -426,15 +583,75 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEditarActionPerformed
 
+    private void btnFiltrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFiltrarActionPerformed
+        //leer datos
+        Date desde = fechaDesde.getDate();
+        Date hasta = fechaHasta.getDate();
+        String estadoFiltro = cmbEstadosFiltro.getSelectedItem().toString();
+        String proveedorNombre = cmbProveedores.getSelectedItem().toString();
+        EstadoPedido estado = estadoFiltro.equals("Todos") ? null : EstadoPedido.valueOf(estadoFiltro);
+        Proveedor proveedor = proveedorNombre.equals("Cualquiera") ? null
+                : control.getControlProveedor().leerPorNombre(proveedorNombre);
+
+        //validar
+        if (!validarFechas(desde, hasta)) {
+            Extras.Mensajes.mostrarMensaje("La fecha 'Hasta' debe ser posterior a 'Desde'", "error");
+            limpiarFiltros();
+            return;
+        }
+
+        //Filtrar la lista en memoria
+        List<Pedido> pedidosFiltrados = this.pedidos.stream()
+                .filter(p -> estado == null || p.getEstado().equals(estado))
+                .filter(p -> proveedor == null || p.getProveedor().getIdProveedor() == proveedor.getIdProveedor())
+                .filter(p -> {
+                    if (desde == null) {
+                        return true;
+                    }
+                    if (p.getFechaEstimadoLlegada() == null) {
+                        return false;
+                    }
+                    Instant instantePedido = p.getFechaEstimadoLlegada().toInstant();
+                    Instant instanteDesde = desde.toInstant();
+                    return !instantePedido.isBefore(instanteDesde);
+                })
+                .filter(p -> {
+                    if (hasta == null) {
+                        return true;
+                    }
+                    if (p.getFechaEstimadoLlegada() == null) {
+                        return false;
+                    }
+                    Instant instantePedido = p.getFechaEstimadoLlegada().toInstant();
+                    Instant instanteHasta = hasta.toInstant();
+                    return !instantePedido.isAfter(instanteHasta);
+                })
+                .collect(Collectors.toList());
+
+        //Actualizar tabla
+        if (pedidosFiltrados.isEmpty()) {
+            Mensajes.mostrarMensaje("No existen pedidos con estos parámetros", "error");
+            limpiarFiltros();
+            return;
+        }
+        cargarTablaPedidos(pedidosFiltrados);
+    }//GEN-LAST:event_btnFiltrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnGuardarCambios;
     private javax.swing.JButton btnVolver1;
     private javax.swing.JComboBox<String> cmbEstado;
+    private javax.swing.JComboBox<String> cmbEstadosFiltro;
+    private javax.swing.JComboBox<String> cmbProveedores;
+    private com.toedter.calendar.JDateChooser fechaDesde;
+    private com.toedter.calendar.JDateChooser fechaHasta;
     private com.toedter.calendar.JDateChooser fechaLlegada;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -444,7 +661,11 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     private javax.swing.JLayeredPane jLayeredPane2;
     private javax.swing.JLayeredPane jLayeredPane7;
     private javax.swing.JLayeredPane jLayeredPane9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblPedidos;
     // End of variables declaration//GEN-END:variables
@@ -507,6 +728,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         fechaLlegada.setEnabled(false);
         cmbEstado.setEnabled(false);
         cargarEstados();
+        limpiarFiltros();
     }
 
     private void cargarFechaEnDateChooser(JDateChooser dateChooser, Date fecha) {
@@ -536,5 +758,46 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 detalle.getProducto().getIdProducto(),
                 fechaCodigo,
                 numeroLote);
+    }
+
+    private void cargarFiltros() {
+        cargarEstadosFiltro();
+        cargarProveedores();
+    }
+
+    private void cargarEstadosFiltro() {
+        cmbEstadosFiltro.removeAllItems();
+        cmbEstadosFiltro.addItem("Todos");
+        for (EstadoPedido estado : EstadoPedido.values()) {
+            cmbEstadosFiltro.addItem(estado.name());
+        }
+    }
+
+    private void cargarProveedores() {
+        cmbProveedores.removeAllItems();
+        cmbProveedores.addItem("Cualquiera");
+        for (Proveedor provCmb : control.getControlProveedor().leerTodo()) {
+            cmbProveedores.addItem(provCmb.getNombre());
+        }
+    }
+
+    private void limpiarFiltros() {
+        fechaDesde.setDate(null);
+        fechaHasta.setDate(null);
+        cmbEstadosFiltro.setSelectedItem("Todos");
+        cmbProveedores.setSelectedItem("Cualquiera");
+        cargarTablaPedidos(this.pedidos);
+    }
+
+    private boolean validarFechas(Date desde, Date hasta) {
+        return !(desde != null && hasta != null && hasta.before(desde));
+    }
+
+    private void enEdicion(boolean b) {
+        btnFiltrar.setEnabled(!b);
+        fechaDesde.setEnabled(!b);
+        fechaHasta.setEnabled(!b);
+        cmbProveedores.setEnabled(!b);
+        cmbEstadosFiltro.setEnabled(!b);
     }
 }
