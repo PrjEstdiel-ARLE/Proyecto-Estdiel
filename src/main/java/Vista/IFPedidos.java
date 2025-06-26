@@ -635,8 +635,6 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             return;
         }
         cargarTablaPedidos(pedidosFiltrados);
-        System.out.println("Filtros: desde=" + desde + ", hasta=" + hasta
-                + ", estado=" + estado + ", proveedorId=" + (proveedor != null ? proveedor.getIdProveedor() : "null"));
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
 
