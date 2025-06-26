@@ -606,7 +606,6 @@ public class IFProveedores extends javax.swing.JInternalFrame {
             int filaSelect = tblProveedores.getSelectedRow();
             if (filaSelect != -1) {
                 // Marcar que estamos en modo edición
-                proveedores = control.getControlProveedor().leerTodo();
                 Proveedor provedorCont = proveedores.get(filaSelect);
                 IFProveedoresContactos igu = new IFProveedoresContactos(pantalla, provedorCont);
                 pantalla.add(igu);
