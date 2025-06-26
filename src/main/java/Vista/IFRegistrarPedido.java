@@ -6,6 +6,7 @@ package Vista;
 
 import Controlador.ControladoraGeneral;
 import Extras.Cadenas;
+import Extras.Mensajes;
 import Modelo.DetallePedido;
 import Modelo.Pedido;
 import Modelo.Producto;
@@ -65,6 +66,7 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         jLayeredPane4 = new javax.swing.JLayeredPane();
         jLabel4 = new javax.swing.JLabel();
         spnCantidad = new javax.swing.JSpinner();
+        btnDescripcion = new javax.swing.JButton();
         jLayeredPane5 = new javax.swing.JLayeredPane();
         jLabel5 = new javax.swing.JLabel();
         txtPrecioCompra = new javax.swing.JTextField();
@@ -235,14 +237,27 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(137, 6, 6));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setText("Cantidad:");
+        jLabel4.setText("Cantidad de Lotes:");
 
         spnCantidad.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         spnCantidad.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
         spnCantidad.setToolTipText("");
 
+        btnDescripcion.setBackground(new java.awt.Color(30, 58, 81));
+        btnDescripcion.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
+        btnDescripcion.setForeground(new java.awt.Color(255, 255, 255));
+        btnDescripcion.setText("Descripción");
+        btnDescripcion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnDescripcion.setPreferredSize(new java.awt.Dimension(140, 50));
+        btnDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescripcionActionPerformed(evt);
+            }
+        });
+
         jLayeredPane4.setLayer(jLabel4, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jLayeredPane4.setLayer(spnCantidad, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jLayeredPane4.setLayer(btnDescripcion, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jLayeredPane4Layout = new javax.swing.GroupLayout(jLayeredPane4);
         jLayeredPane4.setLayout(jLayeredPane4Layout);
@@ -250,19 +265,23 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(269, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(65, Short.MAX_VALUE))
         );
         jLayeredPane4Layout.setVerticalGroup(
             jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jLayeredPane4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(btnDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jLayeredPane4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel4)
+                        .addComponent(spnCantidad, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
 
         jPanel1.add(jLayeredPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 600, -1, -1));
@@ -700,8 +719,18 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnGuardarPedidoActionPerformed
 
+    private void btnDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescripcionActionPerformed
+         String producto = (String) cmbProducto.getSelectedItem();
+         Producto prodLote=control.getControlProducto().leerPorNombre(producto);
+         StringBuilder mensaje=new StringBuilder();
+         mensaje.append("EL LOTE DE '").append(producto).append("' CONTIENE:\n");
+         mensaje.append("- ").append(prodLote.getPresentacionLote()).append(" con ").append(prodLote.getCantidadPresentacionLote()).append(" Unidades.");
+         Mensajes.mostrarMensaje(mensaje.toString(), "informacion");
+    }//GEN-LAST:event_btnDescripcionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnDescripcion;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardarPedido;

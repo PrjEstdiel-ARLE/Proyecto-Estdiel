@@ -5,6 +5,7 @@ import DAO.PedidoDAOImpl;
 import Modelo.EstadoPedido;
 import Modelo.Pedido;
 import Modelo.Proveedor;
+import java.util.Date;
 import java.util.List;
 
 public class ControladoraPedido {
@@ -46,4 +47,5 @@ public class ControladoraPedido {
     public List<Pedido> findPedidosPorEstado(EstadoPedido estado) {
         return pedidoDao.findPedidosPorEstado(estado);
     }
-}
+
+ }

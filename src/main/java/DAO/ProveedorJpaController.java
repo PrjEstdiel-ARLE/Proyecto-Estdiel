@@ -22,11 +22,11 @@ public class ProveedorJpaController implements Serializable {
     public ProveedorJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    
-    public ProveedorJpaController(){
-          emf=Persistence.createEntityManagerFactory("persistencia");
+
+    public ProveedorJpaController() {
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
-    
+
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -284,8 +284,8 @@ public class ProveedorJpaController implements Serializable {
             em.close();
         }
     }
-    
-        public Proveedor findByNombre(String nombre) {
+
+    public Proveedor findByNombre(String nombre) {
         EntityManager em = getEntityManager();
         String query = "SELECT p FROM Proveedor p WHERE LOWER(p.nombre) = LOWER(:nombre)";
         try {
@@ -310,5 +310,35 @@ public class ProveedorJpaController implements Serializable {
             em.close();
         }
     }
-    
+
+    public List<Proveedor> findByNombreParcial(String termino) {
+        EntityManager em = getEntityManager();
+        String jpql = "SELECT p FROM Proveedor p "
+                + "WHERE LOWER(p.nombre) LIKE LOWER(:patron) "
+                + "ORDER BY p.nombre ASC";
+
+        try {
+            return em.createQuery(jpql, Proveedor.class)
+                    .setParameter("patron", "%" + termino + "%") // comodín antes y después
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
+    public List<Proveedor> findAllOrdenados(boolean ascendente) {
+        EntityManager em = getEntityManager();
+
+        // Construye dinámicamente la cláusula ORDER BY
+        String direccion = ascendente ? "ASC" : "DESC";
+        String jpql = "SELECT p FROM Proveedor p ORDER BY LOWER(p.nombre) " + direccion;
+
+        try {
+            return em.createQuery(jpql, Proveedor.class)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }

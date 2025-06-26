@@ -19,12 +19,14 @@ public class IFCategorias extends javax.swing.JInternalFrame {
     private Categoria categoriaEnEdicion = null;
     private List<Categoria> categorias;
     private final JDesktopPane pantalla;
+    private final boolean vista;
 
-    public IFCategorias(JDesktopPane desktopPane) {
+    public IFCategorias(JDesktopPane desktopPane, boolean vista) {
         initComponents();
         control = new ControladoraGeneral();
         cargarTabla(control.getControlCategoria().leerTodo());
         this.pantalla = desktopPane;
+        this.vista = vista;
     }
 
     @SuppressWarnings("unchecked")
@@ -309,10 +311,14 @@ public class IFCategorias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        IFProductos prod=new IFProductos(pantalla);
-        pantalla.add(prod);
-        prod.setVisible(true);
-        this.dispose();
+        if (vista) {
+            this.dispose();
+        } else {
+            IFProductos prod = new IFProductos(pantalla);
+            pantalla.add(prod);
+            prod.setVisible(true);
+            this.dispose();
+        }
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
