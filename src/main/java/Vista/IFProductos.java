@@ -15,7 +15,11 @@ import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
+import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -39,11 +43,17 @@ public class IFProductos extends javax.swing.JInternalFrame {
         producto = new Producto();
         cargarCategoria();
         cargarProveedores();
-        cargarProductos(control.getControlProducto().leerTodo());
+        this.productos = control.getControlProducto().leerTodo();
+        cargarProductos(productos);
         this.pantalla = desktopPane;
         cargarPresentacionLote();
         cargarPresentacionProducto();
         //soloLetras();
+        soloNumerosPrecio();
+        configurarSpinnerCantidad(); // llamamos la configuración del modelo
+        soloNumerosEnSpinner(jpnCantLote);
+        soloNumerosEnSpinner(jpnCantProducto);
+
     }
 
     /**
@@ -77,13 +87,13 @@ public class IFProductos extends javax.swing.JInternalFrame {
         btnEditar = new javax.swing.JButton();
         btnAgregarCat = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
-        txtCantLote = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
-        txtCantProducto = new javax.swing.JTextField();
         cbxPresLote = new javax.swing.JComboBox<>();
         jLabel14 = new javax.swing.JLabel();
         cbxPresProducto = new javax.swing.JComboBox<>();
         jLabel15 = new javax.swing.JLabel();
+        jpnCantLote = new javax.swing.JSpinner();
+        jpnCantProducto = new javax.swing.JSpinner();
         jPanel3 = new javax.swing.JPanel();
         btnBuscar = new javax.swing.JButton();
         txtBuscar = new javax.swing.JTextField();
@@ -175,6 +185,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
 
         cbxProveedor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
+        btnGuardar.setBackground(new java.awt.Color(30, 58, 81));
+        btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(239, 228, 210));
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -182,6 +195,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
+        btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(239, 228, 210));
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -189,6 +205,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
             }
         });
 
+        btnEditar.setBackground(new java.awt.Color(30, 58, 81));
+        btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(239, 228, 210));
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -210,23 +229,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
         jLabel11.setForeground(new java.awt.Color(30, 58, 81));
         jLabel11.setText("Cant. Lote:");
 
-        txtCantLote.setForeground(new java.awt.Color(153, 153, 153));
-        txtCantLote.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantLoteActionPerformed(evt);
-            }
-        });
-
         jLabel12.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 20)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(30, 58, 81));
         jLabel12.setText("Cant. Producto:");
-
-        txtCantProducto.setForeground(new java.awt.Color(153, 153, 153));
-        txtCantProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtCantProductoActionPerformed(evt);
-            }
-        });
 
         cbxPresLote.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -269,34 +274,38 @@ public class IFProductos extends javax.swing.JInternalFrame {
                                 .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(7, 7, 7)
                         .addComponent(btnAgregarCat, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel14)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxPresLote, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCantLote, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel12)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(txtCantProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel15)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(cbxPresProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGap(8, 8, 8)
+                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel11)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jpnCantLote, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(67, 67, 67))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel14)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cbxPresLote, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel12)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jpnCantProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel15)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(cbxPresProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(127, 127, 127)
-                        .addComponent(btnGuardar)
-                        .addGap(65, 65, 65)
-                        .addComponent(btnEliminar)
-                        .addGap(99, 99, 99)
-                        .addComponent(btnEditar)))
-                .addContainerGap(63, Short.MAX_VALUE))
+                        .addGap(114, 114, 114)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(81, 81, 81)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -309,9 +318,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
                     .addComponent(cbxCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregarCat, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11)
-                    .addComponent(txtCantLote, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12)
-                    .addComponent(txtCantProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jpnCantLote)
+                    .addComponent(jpnCantProducto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
@@ -322,12 +331,12 @@ public class IFProductos extends javax.swing.JInternalFrame {
                     .addComponent(cbxPresLote, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(cbxPresProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                .addGap(45, 45, 45)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnEditar))
-                .addContainerGap(220, Short.MAX_VALUE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(213, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(239, 228, 210));
@@ -463,27 +472,41 @@ public class IFProductos extends javax.swing.JInternalFrame {
         String proveedor = (String) cbxProveedor.getSelectedItem();
         Proveedor proProducto = control.getControlProveedor().leerPorNombre(proveedor);
         String precioFormato = txtPrecio.getText();
-        double precioCompra = Double.parseDouble(precioFormato);
         String nombreProd = txtNombre.getText();
-        String cantidadLote = txtCantLote.getText();
+        Object obj1 = jpnCantLote.getValue();
+            int cantidadLote = (int) obj1;
         ProductoPresentacionLote prelote = ProductoPresentacionLote.valueOf((String) cbxPresLote.getSelectedItem());
-        String cantidadProducto = txtCantProducto.getText();
+        Object obj2 = jpnCantProducto.getValue();
+            int cantidadProducto = (int) obj2;
         ProductoPresentacionProducto preproducto = ProductoPresentacionProducto.valueOf((String) cbxPresProducto.getSelectedItem());
 
+        // Validaciones básicas para producto
+        StringBuilder errores = new StringBuilder();
 
+        if (nombreProd.isEmpty()) {
+            errores.append("- El nombre del producto es obligatorio.\n");
+        }
+        if (precioFormato.isEmpty()) {
+            errores.append("- El precio de compra es obligatorio.\n");
+        } 
+        // Verificar si hay errores
+        if (errores.length() > 0) {
+            Mensajes.mostrarMensaje(errores.toString(), "error");
+            return;
+        }
+        double precioCompra = Double.parseDouble(precioFormato);
         if (productoEnEdicion != null) {
             // Leer nuevos datos del formulario y actualizarlos en el objeto
             productoEnEdicion.setNombre(nombreProd);
             productoEnEdicion.setCategoria(catProducto);
             productoEnEdicion.setProveedor(proProducto);
             productoEnEdicion.setPrecioCompra(precioCompra);
-            productoEnEdicion.setCantidadPresentacionLote(Integer.parseInt(cantidadLote));
+            productoEnEdicion.setCantidadPresentacionLote(cantidadLote);
             productoEnEdicion.setPresentacionLote(prelote);
-            productoEnEdicion.setCantidadPresentacionProducto(Integer.parseInt(cantidadProducto));
+            productoEnEdicion.setCantidadPresentacionProducto(cantidadProducto);
             productoEnEdicion.setPresentacionProducto(preproducto);
-            
-            //productoEnEdicion.setDecripcion(descipcionProd);
 
+            //productoEnEdicion.setDecripcion(descipcionProd);
             // Guardar en base de datos
             control.getControlProducto().actualizarProducto(productoEnEdicion);
 
@@ -503,9 +526,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
             newproductos.setNombre(nombreProd);
             newproductos.setPrecioCompra(precioCompra);
             //newproductos.setDecripcion(descipcionProd);
-            newproductos.setCantidadPresentacionLote(Integer.parseInt(cantidadLote));
+            newproductos.setCantidadPresentacionLote(cantidadLote);
             newproductos.setPresentacionLote(prelote);
-            newproductos.setCantidadPresentacionProducto(Integer.parseInt(cantidadProducto));
+            newproductos.setCantidadPresentacionProducto(cantidadProducto);
             newproductos.setPresentacionProducto(preproducto);
             newproductos.setProveedor(proProducto);
             newproductos.setCodigo(codigo);
@@ -519,8 +542,8 @@ public class IFProductos extends javax.swing.JInternalFrame {
 
             txtNombre.setText("");
             txtPrecio.setText("");
-            txtCantLote.setText("");
-            txtCantProducto.setText("");
+            jpnCantLote.setValue("");
+            jpnCantProducto.setValue("");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -556,8 +579,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
                     // Marcar que estamos en modo edición
                     productoEnEdicion = productos.get(filaSelect);
                     txtNombre.setText(productoEnEdicion.getNombre());
-                    txtCantLote.setText(String.valueOf(productoEnEdicion.getCantidadPresentacionLote()));
-                    txtCantProducto.setText(String.valueOf(productoEnEdicion.getCantidadPresentacionProducto()));
+                    //jpnMesDurac.setValue(categoriaEnEdicion.getTiempo_estimado_almacen() / 30);
+                    jpnCantLote.setValue(productoEnEdicion.getCantidadPresentacionLote());
+                    jpnCantProducto.setValue(productoEnEdicion.getCantidadPresentacionProducto());
                     cbxPresLote.setSelectedItem(productoEnEdicion.getPresentacionLote().name());
                     cbxPresProducto.setSelectedItem(productoEnEdicion.getPresentacionProducto().name());
                     //txtDescripcion.setText(productoEnEdicion.getDecripcion());
@@ -584,14 +608,6 @@ public class IFProductos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnAgregarCatActionPerformed
 
-    private void txtCantLoteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantLoteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantLoteActionPerformed
-
-    private void txtCantProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantProductoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCantProductoActionPerformed
-
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         String termino = txtBuscar.getText();
         productos = control.getControlProducto().leerParcial(termino);
@@ -602,7 +618,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         }
         cargarProductos(productos);
         txtBuscar.setText("");
-        
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
 
@@ -633,10 +649,10 @@ public class IFProductos extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSpinner jpnCantLote;
+    private javax.swing.JSpinner jpnCantProducto;
     public javax.swing.JTable tblProductos;
     private javax.swing.JTextField txtBuscar;
-    public javax.swing.JTextField txtCantLote;
-    public javax.swing.JTextField txtCantProducto;
     public javax.swing.JTextField txtNombre;
     public javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
@@ -663,7 +679,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Nombre","Precio","Categoria", "Proveedor", "Can.Lote", "Pres.Lote", "Cant.Producto", "Pres.Producto", "Cantidad"};
+        String[] titulos = {"Nombre", "Precio", "Categoria", "Proveedor", "Can.Lote", "Pres.Lote", "Cant.Producto", "Pres.Producto", "Cantidad"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -730,9 +746,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
 
     private Object descripcionProducto(Producto produc) {
         StringBuilder mensaje = new StringBuilder();
-        if(produc.getPresentacionProducto()==ProductoPresentacionProducto.UNIDAD){
+        if (produc.getPresentacionProducto() == ProductoPresentacionProducto.UNIDAD) {
             mensaje.append(produc.getPresentacionProducto());
-        }else{
+        } else {
             mensaje.append(produc.getPresentacionProducto()).append(" de ").append(produc.getCantidadPresentacionProducto()).append(" unidades");
         }
         return mensaje.toString();
@@ -757,7 +773,6 @@ public class IFProductos extends javax.swing.JInternalFrame {
             }
         });
     }*/
-
     private void cargarPresentacionLote() {
         cbxPresLote.removeAllItems();
         for (ProductoPresentacionLote presLote : ProductoPresentacionLote.values()) {
@@ -769,6 +784,41 @@ public class IFProductos extends javax.swing.JInternalFrame {
         cbxPresProducto.removeAllItems();
         for (ProductoPresentacionProducto presProducto : ProductoPresentacionProducto.values()) {
             cbxPresProducto.addItem(presProducto.name());
-        }    }
+        }
     }
 
+    private void soloNumerosPrecio() {
+        txtPrecio.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                // Solo permite dígitos y longitud máxima de 11
+                if (!Character.isDigit(c) || txtPrecio.getText().length() >= 11) {
+                    e.consume();
+                }
+            }
+        });
+    }
+    
+    private void soloNumerosEnSpinner(JSpinner spinner) {
+        JComponent editor = spinner.getEditor();
+        if (editor instanceof JSpinner.DefaultEditor) {
+            JFormattedTextField txt = ((JSpinner.DefaultEditor) editor).getTextField();
+            txt.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    // Solo permitir dígitos
+                    if (!Character.isDigit(c)) {
+                        e.consume();
+                    }
+                }
+            });
+        }
+    }
+    
+    private void configurarSpinnerCantidad() {
+        jpnCantLote.setModel(new SpinnerNumberModel(1, 1, 60, 1));
+        jpnCantProducto.setModel(new SpinnerNumberModel(1, 1, 60, 1));
+    }
+}

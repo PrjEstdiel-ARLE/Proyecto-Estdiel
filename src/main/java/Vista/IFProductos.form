@@ -285,43 +285,50 @@
                               </Group>
                               <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
                               <Component id="btnAgregarCat" min="-2" pref="42" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="cbxPresLote" min="-2" pref="180" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtCantLote" min="-2" pref="180" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" attributes="0">
-                                      <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="txtCantProducto" min="-2" pref="180" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+                                      <Component id="btnEditar" min="-2" pref="180" max="-2" attributes="0"/>
                                   </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="cbxPresProducto" min="-2" pref="180" max="-2" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jpnCantLote" min="-2" pref="113" max="-2" attributes="0"/>
+                                              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel14" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="cbxPresLote" min="-2" pref="180" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Group type="102" alignment="0" attributes="0">
+                                              <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="jpnCantProducto" min="-2" pref="114" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                              <Component id="cbxPresProducto" min="-2" pref="180" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="127" max="-2" attributes="0"/>
-                              <Component id="btnGuardar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
-                              <Component id="btnEliminar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="99" max="-2" attributes="0"/>
-                              <Component id="btnEditar" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="114" max="-2" attributes="0"/>
+                              <Component id="btnGuardar" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                              <Component id="btnEliminar" min="-2" pref="180" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="63" max="32767" attributes="0"/>
+                      <EmptySpace pref="144" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -336,9 +343,9 @@
                           <Component id="cbxCategoria" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="btnAgregarCat" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCantLote" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtCantProducto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                          <Component id="jpnCantLote" alignment="3" max="32767" attributes="0"/>
+                          <Component id="jpnCantProducto" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -351,13 +358,13 @@
                           <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbxPresProducto" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEliminar" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnEditar" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnGuardar" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="btnEliminar" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                          <Component id="btnEditar" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="220" max="32767" attributes="0"/>
+                      <EmptySpace pref="213" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -470,6 +477,15 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnGuardar">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="51" green="3a" red="1e" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="PMingLiU-ExtB" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d2" green="e4" red="ef" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
               <Events>
@@ -478,6 +494,15 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnEliminar">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="51" green="3a" red="1e" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="PMingLiU-ExtB" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d2" green="e4" red="ef" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Eliminar"/>
               </Properties>
               <Events>
@@ -486,6 +511,15 @@
             </Component>
             <Component class="javax.swing.JButton" name="btnEditar">
               <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="51" green="3a" red="1e" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="PMingLiU-ExtB" size="18" style="1"/>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="d2" green="e4" red="ef" type="rgb"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Editar"/>
               </Properties>
               <Events>
@@ -518,19 +552,6 @@
                 <Property name="text" type="java.lang.String" value="Cant. Lote:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="txtCantLote">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCantLoteActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
-            </Component>
             <Component class="javax.swing.JLabel" name="jLabel12">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -541,19 +562,6 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Cant. Producto:"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtCantProducto">
-              <Properties>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="99" green="99" red="99" type="rgb"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtCantProductoActionPerformed"/>
-              </Events>
-              <AuxValues>
-                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
-              </AuxValues>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbxPresLote">
               <Properties>
@@ -608,6 +616,10 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Pres. Producto:"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JSpinner" name="jpnCantLote">
+            </Component>
+            <Component class="javax.swing.JSpinner" name="jpnCantProducto">
             </Component>
           </SubComponents>
         </Container>
