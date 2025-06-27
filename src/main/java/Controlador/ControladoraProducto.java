@@ -49,4 +49,7 @@ public class ControladoraProducto {
     public void actualizarCantidad(Producto producto, int nuevaCantidad) {
         productoDao.actualizarCantidad(producto, nuevaCantidad);
     }
+
+    public List<Producto> leerParcial(String termino) {
+        return productoDao.leerParcial(termino);    }
 }
