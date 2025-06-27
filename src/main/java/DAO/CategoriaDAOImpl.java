@@ -62,4 +62,9 @@ public class CategoriaDAOImpl implements CategoriaDAO {
         return categoriaJpa.existsCategoriaWithNombre(Nombre);
     }
 
+    @Override
+    public List<Categoria> leerParcial(String termino) {
+        return categoriaJpa.findByNombreParcial(termino);
+    }
+
 }
