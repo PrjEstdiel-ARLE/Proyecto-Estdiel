@@ -542,8 +542,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
 
             txtNombre.setText("");
             txtPrecio.setText("");
-            jpnCantLote.setValue("");
-            jpnCantProducto.setValue("");
+            
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
