@@ -20,5 +20,7 @@ public interface CategoriaDAO {
     List<String> leerNombresCategorias ();
     
     boolean existePorNombres(String Nombre);
+    
+    public List<Categoria> leerParcial(String termino);
 
 }

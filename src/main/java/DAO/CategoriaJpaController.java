@@ -206,7 +206,6 @@ public class CategoriaJpaController implements Serializable {
             em.close();
         }
     }
-    
 
     public boolean existsCategoriaWithNombre(String nombre) {
         EntityManager em = getEntityManager();
@@ -220,6 +219,23 @@ public class CategoriaJpaController implements Serializable {
         }
     }
 
+    List<Categoria> buscarPorNombre(String termino) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    List<Categoria> findByNombreParcial(String termino) {
+        EntityManager em = getEntityManager();
+        String jpql = "SELECT p FROM Categoria p "
+                + "WHERE LOWER(p.nombre) LIKE LOWER(:patron) "
+                + "ORDER BY p.nombre ASC";
+
+        try {
+            return em.createQuery(jpql, Categoria.class)
+                    .setParameter("patron", "%" + termino + "%") // comodín antes y después
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
-
-

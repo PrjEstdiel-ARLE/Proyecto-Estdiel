@@ -36,12 +36,16 @@ public class ControladoraCategoria {
     public Categoria leerPorNombre(String nombre) {
         return categoriaDao.leerPorNombre(nombre);
     }
-    
+
     public List<String> leerNombresCategorias() {
         return categoriaDao.leerNombresCategorias();
     }
 
     public boolean existePorNombres(String Nombre) {
         return categoriaDao.existePorNombres(Nombre);
+    }
+
+    public List<Categoria> leerParcial(String termino) {
+        return categoriaDao.leerParcial(termino);
     }
 }
