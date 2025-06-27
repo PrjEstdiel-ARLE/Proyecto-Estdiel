@@ -10,7 +10,11 @@ import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
+import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
+import javax.swing.JFormattedTextField;
+import javax.swing.JSpinner;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -29,10 +33,13 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         initComponents();
         control = new ControladoraGeneral();
         controladoraCategoria = control.getControlCategoria();
-        cargarTabla(control.getControlCategoria().leerTodo());
+        this.categorias = control.getControlCategoria().leerTodo();
+        cargarTabla(categorias);
         this.pantalla = desktopPane;
         this.vista = vista;
         soloLetras();
+        configurarSpinnerMeses(); // llamamos la configuración del modelo
+        soloNumerosEnSpinner(jpnMesDurac);
     }
 
     @SuppressWarnings("unchecked")
@@ -604,5 +611,26 @@ public class IFCategorias extends javax.swing.JInternalFrame {
             }
 
         });
+    }
+
+    private void soloNumerosEnSpinner(JSpinner spinner) {
+        JComponent editor = spinner.getEditor();
+        if (editor instanceof JSpinner.DefaultEditor) {
+            JFormattedTextField txt = ((JSpinner.DefaultEditor) editor).getTextField();
+            txt.addKeyListener(new KeyAdapter() {
+                @Override
+                public void keyTyped(KeyEvent e) {
+                    char c = e.getKeyChar();
+                    // Solo permitir dígitos
+                    if (!Character.isDigit(c)) {
+                        e.consume();
+                    }
+                }
+            });
+        }
+    }
+
+    private void configurarSpinnerMeses() {
+        jpnMesDurac.setModel(new SpinnerNumberModel(1, 1, 60, 1));
     }
 }
