@@ -22,4 +22,6 @@ public interface ProductoDAO {
     List<Producto> leerPorCategoria(Categoria categoria);
     
     void actualizarCantidad(Producto producto, int nuevaCantidad);
+
+    public List<Producto> leerParcial(String termino);
 }

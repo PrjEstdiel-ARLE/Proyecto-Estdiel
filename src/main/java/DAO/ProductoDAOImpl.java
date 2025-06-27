@@ -67,5 +67,10 @@ public class ProductoDAOImpl implements ProductoDAO {
     public void actualizarCantidad(Producto producto, int nuevaCantidad) {
         productoJpa.actualizarCantidad(producto.getIdProducto(), nuevaCantidad);
     }
+
+    @Override
+    public List<Producto> leerParcial(String termino) {
+        return productoJpa.findByNombreParcial(termino);    
+    }
     
 }

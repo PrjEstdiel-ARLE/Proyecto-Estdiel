@@ -350,5 +350,19 @@ public class ProductoJpaController implements Serializable {
     }
 }
 
+    List<Producto> findByNombreParcial(String termino) {
+        EntityManager em = getEntityManager();
+        String jpql = "SELECT p FROM Producto p "
+                + "WHERE LOWER(p.nombre) LIKE LOWER(:patron) "
+                + "ORDER BY p.nombre ASC";
+
+        try {
+            return em.createQuery(jpql, Producto.class)
+                    .setParameter("patron", "%" + termino + "%") // comodín antes y después
+                    .getResultList();
+        } finally {
+            em.close();
+        }    
+    }
 
 }
