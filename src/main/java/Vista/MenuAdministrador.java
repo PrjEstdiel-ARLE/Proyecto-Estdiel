@@ -29,6 +29,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         lblBienvenida = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
+        itemCambio = new javax.swing.JMenuItem();
         itemCerrar = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         itemSalir = new javax.swing.JMenuItem();
@@ -116,6 +117,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemCambio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCambio.setText("Cambiar Contraseña");
+        itemCambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCambioActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemCambio);
 
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCerrar.setText("Cerrar Sesión");
@@ -317,8 +327,14 @@ public class MenuAdministrador extends javax.swing.JFrame {
         cargarIF(SL);
     }//GEN-LAST:event_itemSalidasActionPerformed
 
+    private void itemCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCambioActionPerformed
+        IFCambioPassword cpwd=new IFCambioPassword();
+        cargarIF(cpwd);
+    }//GEN-LAST:event_itemCambioActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCategorias;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemFiltro;
