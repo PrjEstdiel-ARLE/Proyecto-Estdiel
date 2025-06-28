@@ -284,7 +284,7 @@ public class Login extends javax.swing.JFrame {
             String dni = txtDNI.getText();
             String password = new String(txtContraseñaa.getPassword());
             ControladoraLogin loginController = new ControladoraLogin();
-            loginController.autenticar(dni, password, this);
+            loginController.autenticarCrypted(dni, password, this);
         }
     }//GEN-LAST:event_txtContraseñaaKeyPressed
 

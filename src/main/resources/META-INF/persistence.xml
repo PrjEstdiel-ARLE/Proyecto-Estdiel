@@ -13,6 +13,8 @@
     <class>Modelo.Salida</class>
     <class>Modelo.Usuario</class>
     <class>Modelo.ContactoProveedor</class>
+    <class>Modelo.Solicitud</class>
+    <class>Modelo.DetalleSolicitud</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/papeleria?serverTimezone=UTC"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

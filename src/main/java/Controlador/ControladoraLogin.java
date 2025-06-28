@@ -1,24 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Controlador;
 
 import DAO.UsuarioJpaController;
 import Extras.Mensajes;
 import Extras.PasswordUtils;
-import Modelo.Rol;
 import Modelo.Usuario;
 import Vista.Login;
 import Vista.Logistica;
 import Vista.MenuAdministrador;
-import java.util.Set;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 
 public class ControladoraLogin {
 
-    public void autenticar(String dni, String password, JFrame loginFrame) {
+    /*public void autenticar(String dni, String password, JFrame loginFrame) {
         UsuarioJpaController usuarioController = new UsuarioJpaController();
         Usuario usuario = usuarioController.findUsuarioByDniAndPassword(dni, password);
 
@@ -28,8 +20,13 @@ public class ControladoraLogin {
             if (!roles.isEmpty()) {
                 for (Rol rol : roles) {
                     if (rol.getNombre().equals("Administrador")) {
+<<<<<<< HEAD
                         new MenuAdministrador(usuario).setVisible(true);
                     } else if (rol.getNombre().equals("Logística")) {
+=======
+                        new MenuAdministrador().setVisible(true);
+                    } else if (rol.getNombre().equals("Logistica")) {
+>>>>>>> main
                         new Logistica().setVisible(true);
                     }
                 }
@@ -40,7 +37,7 @@ public class ControladoraLogin {
         } else {
             JOptionPane.showMessageDialog(null, "Credenciales incorrectas.");
         }
-    }
+    }*/
 
     public void autenticarCrypted(String dni, String pwdIngresada, Login aThis) {
         UsuarioJpaController dao = new UsuarioJpaController();       // o por inyección
