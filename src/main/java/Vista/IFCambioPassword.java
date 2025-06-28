@@ -1,11 +1,20 @@
 package Vista;
 
+import Controlador.ControladoraGeneral;
+import Extras.Mensajes;
+import Extras.PasswordUtils;
+import Modelo.Usuario;
 import java.awt.Color;
 
 public class IFCambioPassword extends javax.swing.JInternalFrame {
 
-    public IFCambioPassword() {
+    private final Usuario usuarioActual;
+    private final ControladoraGeneral control;
+
+    public IFCambioPassword(Usuario usuario) {
         initComponents();
+        this.usuarioActual = usuario;
+        this.control=new ControladoraGeneral();
     }
 
     @SuppressWarnings("unchecked")
@@ -261,7 +270,47 @@ public class IFCambioPassword extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_txtConfirmarFocusLost
 
     private void btnCambiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCambiarActionPerformed
-
+        //leer datos
+        String actual = new String(txtActual.getPassword());
+        String nueva = new String(txtNueva.getPassword());
+        String confirmar = new String(txtConfirmar.getPassword());
+        //validacion
+        StringBuilder errores = new StringBuilder();
+        if (actual.isEmpty() || actual.equals("************")) {
+            errores.append("- Ingrese la contraseña actual\n");
+        }
+        if (nueva.isEmpty() || nueva.equals("************")) {
+            errores.append("- Ingrese la nueva contraseña\n");
+        }
+        if (confirmar.isEmpty() || confirmar.equals("************")) {
+            errores.append("- Ingrese otra vez la nueva contraseña\n");
+        }
+        if (!nueva.equals(confirmar)) {
+            errores.append("- La nueva contraseña y la confirmación no coinciden\n");
+        }
+        if (errores.length() > 0) {
+            Mensajes.mostrarMensaje(errores.toString(), "error");
+            return;
+        }
+        if (strongPassword(nueva)) {
+            Mensajes.mostrarMensaje("La nueva contraseña es débil", "error");
+            return;
+        }
+        if (!PasswordUtils.verificar(actual, usuarioActual.getPassword())) {
+            Mensajes.mostrarMensaje("La contraseña actual es incorrecta", "error");
+            return;
+        }
+        if (PasswordUtils.verificar(nueva, usuarioActual.getPassword())) {
+            Mensajes.mostrarMensaje("La nueva contraseña no puede ser la misma que la actual", "error");
+            return;
+        }
+        //proceso
+        String hashNuevo = PasswordUtils.hash(nueva);
+        usuarioActual.setPassword(hashNuevo);
+        control.getControlUsuario().actualizar(usuarioActual);
+        //finalizar
+        this.dispose();
+        Mensajes.mostrarMensaje("Contraseña actualizada exitosamente", "informacion");
     }//GEN-LAST:event_btnCambiarActionPerformed
 
 
@@ -278,4 +327,8 @@ public class IFCambioPassword extends javax.swing.JInternalFrame {
     public javax.swing.JPasswordField txtConfirmar;
     public javax.swing.JPasswordField txtNueva;
     // End of variables declaration//GEN-END:variables
+
+    private boolean strongPassword(String nueva) {
+        return nueva.length() < 6;
+    }
 }

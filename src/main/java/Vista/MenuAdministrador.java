@@ -328,7 +328,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalidasActionPerformed
 
     private void itemCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCambioActionPerformed
-        IFCambioPassword cpwd=new IFCambioPassword();
+        IFCambioPassword cpwd=new IFCambioPassword(userActual);
         cargarIF(cpwd);
     }//GEN-LAST:event_itemCambioActionPerformed
 
