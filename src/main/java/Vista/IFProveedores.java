@@ -506,7 +506,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
             txtWeb.setText("");
             txtCorreo.setText("");
             txtDireccion.setText("");
-            txtRuc.setText("");          
+            txtRuc.setText("");
             Mensajes.mostrarMensaje("Proveedor creado con éxito.\nNo olvide asociarle contactos.", "informacion");
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -622,7 +622,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         proveedores = control.getControlProveedor().leerParcial(termino);
         if (proveedores.isEmpty()) {
             Mensajes.mostrarMensaje("No se encontraron proveedores con este término", "error");
-            cargarProveedor(control.getControlProveedor().leerTodo());
+            recargarTabla();
             return;
         }
         cargarProveedor(proveedores);
@@ -633,17 +633,17 @@ public class IFProveedores extends javax.swing.JInternalFrame {
 
     private void btnAscDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAscDescActionPerformed
         if (!asc) {
-            proveedores=control.getControlProveedor().ordenarZA(proveedores);
+            proveedores = control.getControlProveedor().ordenarZA(proveedores);
             cargarProveedor(proveedores);
         } else {
-            proveedores=control.getControlProveedor().ordenarAZ(proveedores);
+            proveedores = control.getControlProveedor().ordenarAZ(proveedores);
             cargarProveedor(proveedores);
         }
         esAscendente();
     }//GEN-LAST:event_btnAscDescActionPerformed
 
     private void btnTodoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodoActionPerformed
-        proveedores=control.getControlProveedor().leerTodo();
+        proveedores = control.getControlProveedor().leerTodo();
         cargarProveedor(proveedores);
     }//GEN-LAST:event_btnTodoActionPerformed
 
@@ -761,5 +761,10 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                 }
             }
         });
+    }
+
+    private void recargarTabla() {
+        proveedores = control.getControlProveedor().leerTodo();
+        cargarProveedor(proveedores);
     }
 }
