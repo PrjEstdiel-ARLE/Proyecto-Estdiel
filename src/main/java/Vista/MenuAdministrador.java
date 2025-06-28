@@ -1,24 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package Vista;
 
 import Extras.Mensajes;
+import Modelo.Usuario;
 import javax.swing.JInternalFrame;
 
-/**
- *
- * @author arnol
- */
 public class MenuAdministrador extends javax.swing.JFrame {
 
-    public MenuAdministrador() {
+    private final Usuario userActual;
+
+    public MenuAdministrador(Usuario usuario) {
         initComponents();
+        this.userActual = usuario;
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //control jdesktoppane se cambio de nombre por ESCRITORIO
         this.setContentPane(this.pantalla);
+        lblBienvenida.setText(colocarBienvenida());
     }
 
     @SuppressWarnings("unchecked")
@@ -29,6 +26,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        lblBienvenida = new javax.swing.JLabel();
         MenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         itemCerrar = new javax.swing.JMenuItem();
@@ -61,45 +59,57 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        lblBienvenida.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
+        lblBienvenida.setForeground(new java.awt.Color(137, 6, 6));
+        lblBienvenida.setText("Mensaje");
+
         pantalla.setLayer(jSeparator3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(lblBienvenida, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(922, 922, 922)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(pantallaLayout.createSequentialGroup()
+                        .addGap(922, 922, 922)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(pantallaLayout.createSequentialGroup()
+                        .addGap(416, 416, 416)
+                        .addComponent(lblBienvenida)))
                 .addContainerGap(1670, Short.MAX_VALUE))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
+                    .addGap(0, 687, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1296, Short.MAX_VALUE)))
+                    .addGap(0, 1905, Short.MAX_VALUE)))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
+                    .addGap(0, 687, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1296, Short.MAX_VALUE)))
+                    .addGap(0, 1905, Short.MAX_VALUE)))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(503, 503, 503)
+                .addGap(41, 41, 41)
+                .addComponent(lblBienvenida)
+                .addGap(383, 383, 383)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 372, Short.MAX_VALUE))
+                .addGap(0, 244, Short.MAX_VALUE))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 334, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 334, Short.MAX_VALUE)))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 334, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 334, Short.MAX_VALUE)))
         );
 
         MenuBar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
@@ -234,7 +244,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pantalla)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -271,7 +283,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemProveedoresActionPerformed
 
     private void itemCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriasActionPerformed
-        IFCategorias cat=new IFCategorias(pantalla,true);
+        IFCategorias cat = new IFCategorias(pantalla, true);
         cargarIF(cat);
     }//GEN-LAST:event_itemCategoriasActionPerformed
 
@@ -305,41 +317,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         cargarIF(SL);
     }//GEN-LAST:event_itemSalidasActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MenuAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MenuAdministrador().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MenuBar;
     private javax.swing.JMenuItem itemCategorias;
@@ -357,6 +334,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JLabel lblBienvenida;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuGestion;
     private javax.swing.JMenu menuInventario;
@@ -365,7 +343,11 @@ public class MenuAdministrador extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarIF(JInternalFrame internal) {
-        internal.setVisible(true);
         pantalla.add(internal);
+        internal.show();
+    }
+
+    private String colocarBienvenida() {
+        return "Bienvenido " + userActual.getNombres() + " " + userActual.getApellidos();
     }
 }

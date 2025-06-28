@@ -88,6 +88,11 @@ public class Login extends javax.swing.JFrame {
                 txtContraseñaaActionPerformed(evt);
             }
         });
+        txtContraseñaa.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtContraseñaaKeyPressed(evt);
+            }
+        });
 
         btnIniciarSesion.setBackground(new java.awt.Color(30, 58, 81));
         btnIniciarSesion.setForeground(new java.awt.Color(239, 228, 210));
@@ -240,10 +245,8 @@ public class Login extends javax.swing.JFrame {
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
         String dni = txtDNI.getText();
         String password = new String(txtContraseñaa.getPassword());
-
         ControladoraLogin loginController = new ControladoraLogin();
-        loginController.autenticar(dni, password, this);
-
+        loginController.autenticarCrypted(dni, password, this);
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
     private void txtDNIFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDNIFocusGained
@@ -275,6 +278,15 @@ public class Login extends javax.swing.JFrame {
             txtDNI.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txtContraseñaaFocusLost
+
+    private void txtContraseñaaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaaKeyPressed
+         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String dni = txtDNI.getText();
+            String password = new String(txtContraseñaa.getPassword());
+            ControladoraLogin loginController = new ControladoraLogin();
+            loginController.autenticar(dni, password, this);
+        }
+    }//GEN-LAST:event_txtContraseñaaKeyPressed
 
     /**
      * @param args the command line arguments
