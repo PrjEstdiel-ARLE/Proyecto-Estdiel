@@ -25,7 +25,7 @@ public class ControladoraLogin {
                 for (Rol rol : roles) {
                     if (rol.getNombre().equals("Administrador")) {
                         new MenuAdministrador().setVisible(true);
-                    } else if (rol.getNombre().equals("Logística")) {
+                    } else if (rol.getNombre().equals("Logistica")) {
                         new Logistica().setVisible(true);
                     }
                 }
