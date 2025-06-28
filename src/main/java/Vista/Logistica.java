@@ -156,7 +156,7 @@ public class Logistica extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void itemProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductsActionPerformed
-        IFProductosEmpleado pEm = new IFProductosEmpleado();
+        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual);
         cargarIF(pEm);
     }//GEN-LAST:event_itemProductsActionPerformed
 

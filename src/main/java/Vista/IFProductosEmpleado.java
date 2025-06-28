@@ -1,85 +1,82 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
-/**
- *
- * @author andre
- */
+import Controlador.ControladoraGeneral;
 import DAO.DetalleSolicitudJpaController;
 import DAO.ProductoJpaController;
 import DAO.SolicitudJpaController;
 import DAO.UsuarioJpaController;
+import DAO.exceptions.IllegalOrphanException;
+import DAO.exceptions.NonexistentEntityException;
+import Extras.Mensajes;
 import Modelo.DetalleSolicitud;
 import Modelo.Producto;
 import Modelo.Solicitud;
 import Modelo.Usuario;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.JTableHeader;
 
 public class IFProductosEmpleado extends javax.swing.JInternalFrame {
 
-   
-    public IFProductosEmpleado() {
+    private final ControladoraGeneral control;
+    private List<Producto> productos;
+    private String estadoProducto;
+    private final Usuario userActual;
+    private Solicitud solicitud;
+    private Producto producSelect = null;
+    private SolicitudJpaController daoSoli;
+    private DetalleSolicitudJpaController daoDetalle;
+    List<DetalleSolicitud> detalles = null;
+
+    public IFProductosEmpleado(Usuario user) {
         initComponents();
-        listarProductos(); // Se carga la tabla al abrir
+        control = new ControladoraGeneral();
+        productos = control.getControlProducto().leerTodo();
+        this.daoSoli = new SolicitudJpaController();
+        this.daoDetalle = new DetalleSolicitudJpaController();
+        this.userActual = user;
+        this.solicitud = new Solicitud();
+        solicitud.setUsuario(user);
+        solicitud.setDetalles(new HashSet<>());
+        daoSoli.create(solicitud);
+        listarProductos(productos);
     }
-    List<DetalleSolicitud> listaDetalle = new ArrayList<>();
-
-
-   // Método para llenar la tabla con los productos
-    public void listarProductos() {
-    ProductoJpaController daoProducto = new ProductoJpaController();
-    List<Producto> productos = daoProducto.findProductoEntities();
-
-    DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
-    modelo.setRowCount(0); // limpiar tabla
-
-    for (Producto p : productos) {
-        modelo.addRow(new Object[]{
-            p.getCategoria() != null ? p.getCategoria().getNombre() : "",
-            p.getNombre(),
-            p.getPrecioCompra(),
-            p.getCantidadLotes(),
-            "Disponible", // O puedes obtener el estado real si lo tienes
-            p.getCodigo()
-        });
-    }
-}
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblProductos = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
         btnSolicitar = new javax.swing.JButton();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
-        btnAgregar = new javax.swing.JButton();
-        btnEliminar = new javax.swing.JButton();
         jpnAgregarProduc = new javax.swing.JSpinner();
+        jPanel3 = new javax.swing.JPanel();
+        btnBuscar = new javax.swing.JButton();
+        txtBuscar = new javax.swing.JTextField();
+        btnSolicitud = new javax.swing.JButton();
+        btnDescripcion = new javax.swing.JButton();
+
+        setTitle("Registrar Solicitud");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
-
-        jLabel1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(149, 76, 46));
-        jLabel1.setText(": Productos");
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo_Prod.png"))); // NOI18N
 
@@ -93,7 +90,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -104,7 +101,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
                 "Categoria", "Nombre", "Precio Compra", "Cantidad", "Estado", "Código"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tblProductos);
 
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -125,28 +122,64 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnAgregar.setBackground(new java.awt.Color(30, 58, 81));
-        btnAgregar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
-        btnAgregar.setForeground(new java.awt.Color(239, 228, 210));
-        btnAgregar.setText("Agregar Producto");
-        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarActionPerformed(evt);
-            }
-        });
-
-        btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
-        btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
-        btnEliminar.setForeground(new java.awt.Color(239, 228, 210));
-        btnEliminar.setText("Eliminar Producto a Solicitar");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
         jpnAgregarProduc.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
         jpnAgregarProduc.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
+
+        jPanel3.setBackground(new java.awt.Color(239, 228, 210));
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 3), "Buscar por Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+
+        btnBuscar.setBackground(new java.awt.Color(30, 58, 81));
+        btnBuscar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnBuscar.setForeground(new java.awt.Color(239, 228, 210));
+        btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        txtBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(24, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
+        );
+
+        btnSolicitud.setBackground(new java.awt.Color(30, 58, 81));
+        btnSolicitud.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnSolicitud.setForeground(new java.awt.Color(239, 228, 210));
+        btnSolicitud.setText("Ver Solicitud");
+        btnSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSolicitudActionPerformed(evt);
+            }
+        });
+
+        btnDescripcion.setBackground(new java.awt.Color(30, 58, 81));
+        btnDescripcion.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnDescripcion.setForeground(new java.awt.Color(239, 228, 210));
+        btnDescripcion.setText("Descripción Producto");
+        btnDescripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDescripcionActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,53 +193,50 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addGap(24, 24, 24)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnRegresar)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(63, 63, 63))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(33, 33, 33)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jpnAgregarProduc, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
-                        .addGap(121, 121, 121)
+                        .addGap(18, 18, 18)
                         .addComponent(btnSolicitar)
-                        .addGap(110, 110, 110))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 854, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnSolicitud, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(45, 45, 45)
+                        .addGap(36, 36, 36)
                         .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(65, 65, 65)
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(btnRegresar)))
+                        .addComponent(btnRegresar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(13, 13, 13)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -215,13 +245,13 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(65, 65, 65)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAgregar)
                     .addComponent(btnSolicitar)
-                    .addComponent(btnEliminar)
-                    .addComponent(jpnAgregarProduc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(107, Short.MAX_VALUE))
+                    .addComponent(jpnAgregarProduc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSolicitud)
+                    .addComponent(btnDescripcion))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -239,111 +269,180 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSolicitarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitarActionPerformed
-        if (listaDetalle.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No hay productos para solicitar.");
-        return;
-    }
+        if (productos.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay productos para solicitar.");
+            return;
+        }
+        if (tblProductos.getRowCount() > 0) {
+            int filaSelect = tblProductos.getSelectedRow();
+            if (filaSelect != -1) {
+                producSelect = productos.get(filaSelect);
+                //validar disponibilidad{
+                if (validarEstado(producSelect).equals("NO DISPONIBLE")) {
+                    Mensajes.mostrarMensaje("Producto no disponible", "error");
+                    return;
+                }
+                //leer spinner
+                Object obj = jpnAgregarProduc.getValue();
+                int cantidad = (int) obj;
+                //proceso para agregar
+                // Validar que el producto no esté en el pedido
+                List<DetalleSolicitud> detallesRev = daoDetalle.findBySolicitud(solicitud);
 
-    try {
-        // 1. Crear la solicitud
-        UsuarioJpaController daoUsuario = new UsuarioJpaController();
-        Usuario usuarioActual = daoUsuario.findUsuario(1L); // Aquí usas un ID de prueba o el que está logueado
-
-        Solicitud solicitud = new Solicitud();
-        solicitud.setUsuario(usuarioActual); // Aquí sí, correcto
-        solicitud.setFechaSolicitud(new Date());
-        solicitud.setEstadoSolicitud("Pendiente");
-
-        SolicitudJpaController daoSolicitud = new SolicitudJpaController();
-        daoSolicitud.create(solicitud);
-
-        DetalleSolicitudJpaController daoDetalle = new DetalleSolicitudJpaController();
-        for (DetalleSolicitud d : listaDetalle) {
-            d.setSolicitud(solicitud);
-            daoDetalle.create(d);
-}
-
-
-        JOptionPane.showMessageDialog(this, "Solicitud enviada al administrador.");
-        listaDetalle.clear();
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(this, "Error al guardar solicitud: " + e.getMessage());
-        e.printStackTrace();
-    }
+                // Versión mejorada (sin necesidad de lista separada)
+                for (DetalleSolicitud detalleRev : detallesRev) {
+                    if (detalleRev.getProducto().getIdProducto() == producSelect.getIdProducto()) {
+                        Extras.Mensajes.mostrarMensaje("Este producto ya está en la solicitud.\nSi necesita cambios edítelo.", "error");
+                        return;
+                    }
+                }
+                //crear detalle
+                DetalleSolicitud detalle = new DetalleSolicitud();
+                detalle.setCantidad(cantidad);
+                detalle.setProducto(producSelect);
+                detalle.setSolicitud(solicitud);
+                daoDetalle.create(detalle);
+                solicitud.getDetalles().add(detalle);
+                //finalizacion
+                Mensajes.mostrarMensaje("Producto '" + producSelect.getNombre() + "' agregado a la solicitud.", "informacion");
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione un producto", "advertencia");
+            }
+        }
     }//GEN-LAST:event_btnSolicitarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-          int filaSeleccionada = jTable1.getSelectedRow();
-    if (filaSeleccionada == -1) {
-        JOptionPane.showMessageDialog(this, "Por favor seleccione un producto.");
-        return;
-    }
-
-    String codigoProducto = jTable1.getValueAt(filaSeleccionada, 5).toString(); // Columna código
-    ProductoJpaController daoProducto = new ProductoJpaController();
-    Producto producto = daoProducto.findByCodigo(codigoProducto);
-
-    if (producto == null) {
-        JOptionPane.showMessageDialog(this, "Producto no encontrado.");
-        return;
-    }
-
-    int cantidad = (int) jpnAgregarProduc.getValue();
-
-    DetalleSolicitud detalle = new DetalleSolicitud();
-    detalle.setProducto(producto);
-    detalle.setCantidad(cantidad);
-
-    listaDetalle.add(detalle);
-
-    }//GEN-LAST:event_btnAgregarActionPerformed
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-    int filaSeleccionada = jTable1.getSelectedRow();
-
-    if (filaSeleccionada != -1) {
-        String nombreProducto = jTable1.getValueAt(filaSeleccionada, 1).toString();
-        int cantidad = (int) jpnAgregarProduc.getValue();
-
-        Iterator<DetalleSolicitud> it = listaDetalle.iterator();
-        while (it.hasNext()) {
-            DetalleSolicitud d = it.next();
-            if (d.getProducto().getNombre().equals(nombreProducto)) {
-                d.setCantidad(d.getCantidad() - cantidad);
-                if (d.getCantidad() <= 0) {
-                    it.remove();
+        detalles = daoDetalle.findBySolicitud(solicitud);
+        if (detalles.isEmpty()) {
+            boolean conf = Extras.Mensajes.confirmar("¿Desea cancelar el registro del pedido?");
+            if (conf) {
+                try {
+                    daoSoli.destroy(solicitud.getIdSolicitud());
+                } catch (IllegalOrphanException ex) {
+                    Logger.getLogger(IFProductosEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(IFProductosEmpleado.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                break;
+                this.dispose();
+            }
+        } else {
+            boolean conf = Extras.Mensajes.confirmar("Tiene productos asociados a la solicitud, ¿Desea cancelar el registro?");
+            if (conf) {
+                try {
+                    daoSoli.destroy(solicitud.getIdSolicitud());
+                } catch (IllegalOrphanException ex) {
+                    Logger.getLogger(IFProductosEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NonexistentEntityException ex) {
+                    Logger.getLogger(IFProductosEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                for (DetalleSolicitud detalle : detalles) {
+                    try {
+                        daoDetalle.destroy(detalle.getIdDetalle());
+                    } catch (NonexistentEntityException ex) {
+                        Logger.getLogger(IFProductosEmpleado.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }
+                this.dispose();
+            } else {
+                Extras.Mensajes.mostrarMensaje("Valide y registre la solicitud completa", "advertencia");
             }
         }
+    }//GEN-LAST:event_btnRegresarActionPerformed
 
-        jpnAgregarProduc.setValue(1); // reinicia spinner
-    } else {
-        JOptionPane.showMessageDialog(this, "Seleccione un producto.");
-    }
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        String termino = txtBuscar.getText();
+        productos = control.getControlProducto().leerParcial(termino);
+        if (productos.isEmpty()) {
+            Mensajes.mostrarMensaje("No se encontraron productos con este término", "error");
+            listarProductos(control.getControlProducto().leerTodo());
+            return;
+        }
+        listarProductos(productos);
+        txtBuscar.setText("");
+    }//GEN-LAST:event_btnBuscarActionPerformed
 
-    }//GEN-LAST:event_btnEliminarActionPerformed
+    private void btnSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSolicitudActionPerformed
+
+    private void btnDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescripcionActionPerformed
+        if (tblProductos.getRowCount() > 0) {
+            int filaSelect = tblProductos.getSelectedRow();
+            if (filaSelect != -1) {
+                // Marcar que estamos en modo edición
+                producSelect = productos.get(filaSelect);
+                StringBuilder mensaje = new StringBuilder();
+                mensaje.append("EL LOTE DE '").append(producSelect.getNombre()).append("' CONTIENE:\n");
+                mensaje.append("- ").append(producSelect.getPresentacionLote()).append(" con ").append(producSelect.getCantidadPresentacionLote()).append(" Unidades.");
+                Mensajes.mostrarMensaje(mensaje.toString(), "informacion");
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione un producto", "advertencia");
+            }
+        }
+    }//GEN-LAST:event_btnDescripcionActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnDescripcion;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSolicitar;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton btnSolicitud;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable1;
     private javax.swing.JSpinner jpnAgregarProduc;
+    private javax.swing.JTable tblProductos;
+    private javax.swing.JTextField txtBuscar;
     // End of variables declaration//GEN-END:variables
+
+    private void listarProductos(List<Producto> productos) {
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        String[] titulos = {"Nombre", "Categoria", "Estado", "Codigo"};
+        modeloTabla.setColumnIdentifiers(titulos);
+        modeloTabla.setRowCount(0);
+
+        // Itera sobre los detalles y los agrega a la tabla
+        for (Producto produc : productos) {
+            Object[] obj = {
+                produc.getNombre(),
+                produc.getCategoria().getNombre(),
+                validarEstado(produc),
+                produc.getCodigo()
+            };
+            modeloTabla.addRow(obj);
+        }
+
+        tblProductos.setModel(modeloTabla);
+
+        // Centra el texto en todas las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplica el render centrado a cada columna
+        for (int i = 0; i < tblProductos.getColumnCount(); i++) {
+            tblProductos.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        }
+        //formatear el tamaño de texto
+        tblProductos.setRowHeight(35);
+        JTableHeader header = tblProductos.getTableHeader();
+        header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+    }
+
+    private Object validarEstado(Producto produc) {
+        int cant = produc.getCantidadLotes();
+        estadoProducto = cant > 10 ? "DISPONIBLE" : "NO DISPONIBLE";
+        return estadoProducto;
+    }
+
 }

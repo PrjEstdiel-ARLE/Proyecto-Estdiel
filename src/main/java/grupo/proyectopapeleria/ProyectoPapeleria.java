@@ -7,10 +7,7 @@ import Vista.Login;
 
 public class ProyectoPapeleria {
 
-    public static void main(String[] args) {
-
-        ControladoraGeneral control=new ControladoraGeneral();
-        
+    public static void main(String[] args) {      
         Login igu = new Login();
 
         igu.setVisible(true);
