@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,7 +19,7 @@ import javax.persistence.criteria.Root;
 public class RolJpaController implements Serializable {
 
     public RolJpaController() {
-        emf=Persistence.createEntityManagerFactory("persistencia");
+        emf = Persistence.createEntityManagerFactory("persistencia");
     }
 
     public RolJpaController(EntityManagerFactory emf) {
@@ -133,13 +134,28 @@ public class RolJpaController implements Serializable {
             em.close();
         }
     }
+
     public Set<Rol> findRolesByUsuario(Long idUsuario) {
-    EntityManager em = getEntityManager();
-    try {
-        Usuario usuario = em.find(Usuario.class, idUsuario);
-        return usuario != null ? usuario.getRoles() : new HashSet<>();
-    } finally {
-        em.close();
+        EntityManager em = getEntityManager();
+        try {
+            Usuario usuario = em.find(Usuario.class, idUsuario);
+            return usuario != null ? usuario.getRoles() : new HashSet<>();
+        } finally {
+            em.close();
+        }
     }
-}
+
+    Rol finByName(String nombre) {
+        EntityManager em = getEntityManager();
+        String query = "SELECT p FROM Rol p WHERE LOWER(p.nombre) = LOWER(:nombre)";
+        try {
+            return em.createQuery(query, Rol.class)
+                    .setParameter("nombre", nombre)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 }

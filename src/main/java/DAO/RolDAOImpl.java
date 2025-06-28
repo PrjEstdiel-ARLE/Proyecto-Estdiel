@@ -4,6 +4,7 @@ import Modelo.Rol;
 import java.util.List;
 
 public class RolDAOImpl implements RolDAO {
+
     private final RolJpaController rolJpa;
 
     public RolDAOImpl() {
@@ -19,5 +20,9 @@ public class RolDAOImpl implements RolDAO {
     public Rol leer(int id) {
         return rolJpa.findRol(id);
     }
-}
 
+    @Override
+    public Rol leerPorNombre(String rolNombre) {
+        return rolJpa.finByName(rolNombre);
+    }
+}

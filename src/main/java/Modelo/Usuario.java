@@ -35,7 +35,7 @@ public class Usuario implements Serializable {
     private String telefono;
     private String nombres;
     private String apellidos;
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuario_rol",
             joinColumns = @JoinColumn(name = "usuario_id"),
