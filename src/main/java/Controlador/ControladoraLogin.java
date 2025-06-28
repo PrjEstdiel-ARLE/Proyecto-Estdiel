@@ -68,16 +68,16 @@ public class ControladoraLogin {
     private void abrirVentanaSegunRol(Usuario u) {
         // 1. Determinar si tiene un rol concreto
         boolean esAdmin = u.getRoles().stream()
-                .anyMatch(r -> r.getNombre().equalsIgnoreCase("Administrador"));
+                .anyMatch(r -> r.getNombre().equalsIgnoreCase("ADMINISTRADOR"));
 
         boolean esLogistica = u.getRoles().stream()
-                .anyMatch(r -> r.getNombre().equalsIgnoreCase("Logística"));
+                .anyMatch(r -> r.getNombre().equalsIgnoreCase("LOGISTICA"));
 
         // 2. Abrir la UI
         if (esAdmin) {
             new MenuAdministrador(u).setVisible(true);
         } else if (esLogistica) {
-            new Logistica().setVisible(true);
+            new Logistica(u).setVisible(true);
         } else {
             Mensajes.mostrarMensaje("No tiene ventana asignada para sus roles", "error");
         }

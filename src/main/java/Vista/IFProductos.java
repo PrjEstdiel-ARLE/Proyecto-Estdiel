@@ -305,7 +305,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(81, 81, 81)
                         .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(144, Short.MAX_VALUE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,7 +336,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                     .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(213, Short.MAX_VALUE))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jPanel3.setBackground(new java.awt.Color(239, 228, 210));
@@ -389,16 +389,14 @@ public class IFProductos extends javax.swing.JInternalFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(73, 73, 73)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGap(213, 213, 213)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(870, 870, 870)
-                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(49, 49, 49)
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(211, 211, 211)
                                 .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(63, 63, 63)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -474,10 +472,10 @@ public class IFProductos extends javax.swing.JInternalFrame {
         String precioFormato = txtPrecio.getText();
         String nombreProd = txtNombre.getText();
         Object obj1 = jpnCantLote.getValue();
-            int cantidadLote = (int) obj1;
+        int cantidadLote = (int) obj1;
         ProductoPresentacionLote prelote = ProductoPresentacionLote.valueOf((String) cbxPresLote.getSelectedItem());
         Object obj2 = jpnCantProducto.getValue();
-            int cantidadProducto = (int) obj2;
+        int cantidadProducto = (int) obj2;
         ProductoPresentacionProducto preproducto = ProductoPresentacionProducto.valueOf((String) cbxPresProducto.getSelectedItem());
 
         // Validaciones básicas para producto
@@ -488,7 +486,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         }
         if (precioFormato.isEmpty()) {
             errores.append("- El precio de compra es obligatorio.\n");
-        } 
+        }
         // Verificar si hay errores
         if (errores.length() > 0) {
             Mensajes.mostrarMensaje(errores.toString(), "error");
@@ -542,7 +540,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
 
             txtNombre.setText("");
             txtPrecio.setText("");
-            
+
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -791,14 +789,27 @@ public class IFProductos extends javax.swing.JInternalFrame {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                // Solo permite dígitos y longitud máxima de 11
-                if (!Character.isDigit(c) || txtPrecio.getText().length() >= 11) {
+                String currentText = txtPrecio.getText();
+
+                // Verificar si ya existe un punto en el texto
+                boolean puntoExistente = currentText.contains(".");
+
+                // Permitir:
+                // 1. Dígitos (0-9)
+                // 2. Un solo punto (.) que no exista ya
+                // 3. Que no exceda la longitud máxima
+                if (!(Character.isDigit(c) || txtPrecio.getText().length() >= 11)) {
+                    // Si no es dígito, verificar si es un punto permitido
+                    if (c == '.' && !puntoExistente && !currentText.isEmpty()) {
+                        // Permitir el punto si no existe ya uno
+                        return;
+                    }
                     e.consume();
                 }
             }
         });
     }
-    
+
     private void soloNumerosEnSpinner(JSpinner spinner) {
         JComponent editor = spinner.getEditor();
         if (editor instanceof JSpinner.DefaultEditor) {
@@ -815,7 +826,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
             });
         }
     }
-    
+
     private void configurarSpinnerCantidad() {
         jpnCantLote.setModel(new SpinnerNumberModel(1, 1, 60, 1));
         jpnCantProducto.setModel(new SpinnerNumberModel(1, 1, 60, 1));
