@@ -269,7 +269,7 @@ public class IFSolicitudEmpleado extends javax.swing.JInternalFrame {
 
         Mensajes.mostrarMensaje("Solicitud enviada correctamente", "informacion");
 
-        IFSolicitarSalida ss = new IFSolicitarSalida();
+        IFSolicitarSalida ss = new IFSolicitarSalida(usuario);
         cargarIF(ss);
         this.dispose();
 

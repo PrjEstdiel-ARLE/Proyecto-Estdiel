@@ -9,6 +9,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import Modelo.DetalleSolicitud;
 import Modelo.Solicitud;
+import Modelo.Usuario;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.ArrayList;
@@ -217,6 +218,18 @@ public class SolicitudJpaController implements Serializable {
 
             q.executeUpdate();
             em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+    
+      public List<Solicitud> findByUsuario(Usuario usuario) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT ds FROM Solicitud ds WHERE ds.usuario= :usuario", Solicitud.class)
+                    .setParameter("usuario", usuario)
+                    .getResultList();
         } finally {
             em.close();
         }

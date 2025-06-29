@@ -26,6 +26,7 @@ public class Logistica extends javax.swing.JFrame {
         lblBienvenida = new javax.swing.JLabel();
         toolBar = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         itemCambio = new javax.swing.JMenuItem();
@@ -57,6 +58,17 @@ public class Logistica extends javax.swing.JFrame {
             }
         });
         toolBar.add(jButton1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Salida_Lotes.png"))); // NOI18N
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        toolBar.add(jButton2);
 
         pantalla.setLayer(lblBienvenida, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(toolBar, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -116,6 +128,7 @@ public class Logistica extends javax.swing.JFrame {
         menuLogistica.setText("Logística");
         menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemProducts.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemProducts.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemProducts.setText("Productos");
         itemProducts.addActionListener(new java.awt.event.ActionListener() {
@@ -130,6 +143,7 @@ public class Logistica extends javax.swing.JFrame {
         menuSalidas.setText("Salidas");
         menuSalidas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemSolicitarSalida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemSolicitarSalida.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSolicitarSalida.setText("Solicitar Salida");
         itemSolicitarSalida.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +193,7 @@ public class Logistica extends javax.swing.JFrame {
     }//GEN-LAST:event_itemProductsActionPerformed
 
     private void itemSolicitarSalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSolicitarSalidaActionPerformed
-        IFSolicitarSalida SS = new IFSolicitarSalida();
+        IFSolicitarSalida SS = new IFSolicitarSalida(userActual);
         cargarIF(SS);
     }//GEN-LAST:event_itemSolicitarSalidaActionPerformed
 
@@ -193,6 +207,11 @@ public class Logistica extends javax.swing.JFrame {
         cargarIF(pEm);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        IFSolicitarSalida SS = new IFSolicitarSalida(userActual);
+        cargarIF(SS);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCerrar;
@@ -200,6 +219,7 @@ public class Logistica extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenuItem itemSolicitarSalida;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel lblBienvenida;
