@@ -4,17 +4,34 @@
  */
 package Vista;
 
+import DAO.DetalleSolicitudJpaController;
+import DAO.SolicitudJpaController;
+import Modelo.Solicitud;
+import Modelo.Usuario;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.List;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+
 /**
  *
  * @author andre
  */
 public class IFSalidasLote extends javax.swing.JInternalFrame {
 
-    /**
-     * Creates new form IFSalidasLote
-     */
+    private SolicitudJpaController daoSoli;
+    private DetalleSolicitudJpaController daoDetalle;
+    private List<Solicitud> solicitudes = null;
+
     public IFSalidasLote() {
         initComponents();
+        this.daoSoli = new SolicitudJpaController();
+        this.daoDetalle = new DetalleSolicitudJpaController();
+        solicitudes = daoSoli.findSolicitudEntities();
+        cargarSolicitudes(solicitudes);
     }
 
     /**
@@ -45,7 +62,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         txtUsuario = new javax.swing.JTextField();
         txtCantidadLotes = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblSolicitud = new javax.swing.JTable();
+        tblSolicitudes = new javax.swing.JTable();
         btnEditar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
@@ -54,6 +71,8 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
         jSeparator7 = new javax.swing.JSeparator();
+
+        setTitle("Salidas");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
         jPanel1.setPreferredSize(new java.awt.Dimension(1046, 710));
@@ -116,7 +135,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         jLabel14.setForeground(new java.awt.Color(30, 58, 81));
         jLabel14.setText("Cantidad de lotes:");
 
-        tblSolicitud.setModel(new javax.swing.table.DefaultTableModel(
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -127,7 +146,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 "ID", "Estado", "Fecha Solicitud", "Usuario", "Cantidad Lotes"
             }
         ));
-        jScrollPane2.setViewportView(tblSolicitud);
+        jScrollPane2.setViewportView(tblSolicitudes);
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
@@ -369,7 +388,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JTable tblSalidas;
-    private javax.swing.JTable tblSolicitud;
+    private javax.swing.JTable tblSolicitudes;
     private javax.swing.JTextField txtCantidadLotes;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtFechaAprobacion;
@@ -377,4 +396,47 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarSolicitudes(List<Solicitud> solicitudes) {
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        String[] titulos = {"Usuario", "Fecha", "Estado", "Productos Asociados"};
+        modeloTabla.setColumnIdentifiers(titulos);
+        modeloTabla.setRowCount(0);
+
+        // Itera sobre los detalles y los agrega a la tabla
+        for (Solicitud sol : solicitudes) {
+            Object[] obj = {
+                cargarNombre(sol.getUsuario()),
+                sol.getFechaSolicitud(),
+                sol.getEstadoSolicitud(),
+                sol.getDetalles().size()
+            };
+            modeloTabla.addRow(obj);
+        }
+
+        tblSolicitudes.setModel(modeloTabla);
+
+        // Centra el texto en todas las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplica el render centrado a cada columna
+        for (int i = 0; i < tblSolicitudes.getColumnCount(); i++) {
+            tblSolicitudes.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        }
+        //formatear el tamaño de texto
+        tblSolicitudes.setRowHeight(35);
+        JTableHeader header = tblSolicitudes.getTableHeader();
+        header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+    }
+
+    private Object cargarNombre(Usuario user) {
+        return user.getNombres() + " " + user.getApellidos();
+    }
 }

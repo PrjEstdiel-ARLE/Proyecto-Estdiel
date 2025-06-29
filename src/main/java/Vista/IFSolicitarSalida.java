@@ -1,16 +1,35 @@
 package Vista;
 
+import DAO.DetalleSolicitudJpaController;
+import DAO.SolicitudJpaController;
+import Modelo.Producto;
+import Modelo.Solicitud;
 import Modelo.Usuario;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.util.List;
+import javax.swing.SwingConstants;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class IFSolicitarSalida extends javax.swing.JInternalFrame {
 
     private Usuario userAct;
+    private SolicitudJpaController daoSoli;
+    private DetalleSolicitudJpaController daoDetalle;
+    private List<Solicitud> solicitudes = null;
+
     public IFSolicitarSalida(Usuario usuario) {
         initComponents();
-        this.userAct=usuario;
+        this.userAct = usuario;
+        this.daoSoli = new SolicitudJpaController();
+        this.daoDetalle = new DetalleSolicitudJpaController();
+        solicitudes = daoSoli.findByUsuario(usuario);
+        cargarTabla(solicitudes);
     }
 
-     @SuppressWarnings("unchecked")
+    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -23,7 +42,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tblSolicitudes = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         txtId = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
@@ -72,7 +91,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -83,7 +102,8 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
                 "Estado", "F. Llegada", "F. Registro", "Proveedor", "Total"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tblSolicitudes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblSolicitudes);
 
         jLabel4.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 24)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(37, 77, 112));
@@ -287,7 +307,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tblSolicitudes;
     private javax.swing.JTextField txtEstado;
     private javax.swing.JTextField txtFechaLlegada;
     private javax.swing.JTextField txtFechaRegistro;
@@ -295,4 +315,42 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtProveedor;
     private javax.swing.JTextField txtTotal;
     // End of variables declaration//GEN-END:variables
+
+    private void cargarTabla(List<Solicitud> solicitudes) {
+        DefaultTableModel modeloTabla = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        String[] titulos = {"Fecha","Estado","Productos Asociados"};
+        modeloTabla.setColumnIdentifiers(titulos);
+        modeloTabla.setRowCount(0);
+
+        // Itera sobre los detalles y los agrega a la tabla
+        for (Solicitud sol : solicitudes) {
+            Object[] obj = {
+                sol.getFechaSolicitud(),
+                sol.getEstadoSolicitud(),
+                sol.getDetalles().size()
+            };
+            modeloTabla.addRow(obj);
+        }
+
+        tblSolicitudes.setModel(modeloTabla);
+
+        // Centra el texto en todas las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplica el render centrado a cada columna
+        for (int i = 0; i < tblSolicitudes.getColumnCount(); i++) {
+            tblSolicitudes.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        }
+        //formatear el tamaño de texto
+        tblSolicitudes.setRowHeight(35);
+        JTableHeader header = tblSolicitudes.getTableHeader();
+        header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+    }
 }

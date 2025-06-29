@@ -106,16 +106,16 @@
                       <Component id="jSeparator3" alignment="1" min="-2" pref="15" max="-2" attributes="0"/>
                       <Component id="jSeparator2" alignment="1" min="-2" pref="15" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="38" max="32767" attributes="0"/>
+                  <EmptySpace pref="37" max="32767" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="186" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="53" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnSolicitar" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jpnAgregarProduc" alignment="3" min="-2" pref="31" max="-2" attributes="0"/>
                       <Component id="btnSolicitud" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnDescripcion" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace pref="65" max="32767" attributes="0"/>
+                  <EmptySpace pref="45" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
