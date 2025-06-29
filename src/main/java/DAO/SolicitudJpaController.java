@@ -12,12 +12,15 @@ import Modelo.Solicitud;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 public class SolicitudJpaController implements Serializable {
+
+    private Object fecha;
 
     public SolicitudJpaController(EntityManagerFactory emf) {
         this.emf = emf;
@@ -194,6 +197,26 @@ public class SolicitudJpaController implements Serializable {
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void actualizarFechaEstado(Integer idSol, Date fecha, String estado) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Query q = em.createQuery(
+                    "UPDATE Solicitud s "
+                    + "SET s.fechaSolicitud = :fec, s.estadoSolicitud = :est "
+                    + "WHERE s.idSolicitud = :id");
+            q.setParameter("fec", fecha);
+            q.setParameter("est", estado);
+            q.setParameter("id", idSol);
+
+            q.executeUpdate();
+            em.getTransaction().commit();
         } finally {
             em.close();
         }

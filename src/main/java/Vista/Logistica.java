@@ -24,6 +24,8 @@ public class Logistica extends javax.swing.JFrame {
 
         pantalla = new javax.swing.JDesktopPane();
         lblBienvenida = new javax.swing.JLabel();
+        toolBar = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         itemCambio = new javax.swing.JMenuItem();
@@ -43,7 +45,21 @@ public class Logistica extends javax.swing.JFrame {
         lblBienvenida.setForeground(new java.awt.Color(137, 6, 6));
         lblBienvenida.setText("Mensaje");
 
+        toolBar.setRollover(true);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Prod.png"))); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        toolBar.add(jButton1);
+
         pantalla.setLayer(lblBienvenida, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(toolBar, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
@@ -53,11 +69,13 @@ public class Logistica extends javax.swing.JFrame {
                 .addGap(375, 375, 375)
                 .addComponent(lblBienvenida)
                 .addContainerGap(411, Short.MAX_VALUE))
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
+                .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(lblBienvenida)
                 .addContainerGap(338, Short.MAX_VALUE))
         );
@@ -156,7 +174,7 @@ public class Logistica extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void itemProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductsActionPerformed
-        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual);
+        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual,pantalla,toolBar);
         cargarIF(pEm);
     }//GEN-LAST:event_itemProductsActionPerformed
 
@@ -170,12 +188,18 @@ public class Logistica extends javax.swing.JFrame {
         cargarIF(cpwd);
     }//GEN-LAST:event_itemCambioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual,pantalla,toolBar);
+        cargarIF(pEm);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemProducts;
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenuItem itemSolicitarSalida;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel lblBienvenida;
@@ -183,11 +207,13 @@ public class Logistica extends javax.swing.JFrame {
     private javax.swing.JMenu menuLogistica;
     private javax.swing.JMenu menuSalidas;
     private javax.swing.JDesktopPane pantalla;
+    private javax.swing.JToolBar toolBar;
     // End of variables declaration//GEN-END:variables
 
     private void cargarIF(JInternalFrame internal) {
         pantalla.add(internal);
         internal.show();
+        internal.setLocation(10, toolBar.getHeight()+10);
     }
 
     private String colocarBienvenida() {
