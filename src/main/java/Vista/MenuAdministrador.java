@@ -29,6 +29,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        jToolBar2 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         itemCerrar = new javax.swing.JMenuItem();
@@ -61,45 +70,139 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        jToolBar2.setRollover(true);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Prod.png"))); // NOI18N
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Prove.png"))); // NOI18N
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton2);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Categoria.png.png"))); // NOI18N
+        jButton3.setToolTipText("");
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton3);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_config.png"))); // NOI18N
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton4);
+
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Lotes.png"))); // NOI18N
+        jButton5.setFocusable(false);
+        jButton5.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton5.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton5);
+
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Detalle.png"))); // NOI18N
+        jButton6.setFocusable(false);
+        jButton6.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton6.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton6);
+
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Prod_Prov.png"))); // NOI18N
+        jButton7.setFocusable(false);
+        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton7.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton7);
+
+        jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Salida_Lotes.png"))); // NOI18N
+        jButton8.setFocusable(false);
+        jButton8.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton8.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jToolBar2.add(jButton8);
+
         pantalla.setLayer(jSeparator3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(jToolBar2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(922, 922, 922)
+                .addGap(226, 226, 226)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(1670, Short.MAX_VALUE))
+                .addContainerGap(2366, Short.MAX_VALUE))
+            .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
+                    .addGap(0, 687, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1296, Short.MAX_VALUE)))
+                    .addGap(0, 1905, Short.MAX_VALUE)))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 78, Short.MAX_VALUE)
+                    .addGap(0, 687, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 1296, Short.MAX_VALUE)))
+                    .addGap(0, 1905, Short.MAX_VALUE)))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(503, 503, 503)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 372, Short.MAX_VALUE))
+                .addGap(0, 817, Short.MAX_VALUE))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 430, Short.MAX_VALUE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 431, Short.MAX_VALUE)))
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
+                    .addGap(0, 430, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGap(0, 431, Short.MAX_VALUE)))
         );
 
         MenuBar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
@@ -107,6 +210,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCerrar.setText("Cerrar Sesión");
         itemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +221,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.add(itemCerrar);
         menuArchivo.add(jSeparator4);
 
+        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -131,6 +236,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuGestion.setText("Gestión");
         menuGestion.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemProductos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemProductos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemProductos.setText("Productos");
         itemProductos.addActionListener(new java.awt.event.ActionListener() {
@@ -140,6 +246,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuGestion.add(itemProductos);
 
+        itemProveedores.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_B, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemProveedores.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemProveedores.setText("Proveedores");
         itemProveedores.addActionListener(new java.awt.event.ActionListener() {
@@ -149,6 +256,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuGestion.add(itemProveedores);
 
+        itemCategorias.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemCategorias.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCategorias.setText("Categorías");
         itemCategorias.addActionListener(new java.awt.event.ActionListener() {
@@ -158,6 +266,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuGestion.add(itemCategorias);
 
+        itemUsuarios.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemUsuarios.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemUsuarios.setText("Usuarios");
         itemUsuarios.addActionListener(new java.awt.event.ActionListener() {
@@ -172,6 +281,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuInventario.setText("Inventario");
         menuInventario.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemLotes.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemLotes.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemLotes.setText("Lotes");
         itemLotes.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +291,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuInventario.add(itemLotes);
 
+        itemFiltro.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemFiltro.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemFiltro.setText("Filtro de Productos");
         itemFiltro.addActionListener(new java.awt.event.ActionListener() {
@@ -195,6 +306,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuLogistica.setText("Logística");
         menuLogistica.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemRegistrarPedido.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemRegistrarPedido.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemRegistrarPedido.setText("Registrar Pedido");
         itemRegistrarPedido.addActionListener(new java.awt.event.ActionListener() {
@@ -204,6 +316,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuLogistica.add(itemRegistrarPedido);
 
+        itemVerPedidos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemVerPedidos.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemVerPedidos.setText("Ver Pedidos");
         itemVerPedidos.addActionListener(new java.awt.event.ActionListener() {
@@ -213,6 +326,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuLogistica.add(itemVerPedidos);
 
+        itemSalidas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemSalidas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSalidas.setText("Salidas");
         itemSalidas.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +344,10 @@ public class MenuAdministrador extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pantalla)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pantalla)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,7 +388,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemProveedoresActionPerformed
 
     private void itemCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCategoriasActionPerformed
-        IFCategorias cat=new IFCategorias(pantalla,true);
+        IFCategorias cat = new IFCategorias(pantalla, true);
         cargarIF(cat);
     }//GEN-LAST:event_itemCategoriasActionPerformed
 
@@ -304,6 +421,54 @@ public class MenuAdministrador extends javax.swing.JFrame {
         IFSalidasLote SL = new IFSalidasLote();
         cargarIF(SL);
     }//GEN-LAST:event_itemSalidasActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        IFProductos prod = new IFProductos(pantalla);
+        cargarIF(prod);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        IFProveedores prov = new IFProveedores(pantalla);
+        cargarIF(prov);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        IFCategorias cat = new IFCategorias(pantalla, true);
+        cargarIF(cat);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        IFUsuarios us = new IFUsuarios();
+        cargarIF(us);
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        IFLotes lot = new IFLotes();
+        cargarIF(lot);
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        IFRegistrarPedido reg = new IFRegistrarPedido(pantalla);
+        cargarIF(reg);
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+        IFPedidos ped = new IFPedidos(pantalla);
+        cargarIF(ped);
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        // TODO add your handling code here:
+        IFSalidasLote SL = new IFSalidasLote();
+        cargarIF(SL);
+    }//GEN-LAST:event_jButton8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -353,10 +518,19 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenuItem itemUsuarios;
     private javax.swing.JMenuItem itemVerPedidos;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
+    private javax.swing.JToolBar jToolBar2;
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuGestion;
     private javax.swing.JMenu menuInventario;
@@ -365,7 +539,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarIF(JInternalFrame internal) {
-        internal.setVisible(true);
         pantalla.add(internal);
+        internal.show();
+        internal.setLocation(10,jToolBar2.getHeight()+10);
     }
 }
