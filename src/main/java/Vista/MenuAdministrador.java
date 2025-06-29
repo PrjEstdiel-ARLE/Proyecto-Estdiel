@@ -6,16 +6,15 @@ import javax.swing.JInternalFrame;
 
 public class MenuAdministrador extends javax.swing.JFrame {
 
-    private final Usuario userActual;
-
+    private Usuario userAct;
+    
     public MenuAdministrador(Usuario usuario) {
         initComponents();
-        this.userActual = usuario;
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         //control jdesktoppane se cambio de nombre por ESCRITORIO
         this.setContentPane(this.pantalla);
-        lblBienvenida.setText(colocarBienvenida());
+        this.userAct=usuario;
     }
 
     @SuppressWarnings("unchecked")
@@ -26,9 +25,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-<<<<<<< HEAD
-        lblBienvenida = new javax.swing.JLabel();
-=======
         jToolBar2 = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
@@ -38,10 +34,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jButton6 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
->>>>>>> main
         MenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
-        itemCambio = new javax.swing.JMenuItem();
         itemCerrar = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         itemSalir = new javax.swing.JMenuItem();
@@ -72,11 +66,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-<<<<<<< HEAD
-        lblBienvenida.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 65)); // NOI18N
-        lblBienvenida.setForeground(new java.awt.Color(137, 6, 6));
-        lblBienvenida.setText("Mensaje");
-=======
         jToolBar2.setRollover(true);
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Prod.png"))); // NOI18N
@@ -167,37 +156,21 @@ public class MenuAdministrador extends javax.swing.JFrame {
             }
         });
         jToolBar2.add(jButton8);
->>>>>>> main
 
         pantalla.setLayer(jSeparator3, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jSeparator1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(jSeparator2, javax.swing.JLayeredPane.DEFAULT_LAYER);
-<<<<<<< HEAD
-        pantalla.setLayer(lblBienvenida, javax.swing.JLayeredPane.DEFAULT_LAYER);
-=======
         pantalla.setLayer(jToolBar2, javax.swing.JLayeredPane.DEFAULT_LAYER);
->>>>>>> main
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-<<<<<<< HEAD
-                .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(pantallaLayout.createSequentialGroup()
-                        .addGap(922, 922, 922)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pantallaLayout.createSequentialGroup()
-                        .addGap(416, 416, 416)
-                        .addComponent(lblBienvenida)))
-                .addContainerGap(1670, Short.MAX_VALUE))
-=======
                 .addGap(226, 226, 226)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(2366, Short.MAX_VALUE))
             .addComponent(jToolBar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
->>>>>>> main
             .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(pantallaLayout.createSequentialGroup()
                     .addGap(0, 687, Short.MAX_VALUE)
@@ -212,23 +185,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
-<<<<<<< HEAD
-                .addGap(41, 41, 41)
-                .addComponent(lblBienvenida)
-                .addGap(383, 383, 383)
-                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 244, Short.MAX_VALUE))
-            .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 334, Short.MAX_VALUE)
-                    .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 334, Short.MAX_VALUE)))
-            .addGroup(pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(pantallaLayout.createSequentialGroup()
-                    .addGap(0, 334, Short.MAX_VALUE)
-                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 334, Short.MAX_VALUE)))
-=======
                 .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,7 +199,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
                     .addGap(0, 430, Short.MAX_VALUE)
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGap(0, 431, Short.MAX_VALUE)))
->>>>>>> main
         );
 
         MenuBar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
@@ -251,19 +206,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-<<<<<<< HEAD
-        itemCambio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemCambio.setText("Cambiar Contraseña");
-        itemCambio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                itemCambioActionPerformed(evt);
-            }
-        });
-        menuArchivo.add(itemCambio);
-
-=======
         itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
->>>>>>> main
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCerrar.setText("Cerrar Sesión");
         itemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -404,9 +347,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(pantalla, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(pantalla)
         );
 
         pack();
@@ -477,12 +418,6 @@ public class MenuAdministrador extends javax.swing.JFrame {
         cargarIF(SL);
     }//GEN-LAST:event_itemSalidasActionPerformed
 
-
-    private void itemCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCambioActionPerformed
-        IFCambioPassword cpwd=new IFCambioPassword(userActual);
-        cargarIF(cpwd);
-    }//GEN-LAST:event_itemCambioActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         IFProductos prod = new IFProductos(pantalla);
@@ -531,10 +466,9 @@ public class MenuAdministrador extends javax.swing.JFrame {
         cargarIF(SL);
     }//GEN-LAST:event_jButton8ActionPerformed
 
-  
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MenuBar;
-    private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCategorias;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemFiltro;
@@ -558,11 +492,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JPopupMenu.Separator jSeparator4;
-<<<<<<< HEAD
-    private javax.swing.JLabel lblBienvenida;
-=======
     private javax.swing.JToolBar jToolBar2;
->>>>>>> main
     private javax.swing.JMenu menuArchivo;
     private javax.swing.JMenu menuGestion;
     private javax.swing.JMenu menuInventario;
@@ -574,9 +504,5 @@ public class MenuAdministrador extends javax.swing.JFrame {
         pantalla.add(internal);
         internal.show();
         internal.setLocation(10,jToolBar2.getHeight()+10);
-    }
-
-    private String colocarBienvenida() {
-        return "Bienvenido " + userActual.getNombres() + " " + userActual.getApellidos();
     }
 }
