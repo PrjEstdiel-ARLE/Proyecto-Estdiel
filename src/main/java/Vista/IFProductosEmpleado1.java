@@ -31,7 +31,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.JTableHeader;
 
-public class IFProductosEmpleado extends javax.swing.JInternalFrame {
+public class IFProductosEmpleado1 extends javax.swing.JInternalFrame {
 
     private final ControladoraGeneral control;
     private List<Producto> productos;
@@ -45,20 +45,17 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
     private JDesktopPane pantalla;
     private JToolBar tool;
 
-    public IFProductosEmpleado(Usuario user, JDesktopPane pantalla, JToolBar tool) {
+    public IFProductosEmpleado1(Usuario user, JDesktopPane pantalla, JToolBar tool, Solicitud solicitud) {
         initComponents();
         control = new ControladoraGeneral();
         productos = control.getControlProducto().leerTodo();
         this.daoSoli = new SolicitudJpaController();
         this.daoDetalle = new DetalleSolicitudJpaController();
         this.userActual = user;
-        this.solicitud = new Solicitud();
-        solicitud.setUsuario(user);
-        solicitud.setDetalles(new HashSet<>());
-        daoSoli.create(solicitud);
         listarProductos(productos);
         this.pantalla = pantalla;
         this.tool = tool;
+        this.solicitud = solicitud;
     }
 
     @SuppressWarnings("unchecked")
@@ -241,15 +238,15 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
                     .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 15, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
+                .addGap(53, 53, 53)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSolicitar)
                     .addComponent(jpnAgregarProduc, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSolicitud)
                     .addComponent(btnDescripcion))
-                .addContainerGap(45, Short.MAX_VALUE))
+                .addContainerGap(65, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -370,7 +367,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
             Mensajes.mostrarMensaje("La solicitud no tiene productos asociados", "error");
             return;
         }
-        IFSolicitudEmpleado inter = new IFSolicitudEmpleado(userActual, solicitud, pantalla,tool);
+        IFSolicitudEmpleado inter = new IFSolicitudEmpleado(userActual, solicitud, pantalla, tool);
         cargarIF(inter);
         this.dispose();
     }//GEN-LAST:event_btnSolicitudActionPerformed
