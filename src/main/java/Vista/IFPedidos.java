@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class IFPedidos extends javax.swing.JInternalFrame {
-
+    
     private final ControladoraGeneral control;
     private List<Pedido> pedidos;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -38,11 +38,11 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     private Pedido pedidoEnEdicion = null;
     Calendar cal;
     private final JDesktopPane pantalla;
-
+    
     public IFPedidos(JDesktopPane desktopPane) {
         initComponents();
-        formato.setTimeZone(TimeZone.getTimeZone("UTC"));
-        formatoControl.setTimeZone(TimeZone.getTimeZone("UTC"));
+        formato.setTimeZone(TimeZone.getTimeZone("America/Lima"));
+        formatoControl.setTimeZone(TimeZone.getTimeZone("America/Lima"));
         control = new ControladoraGeneral();
         cargarEstados();
         this.pedidos = control.getControlPedido().leerTodo();
@@ -50,13 +50,14 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         this.pantalla = desktopPane;
         cargarFiltros();
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
         jLayeredPane9 = new javax.swing.JLayeredPane();
+        btnVolver1 = new javax.swing.JButton();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblPedidos = new javax.swing.JTable();
@@ -82,7 +83,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cmbProveedores = new javax.swing.JComboBox<>();
         jPanel5 = new javax.swing.JPanel();
         cmbEstadosFiltro = new javax.swing.JComboBox<>();
-        btnVolver1 = new javax.swing.JButton();
+        btnTodo2 = new javax.swing.JButton();
 
         setTitle("Pedidos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -93,18 +94,38 @@ public class IFPedidos extends javax.swing.JInternalFrame {
 
         jLayeredPane9.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
+        btnVolver1.setBackground(new java.awt.Color(239, 228, 210));
+        btnVolver1.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
+        btnVolver1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Regresar.png"))); // NOI18N
+        btnVolver1.setBorderPainted(false);
+        btnVolver1.setContentAreaFilled(false);
+        btnVolver1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnVolver1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVolver1ActionPerformed(evt);
+            }
+        });
+
+        jLayeredPane9.setLayer(btnVolver1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
         javax.swing.GroupLayout jLayeredPane9Layout = new javax.swing.GroupLayout(jLayeredPane9);
         jLayeredPane9.setLayout(jLayeredPane9Layout);
         jLayeredPane9Layout.setHorizontalGroup(
             jLayeredPane9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 155, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane9Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnVolver1)
+                .addContainerGap())
         );
         jLayeredPane9Layout.setVerticalGroup(
             jLayeredPane9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 176, Short.MAX_VALUE)
+            .addGroup(jLayeredPane9Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(btnVolver1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1090, 90, -1, -1));
+        jPanel2.add(jLayeredPane9, new org.netbeans.lib.awtextra.AbsoluteConstraints(1180, 80, -1, -1));
 
         jLayeredPane1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
@@ -431,27 +452,22 @@ public class IFPedidos extends javax.swing.JInternalFrame {
 
         jPanel2.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
 
-        btnVolver1.setBackground(new java.awt.Color(239, 228, 210));
-        btnVolver1.setFont(new java.awt.Font("Dialog", 0, 20)); // NOI18N
-        btnVolver1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Regresar.png"))); // NOI18N
-        btnVolver1.setBorderPainted(false);
-        btnVolver1.setContentAreaFilled(false);
-        btnVolver1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnVolver1.addActionListener(new java.awt.event.ActionListener() {
+        btnTodo2.setBackground(new java.awt.Color(30, 58, 81));
+        btnTodo2.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
+        btnTodo2.setForeground(new java.awt.Color(239, 228, 210));
+        btnTodo2.setText("Ver Todos");
+        btnTodo2.setPreferredSize(new java.awt.Dimension(70, 40));
+        btnTodo2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVolver1ActionPerformed(evt);
+                btnTodo2ActionPerformed(evt);
             }
         });
-        jPanel2.add(btnVolver1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1080, 110, -1, 142));
+        jPanel2.add(btnTodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 290, 100, -1));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1388, 720));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnVolver1ActionPerformed
 
     private void btnGuardarCambiosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCambiosActionPerformed
         boolean conf = Mensajes.confirmar("¿Desea guardar los cambios?");
@@ -473,7 +489,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
 
                     // Preparamos todos los lotes a crear
                     List<Lote> lotes = new ArrayList<>();
-
+                    
                     for (DetallePedido detalle : pedidoEnEdicion.getDetalles()) {
                         Producto prodAsoc = detalle.getProducto();
                         int tiempoAlmacen = prodAsoc.getCategoria().getTiempo_estimado_almacen();
@@ -619,12 +635,23 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cargarTablaPedidos(pedidosFiltrados);
     }//GEN-LAST:event_btnFiltrarActionPerformed
 
+    private void btnTodo2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTodo2ActionPerformed
+        recargarTabla();
+    }//GEN-LAST:event_btnTodo2ActionPerformed
+
+    private void btnVolver1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolver1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnVolver1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnGuardarCambios;
+    private javax.swing.JButton btnTodo;
+    private javax.swing.JButton btnTodo1;
+    private javax.swing.JButton btnTodo2;
     private javax.swing.JButton btnVolver1;
     private javax.swing.JComboBox<String> cmbEstado;
     private javax.swing.JComboBox<String> cmbEstadosFiltro;
@@ -671,11 +698,11 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 formato.format(pedido.getFechaEstimadoLlegada()),
                 Cadenas.formatoSoles(pedido.getTotal(), true),
                 pedido.getEstado()
-
+            
             };
             modeloTabla.addRow(obj);
         }
-
+        
         tblPedidos.setModel(modeloTabla);
 
         // Centra el texto en todas las celdas
@@ -692,15 +719,15 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
-
+    
     private void cargarEstados() {
         cmbEstado.removeAllItems();
-
+        
         for (EstadoPedido estado : EstadoPedido.values()) {
             cmbEstado.addItem(estado.name());
         }
     }
-
+    
     private void finalizarEdicion() {
         pedidoEnEdicion = null;
         btnGuardarCambios.setEnabled(false);
@@ -711,7 +738,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cargarEstados();
         limpiarFiltros();
     }
-
+    
     private void cargarFechaEnDateChooser(JDateChooser dateChooser, Date fecha) {
         if (fecha != null) {
             // 1. Convertir Date a LocalDate con la zona horaria correcta
@@ -728,24 +755,24 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             dateChooser.setDate(null);
         }
     }
-
+    
     private String generarCodigoLote(DetallePedido detalle, int numeroLote) {
         // Formato: PEDIDO_ID-PRODUCTO_ID-FECHA-NUMEROLOTE
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
         String fechaCodigo = sdf.format(new Date());
-
+        
         return String.format("%s-%s-%s-%03d",
                 detalle.getPedido().getIdPedido(),
                 detalle.getProducto().getIdProducto(),
                 fechaCodigo,
                 numeroLote);
     }
-
+    
     private void cargarFiltros() {
         cargarEstadosFiltro();
         cargarProveedores();
     }
-
+    
     private void cargarEstadosFiltro() {
         cmbEstadosFiltro.removeAllItems();
         cmbEstadosFiltro.addItem("Todos");
@@ -753,7 +780,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             cmbEstadosFiltro.addItem(estado.name());
         }
     }
-
+    
     private void cargarProveedores() {
         cmbProveedores.removeAllItems();
         cmbProveedores.addItem("Cualquiera");
@@ -761,7 +788,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             cmbProveedores.addItem(provCmb.getNombre());
         }
     }
-
+    
     private void limpiarFiltros() {
         fechaDesde.setDate(null);
         fechaHasta.setDate(null);
@@ -769,16 +796,21 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cmbProveedores.setSelectedItem("Cualquiera");
         cargarTablaPedidos(this.pedidos);
     }
-
+    
     private boolean validarFechas(Date desde, Date hasta) {
         return !(desde != null && hasta != null && hasta.before(desde));
     }
-
+    
     private void enEdicion(boolean b) {
         btnFiltrar.setEnabled(!b);
         fechaDesde.setEnabled(!b);
         fechaHasta.setEnabled(!b);
         cmbProveedores.setEnabled(!b);
         cmbEstadosFiltro.setEnabled(!b);
+    }
+    
+    private void recargarTabla() {
+        pedidos = control.getControlPedido().leerTodo();
+        cargarTablaPedidos(pedidos);
     }
 }
