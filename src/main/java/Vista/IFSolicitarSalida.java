@@ -7,7 +7,9 @@ import Modelo.Solicitud;
 import Modelo.Usuario;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.TimeZone;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
@@ -19,9 +21,11 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     private SolicitudJpaController daoSoli;
     private DetalleSolicitudJpaController daoDetalle;
     private List<Solicitud> solicitudes = null;
+    SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 
     public IFSolicitarSalida(Usuario usuario) {
         initComponents();
+        formato.setTimeZone(TimeZone.getTimeZone("America/Lima"));
         this.userAct = usuario;
         this.daoSoli = new SolicitudJpaController();
         this.daoDetalle = new DetalleSolicitudJpaController();
@@ -330,7 +334,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         // Itera sobre los detalles y los agrega a la tabla
         for (Solicitud sol : solicitudes) {
             Object[] obj = {
-                sol.getFechaSolicitud(),
+                formato.format(sol.getFechaSolicitud()),
                 sol.getEstadoSolicitud(),
                 sol.getDetalles().size()
             };

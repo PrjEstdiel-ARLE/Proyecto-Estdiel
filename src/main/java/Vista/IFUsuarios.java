@@ -537,6 +537,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
             return;
         }
         generarTabla(usuarios);
+        usuarios=control.getControlUsuario().leerTodo();
         txtBuscar.setText("");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
