@@ -26,6 +26,9 @@ public class ContactoProveedor implements Serializable {
     private String telefono;
     private String correo;
     private ContactoCargo cargo;
+    private String documento;
+    private String direccion;
+    private TipoDocumento tipoDocumento;
 
     @ManyToOne
     @JoinColumn(name = "proveedor_id")
