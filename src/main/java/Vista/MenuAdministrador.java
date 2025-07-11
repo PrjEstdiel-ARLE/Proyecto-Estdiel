@@ -390,7 +390,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
-        IFProveedores prov = new IFProveedores(pantalla);
+        IFProveedores prov = new IFProveedores(pantalla,jToolBar2);
         cargarIF(prov);
     }//GEN-LAST:event_itemProveedoresActionPerformed
 
@@ -437,7 +437,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        IFProveedores prov = new IFProveedores(pantalla);
+        IFProveedores prov = new IFProveedores(pantalla,jToolBar2);
         cargarIF(prov);
     }//GEN-LAST:event_jButton2ActionPerformed
 
