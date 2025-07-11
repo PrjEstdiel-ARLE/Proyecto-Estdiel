@@ -36,6 +36,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
+        itemCambio = new javax.swing.JMenuItem();
         itemCerrar = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         itemSalir = new javax.swing.JMenuItem();
@@ -53,6 +54,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         itemSalidas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Gestor de Logística para Papelería 'Estdiel' - Administrador");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         pantalla.setBackground(new java.awt.Color(239, 228, 210));
@@ -205,6 +207,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        itemCambio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCambio.setText("Cambiar Contraseña");
+        itemCambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCambioActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemCambio);
 
         itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -466,9 +477,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
         cargarIF(SL);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void itemCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCambioActionPerformed
+        IFCambioPassword cpwd=new IFCambioPassword(userAct);
+        cargarIF(cpwd);
+    }//GEN-LAST:event_itemCambioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCategorias;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemFiltro;

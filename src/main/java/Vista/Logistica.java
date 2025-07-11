@@ -39,6 +39,7 @@ public class Logistica extends javax.swing.JFrame {
         itemSolicitarSalida = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestor de Logística para Papelería 'Estdiel' - Encargado de Logística");
 
         pantalla.setBackground(new java.awt.Color(239, 228, 210));
 

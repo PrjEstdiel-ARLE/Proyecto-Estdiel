@@ -67,6 +67,8 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         btnTodo = new javax.swing.JButton();
 
+        setTitle("Usuarios");
+
         jPanel2.setBackground(new java.awt.Color(239, 228, 210));
 
         jLabel14.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Logo_config.png"))); // NOI18N
