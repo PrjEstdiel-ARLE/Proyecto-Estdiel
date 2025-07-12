@@ -464,7 +464,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
         tblLotes.setModel(modeloTabla);
 
         //tamaños
-        tblLotes.getColumnModel().getColumn(0).setPreferredWidth(3500);
+        tblLotes.getColumnModel().getColumn(0).setPreferredWidth(350);
         tblLotes.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblLotes.getColumnModel().getColumn(2).setPreferredWidth(250);
         tblLotes.getColumnModel().getColumn(3).setPreferredWidth(180);

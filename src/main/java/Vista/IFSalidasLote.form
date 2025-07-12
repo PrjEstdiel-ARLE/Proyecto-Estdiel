@@ -474,7 +474,7 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Filtros">
+                <TitledBorder title="Filtro para solicitudes">
                   <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
                     <LineBorder thickness="2">
                       <Color PropertyName="color" blue="6" green="6" red="89" type="rgb"/>

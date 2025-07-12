@@ -685,7 +685,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Proveedor", "Fecha Registro", "F. Estimada Llegada", "Total", "Estado"};
+        String[] titulos = {"Proveedor", "Fecha de Registro", "F. Estimada de Llegada", "Total", "Estado"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -706,9 +706,9 @@ public class IFPedidos extends javax.swing.JInternalFrame {
 
         //tamaños
         tblPedidos.getColumnModel().getColumn(0).setPreferredWidth(220);
-        tblPedidos.getColumnModel().getColumn(1).setPreferredWidth(350);
-        tblPedidos.getColumnModel().getColumn(2).setPreferredWidth(350);
-        tblPedidos.getColumnModel().getColumn(3).setPreferredWidth(120);
+        tblPedidos.getColumnModel().getColumn(1).setPreferredWidth(320);
+        tblPedidos.getColumnModel().getColumn(2).setPreferredWidth(320);
+        tblPedidos.getColumnModel().getColumn(3).setPreferredWidth(160);
         tblPedidos.getColumnModel().getColumn(4).setPreferredWidth(180);
 
         // Centra el texto en todas las celdas

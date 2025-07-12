@@ -231,7 +231,7 @@ public class IFSolicitudEmpleado extends javax.swing.JInternalFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         if (detalle != null) {
             enEdicion(false);
-            detalle=null;
+            detalle = null;
             jpnAgregarProduc.setValue(1);
             Mensajes.mostrarMensaje("Edición cancelada", "informacion");
         } else {
@@ -259,25 +259,27 @@ public class IFSolicitudEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudActionPerformed
-        if (!Mensajes.confirmar("¿Desea terminar la solicitud?")) return;
+        if (!Mensajes.confirmar("¿Desea terminar la solicitud?")) {
+            return;
+        }
 
-    try {
-        daoSoli.actualizarFechaEstado(
-                solicitud.getIdSolicitud(),
-                new Date(),
-                "Pendiente");          // o "Enviada"
+        try {
+            daoSoli.actualizarFechaEstado(
+                    solicitud.getIdSolicitud(),
+                    new Date(),
+                    "Pendiente");
 
-        Mensajes.mostrarMensaje("Solicitud enviada correctamente", "informacion");
+            Mensajes.mostrarMensaje("Solicitud enviada correctamente", "informacion");
 
-        IFSolicitarSalida ss = new IFSolicitarSalida(usuario);
-        cargarIF(ss);
-        this.dispose();
+            IFSolicitarSalida ss = new IFSolicitarSalida(usuario);
+            cargarIF(ss);
+            this.dispose();
 
-    } catch (Exception ex) {
-        Logger.getLogger(IFSolicitudEmpleado.class.getName())
-              .log(Level.SEVERE, null, ex);
-        Mensajes.mostrarMensaje("Error al finalizar la solicitud", "error");
-    }
+        } catch (Exception ex) {
+            Logger.getLogger(IFSolicitudEmpleado.class.getName())
+                    .log(Level.SEVERE, null, ex);
+            Mensajes.mostrarMensaje("Error al finalizar la solicitud", "error");
+        }
     }//GEN-LAST:event_btnSolicitudActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

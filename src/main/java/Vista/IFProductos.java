@@ -673,7 +673,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Nombre", "Precio de Lote", "Categoria", "Proveedor", "Cant. en Lote", "Pres. de Lote", "Cant. en Producto", "Pres. de Producto", "Cantidad", "Código"};
+        String[] titulos = {"Nombre", "Precio de Lote", "Categoria", "Proveedor", "Cant. en Lote", "Pres. de Lote", "Cant. en Producto", "Pres. de Producto", "Cantidad de Lotes", "Código"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -704,7 +704,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         tblProductos.getColumnModel().getColumn(5).setPreferredWidth(190);
         tblProductos.getColumnModel().getColumn(6).setPreferredWidth(230);
         tblProductos.getColumnModel().getColumn(7).setPreferredWidth(230);
-        tblProductos.getColumnModel().getColumn(8).setPreferredWidth(150);
+        tblProductos.getColumnModel().getColumn(8).setPreferredWidth(210);
         tblProductos.getColumnModel().getColumn(9).setPreferredWidth(150);
 
         // Centra el texto en todas las celdas
