@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
 import DAO.DetalleSolicitudJpaController;
@@ -139,6 +135,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 "ID", "Estado", "Fecha Solicitud", "Usuario", "Cantidad Lotes"
             }
         ));
+        tblSolicitudes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane2.setViewportView(tblSolicitudes);
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
@@ -194,7 +191,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         jSeparator7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel4.setBackground(new java.awt.Color(239, 228, 210));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Filtro para solicitudes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
 
         jPanel5.setBackground(new java.awt.Color(239, 228, 210));
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Nombre o Apellido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 14), new java.awt.Color(137, 6, 6))); // NOI18N
@@ -471,7 +468,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Usuario", "Fecha", "Estado", "Productos Asociados"};
+        String[] titulos = {"Usuario", "Fecha de Solictud", "Estado", "Productos Asociados"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -488,6 +485,12 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
 
         tblSolicitudes.setModel(modeloTabla);
 
+        //tamaños
+        tblSolicitudes.getColumnModel().getColumn(0).setPreferredWidth(180);
+        tblSolicitudes.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblSolicitudes.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblSolicitudes.getColumnModel().getColumn(3).setPreferredWidth(250);
+        
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
         centrado.setHorizontalAlignment(SwingConstants.CENTER);

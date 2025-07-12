@@ -81,7 +81,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
         btnSolicitud = new javax.swing.JButton();
         btnDescripcion = new javax.swing.JButton();
 
-        setTitle("Registrar Solicitud");
+        setTitle("Registrar Solicitud de Salida");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -294,6 +294,11 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
                         return;
                     }
                 }
+
+                boolean conf = Mensajes.confirmar("¿Desea agregar el prudcto a la solicitud?");
+                if (!conf) {
+                    return;
+                }
                 //crear detalle
                 DetalleSolicitud detalle = new DetalleSolicitud();
                 detalle.setCantidad(cantidad);
@@ -370,7 +375,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
             Mensajes.mostrarMensaje("La solicitud no tiene productos asociados", "error");
             return;
         }
-        IFSolicitudEmpleado inter = new IFSolicitudEmpleado(userActual, solicitud, pantalla,tool);
+        IFSolicitudEmpleado inter = new IFSolicitudEmpleado(userActual, solicitud, pantalla, tool);
         cargarIF(inter);
         this.dispose();
     }//GEN-LAST:event_btnSolicitudActionPerformed
@@ -451,7 +456,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
 
     private Object validarEstado(Producto produc) {
         int cant = produc.getCantidadLotes();
-        estadoProducto = cant > 10 ? "DISPONIBLE" : "NO DISPONIBLE";
+        estadoProducto = cant > 5 ? "DISPONIBLE" : "NO DISPONIBLE";
         return estadoProducto;
     }
 

@@ -43,7 +43,7 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         cargarProveedores();
         setFechaRegistro();
         cargarDetalles(pedido.getDetalles());
-        this.pantalla=desktopPane;
+        this.pantalla = desktopPane;
     }
 
     @SuppressWarnings("unchecked")
@@ -646,7 +646,13 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
                 }
             }
 
+            boolean conf = Mensajes.confirmar("¿Desea agregar el producto al pedido?");
+            if (!conf) {
+                return;
+            }
+
             //actualizar pedido PRIMERO
+            pedido = control.getControlPedido().leer(pedido.getIdPedido());
             pedido.setFechaRegistro(fechaRegistro);
             pedido.setFechaEstimadoLlegada(fechaLlegadaEstimada);
             pedido.setProveedor(provPedido);
@@ -722,12 +728,12 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnGuardarPedidoActionPerformed
 
     private void btnDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDescripcionActionPerformed
-         String producto = (String) cmbProducto.getSelectedItem();
-         Producto prodLote=control.getControlProducto().leerPorNombre(producto);
-         StringBuilder mensaje=new StringBuilder();
-         mensaje.append("EL LOTE DE '").append(producto).append("' CONTIENE:\n");
-         mensaje.append("- ").append(prodLote.getPresentacionLote()).append(" con ").append(prodLote.getCantidadPresentacionLote()).append(" Unidades.");
-         Mensajes.mostrarMensaje(mensaje.toString(), "informacion");
+        String producto = (String) cmbProducto.getSelectedItem();
+        Producto prodLote = control.getControlProducto().leerPorNombre(producto);
+        StringBuilder mensaje = new StringBuilder();
+        mensaje.append("EL LOTE DE '").append(producto).append("' CONTIENE:\n");
+        mensaje.append("- ").append(prodLote.getPresentacionLote()).append(" con ").append(prodLote.getCantidadPresentacionLote()).append(" Unidades.");
+        Mensajes.mostrarMensaje(mensaje.toString(), "informacion");
     }//GEN-LAST:event_btnDescripcionActionPerformed
 
 

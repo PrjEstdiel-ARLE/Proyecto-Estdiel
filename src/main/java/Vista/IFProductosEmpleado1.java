@@ -78,7 +78,7 @@ public class IFProductosEmpleado1 extends javax.swing.JInternalFrame {
         btnSolicitud = new javax.swing.JButton();
         btnDescripcion = new javax.swing.JButton();
 
-        setTitle("Registrar Solicitud");
+        setTitle("Registrar Solicitud de Salida");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -291,6 +291,12 @@ public class IFProductosEmpleado1 extends javax.swing.JInternalFrame {
                         return;
                     }
                 }
+
+                boolean conf = Mensajes.confirmar("¿Desea agregar el prudcto a la solicitud?");
+                if (!conf) {
+                    return;
+                }
+
                 //crear detalle
                 DetalleSolicitud detalle = new DetalleSolicitud();
                 detalle.setCantidad(cantidad);
