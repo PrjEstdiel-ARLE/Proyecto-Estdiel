@@ -416,6 +416,10 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         }
         //determina edicion
         if (usuarioEnEdicion == null) {
+            boolean conf = Mensajes.confirmar("¿Desea guardar el nuevo usuarios?");
+            if (!conf) {
+                return;
+            }
             Usuario nuevo = new Usuario();
             nuevo.setNombres(nombre);
             nuevo.setApellidos(apellido);
@@ -432,6 +436,10 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
             control.getControlUsuario().crear(nuevo);
             Mensajes.mostrarMensaje("Usuario creado correctamente", "informacion");
         } else {
+            boolean conf = Mensajes.confirmar("¿Desea guardar los cambios?");
+            if (!conf) {
+                return;
+            }
             usuarioEnEdicion.setNombres(nombre);
             usuarioEnEdicion.setApellidos(apellido);
             usuarioEnEdicion.setDni(dni);

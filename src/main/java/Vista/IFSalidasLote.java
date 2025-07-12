@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
 package Vista;
 
 import DAO.DetalleSolicitudJpaController;
@@ -139,6 +135,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 "ID", "Estado", "Fecha Solicitud", "Usuario", "Cantidad Lotes"
             }
         ));
+        tblSolicitudes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane2.setViewportView(tblSolicitudes);
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
@@ -471,7 +468,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Usuario", "Fecha", "Estado", "Productos Asociados"};
+        String[] titulos = {"Usuario", "Fecha de Solictud", "Estado", "Productos Asociados"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -488,6 +485,12 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
 
         tblSolicitudes.setModel(modeloTabla);
 
+        //tamaños
+        tblSolicitudes.getColumnModel().getColumn(0).setPreferredWidth(180);
+        tblSolicitudes.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblSolicitudes.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblSolicitudes.getColumnModel().getColumn(3).setPreferredWidth(250);
+        
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
         centrado.setHorizontalAlignment(SwingConstants.CENTER);

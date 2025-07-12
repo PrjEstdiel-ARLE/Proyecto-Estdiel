@@ -44,7 +44,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
         contactos = control.getControlContactoProveedor().leerPorProveedor(proveedor);
         cargarContactos(contactos);
         this.pantalla = desktopPane;
-        this.tool=tool;
+        this.tool = tool;
         soloNumerosTelefono();
         soloLetras();
         soloNumerosDocumento();
@@ -129,6 +129,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
                 "Nombre", "Cargo", "Teléfono", "Correo"
             }
         ));
+        tblContactos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblContactos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(tblContactos);
 
@@ -253,7 +254,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
                                             .addGroup(panelContactoLayout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(txtNombreContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(36, 36, 36)
+                                                .addGap(51, 51, 51)
                                                 .addComponent(jLabel16))
                                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelContactoLayout.createSequentialGroup()
                                                 .addGap(8, 8, 8)
@@ -264,9 +265,9 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
                                         .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(panelContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                     .addGroup(panelContactoLayout.createSequentialGroup()
-                                        .addGap(68, 68, 68)
-                                        .addComponent(txtApellidoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(35, 35, 35)
+                                        .addComponent(txtApellidoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(59, 59, 59)
                                         .addComponent(jLabel17)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(txtTelefonoContacto, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -310,7 +311,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
                     .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(panelContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelContactoLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(21, 21, 21)
                         .addGroup(panelContactoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel21)
                             .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -494,12 +495,12 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(63, Short.MAX_VALUE)
+                        .addContainerGap(49, Short.MAX_VALUE)
                         .addComponent(panelContacto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnTodo, javax.swing.GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
+                        .addComponent(btnTodo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                         .addGap(97, 97, 97))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -557,10 +558,10 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        IFProveedores provee = new IFProveedores(pantalla,tool);
+        IFProveedores provee = new IFProveedores(pantalla, tool);
         pantalla.add(provee);
         provee.show();
-        provee.setLocation(10,tool.getHeight()+10);
+        provee.setLocation(10, tool.getHeight() + 10);
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -642,7 +643,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
             return;
         }
         if (contactoEnEdicion != null) {
-            boolean conf = Mensajes.confirmar("¿Desea actualizar el contaco de "+prov.getNombre()+"?");
+            boolean conf = Mensajes.confirmar("¿Desea actualizar el contaco de " + prov.getNombre() + "?");
             if (!conf) {
                 return;
             }
@@ -661,7 +662,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
             finalizarEdicion();
             recargarTabla();
         } else {
-            boolean conf = Mensajes.confirmar("¿Desea agregar un contacto para "+prov.getNombre()+"?");
+            boolean conf = Mensajes.confirmar("¿Desea agregar un contacto para " + prov.getNombre() + "?");
             if (!conf) {
                 return;
             }
@@ -835,7 +836,7 @@ private void cargarCargos() {
             }
         };
 
-        String[] titulos = {"Nombre", "Cargo", "Telefono", "Correo"};
+        String[] titulos = {"Nombre", "Cargo", "Telefono", "Correo", "Tipo de Documento", "Nro. de Documento", "Dirección"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -845,12 +846,24 @@ private void cargarCargos() {
                 cargarNombre(cont),
                 cont.getCargo(),
                 cont.getTelefono(),
-                cont.getCorreo()
+                cont.getCorreo(),
+                cont.getTipoDocumento().toString(),
+                cont.getDocumento(),
+                cont.getDireccion()
             };
             modeloTabla.addRow(obj);
         }
 
         tblContactos.setModel(modeloTabla);
+
+        //tamaños
+        tblContactos.getColumnModel().getColumn(0).setPreferredWidth(180);
+        tblContactos.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblContactos.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblContactos.getColumnModel().getColumn(3).setPreferredWidth(250);
+        tblContactos.getColumnModel().getColumn(4).setPreferredWidth(250);
+        tblContactos.getColumnModel().getColumn(5).setPreferredWidth(250);
+        tblContactos.getColumnModel().getColumn(6).setPreferredWidth(250);
 
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();

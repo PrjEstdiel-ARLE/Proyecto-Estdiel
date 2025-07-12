@@ -135,6 +135,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                 "Nombre", "Teléfono", "Correo", "Dirección", "Ruc"
             }
         ));
+        tblProveedores.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         jScrollPane1.setViewportView(tblProveedores);
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
@@ -702,7 +703,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Nombre", "RUC", "Direccion", "Correo", "Contactos"};
+        String[] titulos = {"Nombre", "RUC", "Direccion", "Correo", "Contactos", "Dirección web"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -713,12 +714,21 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                 proveedor.getRUC(),
                 proveedor.getDireccion(),
                 proveedor.getCorreo(),
-                cargarContactos(proveedor)
+                cargarContactos(proveedor),
+                proveedor.getSitioWeb()
             };
             modeloTabla.addRow(obj);
         }
 
         tblProveedores.setModel(modeloTabla);
+        
+        //tamaños
+        tblProveedores.getColumnModel().getColumn(0).setPreferredWidth(200);
+        tblProveedores.getColumnModel().getColumn(1).setPreferredWidth(150);
+        tblProveedores.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblProveedores.getColumnModel().getColumn(3).setPreferredWidth(250);
+        tblProveedores.getColumnModel().getColumn(4).setPreferredWidth(150);
+        tblProveedores.getColumnModel().getColumn(5).setPreferredWidth(250);
 
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();

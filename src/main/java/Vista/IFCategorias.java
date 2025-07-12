@@ -390,6 +390,10 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 Mensajes.mostrarMensaje("Es necesario un nombre", "advertencia");
                 return;
             }
+            boolean conf = Mensajes.confirmar("¿Desea guardar la categoría?");
+            if (!conf) {
+                return;
+            }
             //crear categoria
             Categoria nuevaCat = new Categoria();
             nuevaCat.setNombre(nombre);
@@ -406,6 +410,10 @@ public class IFCategorias extends javax.swing.JInternalFrame {
             //validar nombre
             if (nombre.equals("Ingrese el nombre") || nombre.equals("")) {
                 Mensajes.mostrarMensaje("Es necesario un nombre", "advertencia");
+                return;
+            }
+            boolean conf = Mensajes.confirmar("¿Desea guardar los cambios?");
+            if (!conf) {
                 return;
             }
             //cargar datos en categoria
