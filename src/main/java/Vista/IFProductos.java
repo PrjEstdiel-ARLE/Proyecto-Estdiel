@@ -368,6 +368,11 @@ public class IFProductos extends javax.swing.JInternalFrame {
         });
 
         txtBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -627,12 +632,25 @@ public class IFProductos extends javax.swing.JInternalFrame {
         }
         cargarProductos(productos);
         txtBuscar.setText("");
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-       ExportadorReporte.generarReporte(tblProductos, "productos");
+        ExportadorReporte.generarReporte(tblProductos, "productos");
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscar.getText();
+            productos = control.getControlProducto().leerParcial(termino);
+            if (productos.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron productos con este término", "error");
+                cargarProductos(control.getControlProducto().leerTodo());
+                return;
+            }
+            cargarProductos(productos);
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

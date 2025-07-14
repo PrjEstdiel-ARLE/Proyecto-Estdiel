@@ -40,7 +40,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         cargarProveedor(proveedores);
         this.prov = null;
         this.pantalla = desktopPane;
-        this.tool=tool;
+        this.tool = tool;
         soloNumerosRuc();
     }
 
@@ -216,6 +216,11 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         });
 
         txtBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -632,10 +637,10 @@ public class IFProveedores extends javax.swing.JInternalFrame {
             if (filaSelect != -1) {
                 // Marcar que estamos en modo edición
                 Proveedor provedorCont = proveedores.get(filaSelect);
-                IFProveedoresContactos igu = new IFProveedoresContactos(pantalla, provedorCont,tool);
+                IFProveedoresContactos igu = new IFProveedoresContactos(pantalla, provedorCont, tool);
                 pantalla.add(igu);
                 igu.show();
-                igu.setLocation(10,tool.getHeight()+10);
+                igu.setLocation(10, tool.getHeight() + 10);
                 this.dispose();
             } else {
                 Extras.Mensajes.mostrarMensaje("Seleccione un proveedor para ver sus contactos", "advertencia");
@@ -676,6 +681,22 @@ public class IFProveedores extends javax.swing.JInternalFrame {
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         ExportadorReporte.generarReporte(tblProveedores, "provedores");
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscar.getText();
+            proveedores = control.getControlProveedor().leerParcial(termino);
+            if (proveedores.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron proveedores con este término", "error");
+                recargarTabla();
+                return;
+            }
+            cargarProveedor(proveedores);
+            txtBuscar.setText("");
+            btnAscDesc.setText("Z - A");
+            asc = false;
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -737,7 +758,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         }
 
         tblProveedores.setModel(modeloTabla);
-        
+
         //tamaños
         tblProveedores.getColumnModel().getColumn(0).setPreferredWidth(200);
         tblProveedores.getColumnModel().getColumn(1).setPreferredWidth(150);

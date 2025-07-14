@@ -179,6 +179,12 @@ public class IFLotes extends javax.swing.JInternalFrame {
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Buscar por código", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
 
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
+
         btnBuscar.setBackground(new java.awt.Color(239, 228, 210));
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Buscar.png"))); // NOI18N
         btnBuscar.setBorderPainted(false);
@@ -429,6 +435,34 @@ public class IFLotes extends javax.swing.JInternalFrame {
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         ExportadorReporte.generarReporte(tblLotes, "lotes");
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            if (loteEnEdicion == null) {
+                //leer campo
+                String codigo = txtBuscar.getText();
+                //validar
+                if (codigo.equals("")) {
+                    Mensajes.mostrarMensaje("Ingrese un código en el campo", "advertencia");
+                    return;
+                }
+                //buscar
+                Lote loteEnc = control.getControlLote().buscarPorCodigo(codigo);
+                // validar resultado
+                if (loteEnc == null) {
+                    Mensajes.mostrarMensaje("No se encontró ningún lote con ese código", "error");
+                    limpiar();
+                    cargarTabla();
+                    return;
+                }
+                //cargar en tabla
+                soloLote = new ArrayList<>();
+                soloLote.add(loteEnc);
+                cargarLotes(soloLote);
+                limpiar();
+            }
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

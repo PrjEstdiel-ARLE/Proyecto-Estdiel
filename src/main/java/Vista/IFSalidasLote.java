@@ -114,6 +114,11 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Nombre o Apellido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 14), new java.awt.Color(137, 6, 6))); // NOI18N
 
         txtBuscar.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -267,7 +272,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
             return;
         }
         cargarSolicitudes(solicitudes);
-        solicitudes=solicitudesFiltradas();
+        solicitudes = solicitudesFiltradas();
         txtBuscar.setText("");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -282,6 +287,21 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     private void btnReporte1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporte1ActionPerformed
         ExportadorReporte.generarReporte(tblSolicitudes, "solicitudes");
     }//GEN-LAST:event_btnReporte1ActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscar.getText();
+            solicitudes = filtrarPorNombre(solicitudes, termino);
+            if (solicitudes.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron solicitudes de este usuario", "error");
+                recargarTabla();
+                return;
+            }
+            cargarSolicitudes(solicitudes);
+            solicitudes = solicitudesFiltradas();
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -332,7 +352,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         tblSolicitudes.getColumnModel().getColumn(1).setPreferredWidth(250);
         tblSolicitudes.getColumnModel().getColumn(2).setPreferredWidth(150);
         tblSolicitudes.getColumnModel().getColumn(3).setPreferredWidth(250);
-        
+
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
         centrado.setHorizontalAlignment(SwingConstants.CENTER);

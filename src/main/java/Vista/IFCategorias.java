@@ -258,6 +258,11 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 txtBuscarNombreActionPerformed(evt);
             }
         });
+        txtBuscarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarNombreKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -497,6 +502,20 @@ public class IFCategorias extends javax.swing.JInternalFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void txtBuscarNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarNombreKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscarNombre.getText();
+            categorias = control.getControlCategoria().leerParcial(termino);
+            if (categorias.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron categorias con este término", "error");
+                cargarTabla(control.getControlCategoria().leerTodo());
+                return;
+            }
+            cargarTabla(categorias);
+            txtBuscarNombre.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarNombreKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
