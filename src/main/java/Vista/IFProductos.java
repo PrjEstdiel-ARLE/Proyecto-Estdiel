@@ -1,7 +1,7 @@
 package Vista;
 
 import Controlador.ControladoraGeneral;
-import Extras.ExportadorPDF;
+import Extras.ExportadorReporte;
 import Extras.Mensajes;
 import Modelo.Categoria;
 import Modelo.Producto;
@@ -245,7 +245,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
-        btnReporte.setText("Generar PDF");
+        btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteActionPerformed(evt);
@@ -631,7 +631,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-       ExportadorPDF.generarPDF(tblProductos, "productos");
+       ExportadorReporte.generarReporte(tblProductos, "productos");
     }//GEN-LAST:event_btnReporteActionPerformed
 
 

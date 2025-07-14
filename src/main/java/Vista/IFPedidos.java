@@ -2,7 +2,7 @@ package Vista;
 
 import Controlador.ControladoraGeneral;
 import Extras.Cadenas;
-import Extras.ExportadorPDF;
+import Extras.ExportadorReporte;
 import Extras.Mensajes;
 import Modelo.DetallePedido;
 import Modelo.EstadoPedido;
@@ -470,7 +470,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(30, 58, 81));
         jButton1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(239, 228, 210));
-        jButton1.setText("Generar PDF");
+        jButton1.setText("Generar Reporte");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -658,7 +658,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ExportadorPDF.generarPDF(tblPedidos,"pedidos");
+        ExportadorReporte.generarReporte(tblPedidos,"pedidos");
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

@@ -1,7 +1,7 @@
 package Vista;
 
 import Controlador.ControladoraGeneral;
-import Extras.ExportadorPDF;
+import Extras.ExportadorReporte;
 import Extras.Mensajes;
 import Modelo.Categoria;
 import Modelo.EstadoLote;
@@ -212,7 +212,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
-        btnReporte.setText("Generar PDF");
+        btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteActionPerformed(evt);
@@ -427,7 +427,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRegresar2ActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        ExportadorPDF.generarPDF(tblLotes, "lotes");
+        ExportadorReporte.generarReporte(tblLotes, "lotes");
     }//GEN-LAST:event_btnReporteActionPerformed
 
 

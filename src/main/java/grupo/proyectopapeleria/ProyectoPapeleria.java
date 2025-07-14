@@ -1,15 +1,16 @@
 package grupo.proyectopapeleria;
 
-
-import Controlador.ControladoraGeneral;
 import Vista.Login;
-
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
 
 public class ProyectoPapeleria {
 
-    public static void main(String[] args) {      
-        Login igu = new Login();
+    public static void main(String[] args) {
+        new JFXPanel();
+        Platform.setImplicitExit(false);
 
+        Login igu = new Login();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
     }
