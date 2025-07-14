@@ -2,6 +2,7 @@ package Vista;
 
 import Controlador.ControladoraGeneral;
 import Extras.Cadenas;
+import Extras.ExportadorPDF;
 import Extras.Mensajes;
 import Modelo.DetallePedido;
 import Modelo.EstadoPedido;
@@ -84,6 +85,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         cmbEstadosFiltro = new javax.swing.JComboBox<>();
         btnTodo2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setTitle("Pedidos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -276,7 +278,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 600, 247, -1));
+        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 600, 247, -1));
 
         jLayeredPane10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
@@ -463,7 +465,18 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnTodo2ActionPerformed(evt);
             }
         });
-        jPanel2.add(btnTodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 290, 100, -1));
+        jPanel2.add(btnTodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 290, 120, 60));
+
+        jButton1.setBackground(new java.awt.Color(30, 58, 81));
+        jButton1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(239, 228, 210));
+        jButton1.setText("Generar PDF");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 370, 120, 60));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1388, 720));
 
@@ -644,6 +657,10 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ExportadorPDF.generarPDF(tblPedidos,"pedidos");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
@@ -658,6 +675,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fechaDesde;
     private com.toedter.calendar.JDateChooser fechaHasta;
     private com.toedter.calendar.JDateChooser fechaLlegada;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;

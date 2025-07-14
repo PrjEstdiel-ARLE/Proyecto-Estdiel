@@ -208,6 +208,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemCambio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCambio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCambio.setText("Cambiar Contraseña");
         itemCambio.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +218,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         });
         menuArchivo.add(itemCambio);
 
-        itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCerrar.setText("Cerrar Sesión");
         itemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -228,7 +229,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.add(itemCerrar);
         menuArchivo.add(jSeparator4);
 
-        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -461,6 +462,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        boolean conf=Mensajes.confirmar("¿Desea registrar un nuevo pedido?");
+        if(!conf) return;
         IFRegistrarPedido reg = new IFRegistrarPedido(pantalla);
         cargarIF(reg);
     }//GEN-LAST:event_jButton6ActionPerformed
