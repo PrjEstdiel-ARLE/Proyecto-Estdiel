@@ -312,6 +312,11 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         });
 
         cmbPais.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPaisActionPerformed(evt);
+            }
+        });
 
         btnAgregarPais.setBackground(new java.awt.Color(239, 228, 210));
         btnAgregarPais.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -700,6 +705,10 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         igu.setLocation(10, tool.getHeight() + 10);
         this.dispose();
     }//GEN-LAST:event_btnAgregarPaisActionPerformed
+
+    private void cmbPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPaisActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
