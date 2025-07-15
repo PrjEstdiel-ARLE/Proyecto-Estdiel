@@ -236,6 +236,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         btnGuardarCambios.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarCambios.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnGuardarCambios.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarCambios.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardarCambios.setText("Guardar Cambios");
         btnGuardarCambios.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarCambios.setEnabled(false);
@@ -250,6 +251,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -270,6 +272,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.setPreferredSize(new java.awt.Dimension(140, 50));
@@ -375,7 +378,6 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Proveedores", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
 
         cmbProveedores.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        cmbProveedores.setForeground(new java.awt.Color(0, 0, 0));
         cmbProveedores.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -399,7 +401,6 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Estados", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
 
         cmbEstadosFiltro.setFont(new java.awt.Font("SansSerif", 0, 14)); // NOI18N
-        cmbEstadosFiltro.setForeground(new java.awt.Color(0, 0, 0));
         cmbEstadosFiltro.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -470,6 +471,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jButton1.setBackground(new java.awt.Color(30, 58, 81));
         jButton1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         jButton1.setForeground(new java.awt.Color(239, 228, 210));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         jButton1.setText("Generar Reporte");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

@@ -170,6 +170,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
         btnGuardarContacto.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarContacto.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnGuardarContacto.setForeground(new java.awt.Color(239, 228, 210));
+        btnGuardarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardarContacto.setText("Guardar");
         btnGuardarContacto.setToolTipText("");
         btnGuardarContacto.addActionListener(new java.awt.event.ActionListener() {
@@ -181,6 +182,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
         btnEditarContacto.setBackground(new java.awt.Color(30, 58, 81));
         btnEditarContacto.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEditarContacto.setForeground(new java.awt.Color(239, 228, 210));
+        btnEditarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditarContacto.setText("Editar");
         btnEditarContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -191,6 +193,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
         btnEliminarContacto.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminarContacto.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEliminarContacto.setForeground(new java.awt.Color(239, 228, 210));
+        btnEliminarContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminarContacto.setText("Eliminar");
         btnEliminarContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -500,7 +503,7 @@ public class IFProveedoresContactos extends javax.swing.JInternalFrame {
                         .addGap(28, 28, 28)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnTodo, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
+                        .addComponent(btnTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 80, Short.MAX_VALUE)
                         .addGap(97, 97, 97))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
