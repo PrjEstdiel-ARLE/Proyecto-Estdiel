@@ -115,6 +115,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnGuardar1.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardar1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnGuardar1.setForeground(new java.awt.Color(239, 228, 210));
+        btnGuardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardar1.setText("Guardar");
         btnGuardar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -125,6 +126,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnEditar1.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEditar1.setForeground(new java.awt.Color(239, 228, 210));
+        btnEditar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar1.setText("Editar");
         btnEditar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,8 +135,9 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         });
 
         btnEliminar1.setBackground(new java.awt.Color(30, 58, 81));
-        btnEliminar1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnEliminar1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 16)); // NOI18N
         btnEliminar1.setForeground(new java.awt.Color(239, 228, 210));
+        btnEliminar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminar1.setText("Eliminar");
         btnEliminar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -196,6 +199,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnCrearRol.setBackground(new java.awt.Color(30, 58, 81));
         btnCrearRol.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnCrearRol.setForeground(new java.awt.Color(239, 228, 210));
+        btnCrearRol.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Cont.png"))); // NOI18N
         btnCrearRol.setText("Crear Rol");
         btnCrearRol.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -280,6 +284,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -359,7 +364,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
                                 .addGap(96, 96, 96)
                                 .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(35, 35, 35))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
