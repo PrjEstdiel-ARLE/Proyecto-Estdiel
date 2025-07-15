@@ -103,6 +103,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         btnGuardar.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(239, 228, 210));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,6 +141,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(239, 228, 210));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -150,6 +152,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(239, 228, 210));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +198,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         btnContacto.setBackground(new java.awt.Color(30, 58, 81));
         btnContacto.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnContacto.setForeground(new java.awt.Color(239, 228, 210));
+        btnContacto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Cont.png"))); // NOI18N
         btnContacto.setText("Ver Contactos");
         btnContacto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -266,6 +270,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -352,7 +357,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                                         .addGap(836, 836, 836)
                                         .addComponent(btnAscDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(8, 8, 8)))))))
-                .addContainerGap(1, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

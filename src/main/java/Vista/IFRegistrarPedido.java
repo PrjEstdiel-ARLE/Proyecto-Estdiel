@@ -397,6 +397,7 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminar.setText("Eliminar Producto");
         btnEliminar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEliminar.setPreferredSize(new java.awt.Dimension(140, 50));
@@ -410,6 +411,7 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         btnGuardarProducto.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarProducto.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnGuardarProducto.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-AgrPro.png"))); // NOI18N
         btnGuardarProducto.setText("Agregar Producto");
         btnGuardarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarProducto.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -430,6 +432,7 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditar.setPreferredSize(new java.awt.Dimension(140, 50));
@@ -443,6 +446,7 @@ public class IFRegistrarPedido extends javax.swing.JInternalFrame {
         btnGuardarPedido.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarPedido.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
         btnGuardarPedido.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardarPedido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardarPedido.setText("Registrar");
         btnGuardarPedido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnGuardarPedido.setPreferredSize(new java.awt.Dimension(140, 50));

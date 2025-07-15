@@ -125,6 +125,7 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         btnGuardar.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardar.setText("Guardar");
         btnGuardar.setPreferredSize(new java.awt.Dimension(120, 50));
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +137,7 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -146,6 +148,7 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         btnLimpiar.setBackground(new java.awt.Color(30, 58, 81));
         btnLimpiar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
         btnLimpiar.setForeground(new java.awt.Color(255, 255, 255));
+        btnLimpiar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Limp.png"))); // NOI18N
         btnLimpiar.setText("Limpiar");
         btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -154,8 +157,9 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         });
 
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
-        btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
+        btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 18)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
