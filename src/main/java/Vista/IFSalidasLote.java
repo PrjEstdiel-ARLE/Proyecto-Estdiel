@@ -4,6 +4,7 @@ import DAO.DetalleSolicitudJpaController;
 import DAO.SolicitudJpaController;
 import Extras.ExportadorReporte;
 import Extras.Mensajes;
+import Modelo.DetalleSolicitud;
 import Modelo.Solicitud;
 import Modelo.Usuario;
 import java.awt.Dimension;
@@ -31,6 +32,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         this.daoDetalle = new DetalleSolicitudJpaController();
         solicitudes = solicitudesFiltradas();
         cargarSolicitudes(solicitudes);
+        cargarSalidasAprobadas();
     }
 
     @SuppressWarnings("unchecked")
@@ -42,7 +44,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSolicitudes = new javax.swing.JTable();
-        jScrollPane4 = new javax.swing.JScrollPane();
+        jScrollPane3 = new javax.swing.JScrollPane();
         tblSalidas = new javax.swing.JTable();
         jSeparator5 = new javax.swing.JSeparator();
         jSeparator6 = new javax.swing.JSeparator();
@@ -53,6 +55,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         btnBuscar = new javax.swing.JButton();
         btnReporte = new javax.swing.JButton();
         btnReporte1 = new javax.swing.JButton();
+        btnConcederPermiso = new javax.swing.JButton();
 
         setTitle("Salidas");
 
@@ -73,13 +76,13 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
 
         tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Estado", "Fecha Solicitud", "Usuario", "Cantidad Lotes"
+                "Usuario", "Fecha de Solicitud", "Estado", "Productos Asociados"
             }
         ));
         tblSolicitudes.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
@@ -93,10 +96,11 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Estado", "Fecha Aprobacion", "Usuario", "Cantidad Lotes"
+                "Usuario", "Fecha de Aprobacion", "Estado", "Cantidad de Lotes", "Codigo"
             }
         ));
-        jScrollPane4.setViewportView(tblSalidas);
+        tblSalidas.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
+        jScrollPane3.setViewportView(tblSalidas);
 
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -191,6 +195,16 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
             }
         });
 
+        btnConcederPermiso.setBackground(new java.awt.Color(30, 58, 81));
+        btnConcederPermiso.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
+        btnConcederPermiso.setForeground(new java.awt.Color(239, 228, 210));
+        btnConcederPermiso.setText("Conceder Solicitud");
+        btnConcederPermiso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConcederPermisoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -198,16 +212,19 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(55, 55, 55)
                 .addComponent(btnReporte1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(761, 761, 761)
+                .addGap(286, 286, 286)
+                .addComponent(btnConcederPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(325, 325, 325)
                 .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addGap(0, 99, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(52, 52, 52)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 516, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 513, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(66, 66, 66)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -237,13 +254,14 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                     .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator7, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 123, Short.MAX_VALUE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReporte1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReporte1, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnConcederPermiso, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26))
         );
 
@@ -251,7 +269,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1160, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1215, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -279,7 +297,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
-
+             
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
         ExportadorReporte.generarReporte(tblSalidas, "salidas");
     }//GEN-LAST:event_btnReporteActionPerformed
@@ -303,9 +321,51 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
 
+    private void btnConcederPermisoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConcederPermisoActionPerformed
+        int filaSeleccionada = tblSolicitudes.getSelectedRow();
+    if (filaSeleccionada == -1) {
+        Mensajes.mostrarMensaje("Selecciona una solicitud primero.", "error");
+        return;
+    }
+
+    // Busca la solicitud original en la lista
+    Solicitud solicitudSeleccionada = solicitudes.get(filaSeleccionada);
+
+    // Cambia el estado y genera el código
+    solicitudSeleccionada.setEstadoSolicitud("Aprobado");
+    String codigo = generarCodigoAleatorio();
+    solicitudSeleccionada.setCodigoSalida(codigo);
+
+    // Asegura la relación bidireccional con los detalles
+    for (DetalleSolicitud detalle : solicitudSeleccionada.getDetalles()) {
+        detalle.setSolicitud(solicitudSeleccionada);
+    }
+
+        try {
+            daoSoli.actualizarEstadoYCodigo(solicitudSeleccionada.getIdSolicitud(), "Aprobado", codigo);
+        } catch (Exception e) {
+            Mensajes.mostrarMensaje("Error al actualizar la solicitud en la base de datos: " + e.getMessage(), "error");
+            return;
+    }
+
+    // Muestra en la tabla de salidas (como antes)
+    Object usuario = cargarNombre(solicitudSeleccionada.getUsuario());
+    String fechaAprobacion = formato.format(new java.util.Date());
+    String estado = "Aprobado";
+    Object cantidadLotes = solicitudSeleccionada.getDetalles().size();
+
+    DefaultTableModel modeloSalidas = (DefaultTableModel) tblSalidas.getModel();
+    modeloSalidas.addRow(new Object[]{usuario, fechaAprobacion, estado, cantidadLotes, codigo});
+
+    // NO ELIMINES la fila del modelo de solicitudes, solo recarga la tabla
+    recargarTabla(); // Esto hará que ya no aparezca en la tabla izquierda si solo muestras pendientes  
+
+    }//GEN-LAST:event_btnConcederPermisoActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnConcederPermiso;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnReporte;
     private javax.swing.JButton btnReporte1;
@@ -314,7 +374,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
@@ -391,4 +451,61 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
                 .filter(c -> (filtro.isEmpty() || (c.getUsuario().getNombres() + " " + c.getUsuario().getApellidos()).toLowerCase().contains(filtro)))
                 .collect(Collectors.toList());
     }
+    
+    
+    private String generarCodigoAleatorio() {
+    int codigo = (int)(Math.random() * 900000) + 100000; // 6 dígitos
+    return String.valueOf(codigo);
 }
+    
+    private void cargarSalidasAprobadas() {
+    DefaultTableModel modeloTabla = new DefaultTableModel() {
+        @Override
+        public boolean isCellEditable(int row, int column) {
+            return false;
+        }
+    };
+    String[] titulos = {"Usuario", "Fecha de Aprobacion", "Estado", "Cantidad Lotes", "Codigo"};
+    modeloTabla.setColumnIdentifiers(titulos);
+    modeloTabla.setRowCount(0);
+
+    // Obtén todas las solicitudes aprobadas
+    List<Solicitud> salidasAprobadas = daoSoli.findSolicitudEntities()
+        .stream()
+        .filter(s -> "Aprobado".equals(s.getEstadoSolicitud()))
+        .collect(Collectors.toList());
+
+    for (Solicitud sol : salidasAprobadas) {
+        Object[] obj = {
+            cargarNombre(sol.getUsuario()),
+            formato.format(sol.getFechaSolicitud()),
+            sol.getEstadoSolicitud(),
+            sol.getDetalles().size(),
+            sol.getCodigoSalida() // Aquí va el código aleatorio guardado
+        };
+        modeloTabla.addRow(obj);
+    }
+
+    tblSalidas.setModel(modeloTabla);
+    // Ajusta tamaños y formato si lo deseas
+    tblSalidas.getColumnModel().getColumn(0).setPreferredWidth(180);
+        tblSalidas.getColumnModel().getColumn(1).setPreferredWidth(250);
+        tblSalidas.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblSalidas.getColumnModel().getColumn(3).setPreferredWidth(250);
+
+        // Centra el texto en todas las celdas
+        DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
+        centrado.setHorizontalAlignment(SwingConstants.CENTER);
+
+        // Aplica el render centrado a cada columna
+        for (int i = 0; i < tblSalidas.getColumnCount(); i++) {
+            tblSalidas.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        }
+        //formatear el tamaño de texto
+        tblSalidas.setRowHeight(35);
+        JTableHeader header = tblSalidas.getTableHeader();
+        header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
+        header.setPreferredSize(new Dimension(header.getWidth(), 40));
+    }
+}
+

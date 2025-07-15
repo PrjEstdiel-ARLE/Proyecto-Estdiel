@@ -234,5 +234,20 @@ public class SolicitudJpaController implements Serializable {
             em.close();
         }
     }
+      public void actualizarEstadoYCodigo(Integer idSol, String estado, String codigo) {
+    EntityManager em = getEntityManager();
+    try {
+        em.getTransaction().begin();
+        Query q = em.createQuery(
+            "UPDATE Solicitud s SET s.estadoSolicitud = :est, s.codigoSalida = :cod WHERE s.idSolicitud = :id");
+        q.setParameter("est", estado);
+        q.setParameter("cod", codigo);
+        q.setParameter("id", idSol);
+        q.executeUpdate();
+        em.getTransaction().commit();
+    } finally {
+        em.close();
+    }
+}
 
 }
