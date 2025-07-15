@@ -1,45 +1,37 @@
 package Vista;
 
-import Controlador.ControladoraCategoria;
+import org.apache.commons.lang3.StringUtils;
 import Controlador.ControladoraGeneral;
 import Extras.Mensajes;
-import Modelo.Categoria;
-import Modelo.Producto;
+import Modelo.Pais;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.List;
-import javax.swing.JComponent;
 import javax.swing.JDesktopPane;
-import javax.swing.JFormattedTextField;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
+import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class IFCategorias extends javax.swing.JInternalFrame {
+public class IFPaises extends javax.swing.JInternalFrame {
 
     private final ControladoraGeneral control;
-    private Categoria categoriaEnEdicion = null;
-    private List<Categoria> categorias;
+    private Pais paisEnEdicion = null;
+    private List<Pais> paises;
     private final JDesktopPane pantalla;
-    private final boolean vista;
-    private ControladoraCategoria controladoraCategoria;
+    private final JToolBar tool;
 
-    public IFCategorias(JDesktopPane desktopPane, boolean vista) {
+    public IFPaises(JDesktopPane desktopPane, JToolBar tool) {
         initComponents();
         control = new ControladoraGeneral();
-        controladoraCategoria = control.getControlCategoria();
-        this.categorias = control.getControlCategoria().leerTodo();
-        cargarTabla(categorias);
+        this.paises = control.getControlPais().leerTodo();
+        cargarTabla(paises);
         this.pantalla = desktopPane;
-        this.vista = vista;
+        this.tool = tool;
         soloLetras();
-        configurarSpinnerMeses(); // llamamos la configuración del modelo
-        soloNumerosEnSpinner(jpnMesDurac);
     }
 
     @SuppressWarnings("unchecked")
@@ -48,26 +40,23 @@ public class IFCategorias extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnRegresar = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jpnMesDurac = new javax.swing.JSpinner();
         btnGuardar = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCategoria = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
-        btnBuscar5 = new javax.swing.JButton();
-        txtBuscarNombre = new javax.swing.JTextField();
+        lblBienvenida = new javax.swing.JLabel();
+        jSeparator4 = new javax.swing.JSeparator();
 
-        setTitle("Categorías");
+        setTitle("Países");
+        setToolTipText("");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -80,9 +69,6 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 btnRegresarActionPerformed(evt);
             }
         });
-
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        jSeparator1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -114,13 +100,6 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 txtNombreActionPerformed(evt);
             }
         });
-
-        jLabel10.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 20)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(30, 58, 81));
-        jLabel10.setText("Meses de duración:");
-
-        jpnMesDurac.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
-        jpnMesDurac.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
         btnGuardar.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 20)); // NOI18N
@@ -170,28 +149,23 @@ public class IFCategorias extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jLabel10))
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(37, 37, 37)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(7, 7, 7)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(btnLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(43, 43, 43))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jpnMesDurac, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(37, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,11 +174,7 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(52, 52, 52)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(jpnMesDurac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(69, 69, 69)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -239,51 +209,12 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         tblCategoria.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblCategoria);
 
-        jPanel8.setBackground(new java.awt.Color(239, 228, 210));
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 3), "Buscar por Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 18), new java.awt.Color(137, 6, 6))); // NOI18N
+        lblBienvenida.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 50)); // NOI18N
+        lblBienvenida.setForeground(new java.awt.Color(137, 6, 6));
+        lblBienvenida.setText("Países");
 
-        btnBuscar5.setBackground(new java.awt.Color(30, 58, 81));
-        btnBuscar5.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
-        btnBuscar5.setForeground(new java.awt.Color(239, 228, 210));
-        btnBuscar5.setText("Buscar");
-        btnBuscar5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBuscar5ActionPerformed(evt);
-            }
-        });
-
-        txtBuscarNombre.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        txtBuscarNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBuscarNombreActionPerformed(evt);
-            }
-        });
-        txtBuscarNombre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtBuscarNombreKeyPressed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(txtBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 291, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                .addComponent(btnBuscar5, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
-                .addContainerGap(24, Short.MAX_VALUE)
-                .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnBuscar5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBuscarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
-        );
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -298,22 +229,24 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 579, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38))
+                                .addGap(199, 199, 199)
+                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(88, 88, 88)
-                                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnRegresar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(250, 250, 250)
+                                .addComponent(lblBienvenida)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(63, 63, 63))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(51, 51, 51)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(57, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,29 +258,34 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(58, 58, 58)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel2)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(lblBienvenida)
+                                .addGap(14, 14, 14)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(24, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,60 +296,38 @@ public class IFCategorias extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        if (vista) {
-            this.dispose();
-        } else {
-            IFProductos prod = new IFProductos(pantalla);
-            pantalla.add(prod);
-            prod.setVisible(true);
-            this.dispose();
-        }
+        IFUsuarios provee = new IFUsuarios(pantalla, tool);
+        pantalla.add(provee);
+        provee.show();
+        provee.setLocation(10, tool.getHeight() + 10);
+        this.dispose();
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
-        if (txtNombre.getText().equals("Ingrese el nombre")) {
-            txtNombre.setText("");
-            txtNombre.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_txtNombreFocusGained
-
-    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        if (txtNombre.getText().equals("")) {
-            txtNombre.setText("Ingrese el nombre");
-            txtNombre.setForeground(new java.awt.Color(153, 153, 153));
-        } else {
-            txtNombre.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_txtNombreFocusLost
-
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        if (categoriaEnEdicion == null) {
+        if (paisEnEdicion == null) {
             //leer datos
-            String nombre = txtNombre.getText();
-            Object obj = jpnMesDurac.getValue();
-            int meses = (int) obj;
+            String nombre = StringUtils.capitalize(txtNombre.getText());
             //validar nombre
             if (nombre.equals("Ingrese el nombre") || nombre.equals("")) {
                 Mensajes.mostrarMensaje("Es necesario un nombre", "advertencia");
                 return;
             }
-            boolean conf = Mensajes.confirmar("¿Desea guardar la categoría?");
+            boolean conf = Mensajes.confirmar("¿Desea guardar el país?");
             if (!conf) {
                 return;
             }
             //crear categoria
-            Categoria nuevaCat = new Categoria();
-            nuevaCat.setNombre(nombre);
-            nuevaCat.setTiempo_estimado_almacen(meses * 30);
+            Pais pais = new Pais();
+            pais.setNombre(nombre);
             //guardar y volver a cargar la tabla
-            control.getControlCategoria().crearCategoria(nuevaCat);
-            cargarTabla(control.getControlCategoria().leerTodo());
+            control.getControlPais().crear(pais);
+            paises = control.getControlPais().leerTodo();
+            cargarTabla(paises);
             limpiar();
+            Mensajes.mostrarMensaje("País agregado correctamente", "informacion");
         } else {
             //leer los datos
-            String nombre = txtNombre.getText();
-            Object obj = jpnMesDurac.getValue();
-            int meses = (int) obj;
+            String nombre = StringUtils.capitalize(txtNombre.getText());
             //validar nombre
             if (nombre.equals("Ingrese el nombre") || nombre.equals("")) {
                 Mensajes.mostrarMensaje("Es necesario un nombre", "advertencia");
@@ -422,28 +338,24 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 return;
             }
             //cargar datos en categoria
-            categoriaEnEdicion.setNombre(nombre);
-            categoriaEnEdicion.setTiempo_estimado_almacen(meses * 30);
-            List<Producto> prodDeCategoria = categoriaEnEdicion.getProductos();
-            categoriaEnEdicion.setProductos(prodDeCategoria);
+            paisEnEdicion.setNombre(nombre);
             //actualizar y terminar
-            control.getControlCategoria().actualizarCategoria(categoriaEnEdicion);
-            categorias = control.getControlCategoria().leerTodo();
-            cargarTabla(categorias);
+            control.getControlPais().actualizar(paisEnEdicion);
+            paises = control.getControlPais().leerTodo();
+            cargarTabla(paises);
             terminarEdicion();
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        if (categoriaEnEdicion == null) {
+        if (paisEnEdicion == null) {
             if (tblCategoria.getRowCount() > 0) {
                 int filaSelect = tblCategoria.getSelectedRow();
                 if (filaSelect != -1) {
                     //cargar el elemento a editar
-                    categoriaEnEdicion = categorias.get(filaSelect);
+                    paisEnEdicion = paises.get(filaSelect);
                     //cargar campos
-                    txtNombre.setText(categoriaEnEdicion.getNombre());
-                    jpnMesDurac.setValue(categoriaEnEdicion.getTiempo_estimado_almacen() / 30);
+                    txtNombre.setText(paisEnEdicion.getNombre());
                     //Cambiar estados para empezar edicion
                     btnEditar.setText("Cancelar");
                     btnGuardar.setText("Actualizar");
@@ -470,12 +382,12 @@ public class IFCategorias extends javax.swing.JInternalFrame {
             int filaSelect = tblCategoria.getSelectedRow();
             if (filaSelect != -1) {
                 //cargar el elemento a editar
-                Categoria categoriaEliminar = categorias.get(filaSelect);
-                boolean conf = Mensajes.confirmar("¿Desea eliminar la categoría '" + categoriaEliminar.getNombre() + "'?");
+                Pais paisEliminar = paises.get(filaSelect);
+                boolean conf = Mensajes.confirmar("¿Desea eliminar el país '" + paisEliminar.getNombre() + "'?");
                 if (conf) {
-                    control.getControlCategoria().eliminarCategoria(categoriaEliminar.getIdCategoria());
-                    categorias = control.getControlCategoria().leerTodo();
-                    cargarTabla(categorias);
+                    control.getControlPais().eliminar(paisEliminar.getId());
+                    paises = control.getControlPais().leerTodo();
+                    cargarTabla(paises);
                 }
             } else {
                 Extras.Mensajes.mostrarMensaje("Seleccione la fila a eliminar", "advertencia");
@@ -483,81 +395,61 @@ public class IFCategorias extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void btnBuscar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscar5ActionPerformed
-        String termino = txtBuscarNombre.getText();
-        categorias = control.getControlCategoria().leerParcial(termino);
-        if (categorias.isEmpty()) {
-            Mensajes.mostrarMensaje("No se encontraron categorias con este término", "error");
-            cargarTabla(control.getControlCategoria().leerTodo());
-            return;
-        }
-        cargarTabla(categorias);
-        txtBuscarNombre.setText("");
-    }//GEN-LAST:event_btnBuscar5ActionPerformed
-
-    private void txtBuscarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBuscarNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBuscarNombreActionPerformed
-
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtBuscarNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarNombreKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            String termino = txtBuscarNombre.getText();
-            categorias = control.getControlCategoria().leerParcial(termino);
-            if (categorias.isEmpty()) {
-                Mensajes.mostrarMensaje("No se encontraron categorias con este término", "error");
-                cargarTabla(control.getControlCategoria().leerTodo());
-                return;
-            }
-            cargarTabla(categorias);
-            txtBuscarNombre.setText("");
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
+        if (txtNombre.getText().equals("")) {
+            txtNombre.setText("Ingrese el nombre");
+            txtNombre.setForeground(new java.awt.Color(153, 153, 153));
+        } else {
+            txtNombre.setForeground(Color.BLACK);
         }
-    }//GEN-LAST:event_txtBuscarNombreKeyPressed
+    }//GEN-LAST:event_txtNombreFocusLost
+
+    private void txtNombreFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusGained
+        if (txtNombre.getText().equals("Ingrese el nombre")) {
+            txtNombre.setText("");
+            txtNombre.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_txtNombreFocusGained
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBuscar5;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSpinner jpnMesDurac;
+    private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JLabel lblBienvenida;
     public javax.swing.JTable tblCategoria;
-    private javax.swing.JTextField txtBuscarNombre;
-    public javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 
-    private void cargarTabla(List<Categoria> categorias) {
+    private void cargarTabla(List<Pais> paises) {
         DefaultTableModel modeloTabla = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        String[] titulos = {"Nombre", "Meses de duración"};
+        String[] titulos = {"Nombre"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
         // Itera sobre los detalles y los agrega a la tabla
-        for (Categoria cat : categorias) {
+        for (Pais cat : paises) {
             Object[] obj = {
-                cat.getNombre(),
-                cat.getTiempo_estimado_almacen() / 30
-            };
+                cat.getNombre(),};
             modeloTabla.addRow(obj);
         }
 
@@ -583,11 +475,10 @@ public class IFCategorias extends javax.swing.JInternalFrame {
     private void limpiar() {
         txtNombre.setText("Ingrese el nombre");
         txtNombre.setForeground(new java.awt.Color(153, 153, 153));
-        jpnMesDurac.setValue(1);
     }
 
     private void terminarEdicion() {
-        categoriaEnEdicion = null;
+        paisEnEdicion = null;
         btnEditar.setText("Editar");
         btnGuardar.setText("Guardar");
         btnLimpiar.setEnabled(true);
@@ -615,7 +506,7 @@ public class IFCategorias extends javax.swing.JInternalFrame {
 
         });
         // Para el campo de nombre
-        txtBuscarNombre.addKeyListener(new KeyAdapter() {
+        /*txtBuscarNombre.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -624,27 +515,7 @@ public class IFCategorias extends javax.swing.JInternalFrame {
                 }
             }
 
-        });
+        });*/
     }
 
-    private void soloNumerosEnSpinner(JSpinner spinner) {
-        JComponent editor = spinner.getEditor();
-        if (editor instanceof JSpinner.DefaultEditor) {
-            JFormattedTextField txt = ((JSpinner.DefaultEditor) editor).getTextField();
-            txt.addKeyListener(new KeyAdapter() {
-                @Override
-                public void keyTyped(KeyEvent e) {
-                    char c = e.getKeyChar();
-                    // Solo permitir dígitos
-                    if (!Character.isDigit(c)) {
-                        e.consume();
-                    }
-                }
-            });
-        }
-    }
-
-    private void configurarSpinnerMeses() {
-        jpnMesDurac.setModel(new SpinnerNumberModel(1, 1, 60, 1));
-    }
 }

@@ -197,12 +197,12 @@ public class UsuarioJpaController implements Serializable {
         }
     }
 
-    public Usuario findByDni(String dni) {
+    public Usuario findByDocumento(String documento) {
         EntityManager em = getEntityManager();
         try {
             return em.createQuery(
-                    "SELECT u FROM Usuario u WHERE u.dni = :dni", Usuario.class)
-                    .setParameter("dni", dni)
+                    "SELECT u FROM Usuario u WHERE u.documento= :documento", Usuario.class)
+                    .setParameter("documento", documento)
                     .getResultStream() // devuelve Optional
                     .findFirst()
                     .orElse(null);

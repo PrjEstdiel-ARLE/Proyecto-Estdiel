@@ -1,7 +1,7 @@
 package Vista;
 
 import Controlador.ControladoraGeneral;
-import Extras.ExportadorPDF;
+import Extras.ExportadorReporte;
 import Extras.Mensajes;
 import Modelo.Categoria;
 import Modelo.Producto;
@@ -245,7 +245,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
-        btnReporte.setText("Generar PDF");
+        btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteActionPerformed(evt);
@@ -368,6 +368,11 @@ public class IFProductos extends javax.swing.JInternalFrame {
         });
 
         txtBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -627,12 +632,25 @@ public class IFProductos extends javax.swing.JInternalFrame {
         }
         cargarProductos(productos);
         txtBuscar.setText("");
-
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-       ExportadorPDF.generarPDF(tblProductos, "productos");
+        ExportadorReporte.generarReporte(tblProductos, "productos");
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscar.getText();
+            productos = control.getControlProducto().leerParcial(termino);
+            if (productos.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron productos con este término", "error");
+                cargarProductos(control.getControlProducto().leerTodo());
+                return;
+            }
+            cargarProductos(productos);
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -1,7 +1,7 @@
 package Vista;
 
 import Controlador.ControladoraGeneral;
-import Extras.ExportadorPDF;
+import Extras.ExportadorReporte;
 import Extras.Mensajes;
 import Modelo.Proveedor;
 import java.awt.Desktop;
@@ -40,7 +40,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         cargarProveedor(proveedores);
         this.prov = null;
         this.pantalla = desktopPane;
-        this.tool=tool;
+        this.tool = tool;
         soloNumerosRuc();
     }
 
@@ -216,6 +216,11 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         });
 
         txtBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -261,7 +266,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
-        btnReporte.setText("Generar PDF");
+        btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnReporteActionPerformed(evt);
@@ -313,12 +318,13 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                             .addComponent(btnCopiarProv, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addComponent(txtDireccion)))
-                                .addGap(178, 178, 178))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 228, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(157, 157, 157)
                                 .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                                .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,7 +352,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                                         .addGap(836, 836, 836)
                                         .addComponent(btnAscDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(8, 8, 8)))))))
-                .addContainerGap(34, Short.MAX_VALUE))
+                .addContainerGap(1, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -411,8 +417,8 @@ public class IFProveedores extends javax.swing.JInternalFrame {
                         .addGap(19, 19, 19))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(28, 28, 28))))
+                        .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(23, 23, 23))))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -631,10 +637,10 @@ public class IFProveedores extends javax.swing.JInternalFrame {
             if (filaSelect != -1) {
                 // Marcar que estamos en modo edición
                 Proveedor provedorCont = proveedores.get(filaSelect);
-                IFProveedoresContactos igu = new IFProveedoresContactos(pantalla, provedorCont,tool);
+                IFProveedoresContactos igu = new IFProveedoresContactos(pantalla, provedorCont, tool);
                 pantalla.add(igu);
                 igu.show();
-                igu.setLocation(10,tool.getHeight()+10);
+                igu.setLocation(10, tool.getHeight() + 10);
                 this.dispose();
             } else {
                 Extras.Mensajes.mostrarMensaje("Seleccione un proveedor para ver sus contactos", "advertencia");
@@ -673,8 +679,24 @@ public class IFProveedores extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnTodoActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        ExportadorPDF.generarPDF(tblProveedores, "provedores");
+        ExportadorReporte.generarReporte(tblProveedores, "provedores");
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscar.getText();
+            proveedores = control.getControlProveedor().leerParcial(termino);
+            if (proveedores.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron proveedores con este término", "error");
+                recargarTabla();
+                return;
+            }
+            cargarProveedor(proveedores);
+            txtBuscar.setText("");
+            btnAscDesc.setText("Z - A");
+            asc = false;
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -736,7 +758,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
         }
 
         tblProveedores.setModel(modeloTabla);
-        
+
         //tamaños
         tblProveedores.getColumnModel().getColumn(0).setPreferredWidth(200);
         tblProveedores.getColumnModel().getColumn(1).setPreferredWidth(150);

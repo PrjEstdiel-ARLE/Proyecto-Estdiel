@@ -401,7 +401,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCategoriasActionPerformed
 
     private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        IFUsuarios us = new IFUsuarios();
+        IFUsuarios us = new IFUsuarios(pantalla,jToolBar2);
         cargarIF(us);
     }//GEN-LAST:event_itemUsuariosActionPerformed
 
@@ -450,7 +450,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        IFUsuarios us = new IFUsuarios();
+        IFUsuarios us = new IFUsuarios(pantalla,jToolBar2);
         cargarIF(us);
     }//GEN-LAST:event_jButton4ActionPerformed
 
