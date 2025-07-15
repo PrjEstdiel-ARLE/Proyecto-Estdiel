@@ -174,6 +174,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -184,6 +185,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         btnReporte1.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnReporte1.setForeground(new java.awt.Color(239, 228, 210));
+        btnReporte1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte1.setText("Generar Reporte");
         btnReporte1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

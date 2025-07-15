@@ -185,6 +185,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         btnGuardar.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(239, 228, 210));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-AgrPro.png"))); // NOI18N
         btnGuardar.setText("AgregarProducto");
         btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,6 +196,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(239, 228, 210));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Borr.png"))); // NOI18N
         btnEliminar.setText("Eliminar");
         btnEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,6 +207,7 @@ public class IFProductos extends javax.swing.JInternalFrame {
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(239, 228, 210));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,8 +246,9 @@ public class IFProductos extends javax.swing.JInternalFrame {
         jLabel15.setText("Pres. de Producto:");
 
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
-        btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 16)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
