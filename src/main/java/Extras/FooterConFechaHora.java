@@ -12,7 +12,7 @@ public class FooterConFechaHora extends PdfPageEventHelper {
     public void onEndPage(PdfWriter writer, Document document) {
         PdfContentByte cb = writer.getDirectContent();
         Phrase footer = new Phrase("Reporte generado el " +
-                new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date()), font);
+                new SimpleDateFormat("dd-MM-yyyy hh:mm a").format(new Date()), font);
         ColumnText.showTextAligned(cb, Element.ALIGN_CENTER,
                 footer,
                 (document.right() + document.left()) / 2,

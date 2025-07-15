@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,20 +21,26 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Data
-@Builder 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 
 public class Usuario implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUsuario;
     private String password;
     private boolean enabled;
-    private String dni;
+    private String documento;
     private String telefono;
     private String nombres;
     private String apellidos;
+    private String direccion;
+    @ManyToOne
+    @JoinColumn(name = "pais_id")
+    private Pais pais;
+    private TipoDocumento tipoDocumento;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "usuario_rol",
