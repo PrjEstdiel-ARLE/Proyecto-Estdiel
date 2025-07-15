@@ -39,6 +39,7 @@ public class Logistica extends javax.swing.JFrame {
         itemSolicitarSalida = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Gestor de Logística para Papelería 'Estdiel' - Encargado de Logística");
 
         pantalla.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -188,7 +189,7 @@ public class Logistica extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void itemProductsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProductsActionPerformed
-        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual,pantalla,toolBar);
+        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual, pantalla, toolBar);
         cargarIF(pEm);
     }//GEN-LAST:event_itemProductsActionPerformed
 
@@ -198,12 +199,16 @@ public class Logistica extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSolicitarSalidaActionPerformed
 
     private void itemCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCambioActionPerformed
-        IFCambioPassword cpwd=new IFCambioPassword(userActual);
+        IFCambioPassword cpwd = new IFCambioPassword(userActual);
         cargarIF(cpwd);
     }//GEN-LAST:event_itemCambioActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual,pantalla,toolBar);
+        boolean conf = Mensajes.confirmar("¿Desea registrar una solicitud de salida?");
+        if (!conf) {
+            return;
+        }
+        IFProductosEmpleado pEm = new IFProductosEmpleado(userActual, pantalla, toolBar);
         cargarIF(pEm);
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -233,7 +238,7 @@ public class Logistica extends javax.swing.JFrame {
     private void cargarIF(JInternalFrame internal) {
         pantalla.add(internal);
         internal.show();
-        internal.setLocation(10, toolBar.getHeight()+10);
+        internal.setLocation(10, toolBar.getHeight() + 10);
     }
 
     private String colocarBienvenida() {

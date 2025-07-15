@@ -1,6 +1,7 @@
 package Vista;
 
 import Controlador.ControladoraLogin;
+import Modelo.TipoDocumento;
 import java.awt.Color;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -9,7 +10,8 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        soloNumerosDni();
+        soloNumerosDocumento();
+        cargarTipoDocumento();
     }
 
     @SuppressWarnings("unchecked")
@@ -25,9 +27,11 @@ public class Login extends javax.swing.JFrame {
         lblMostrarContraseña = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
-        txtDNI = new javax.swing.JTextField();
+        txtDocumento = new javax.swing.JTextField();
         txtContraseñaa = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        cmbTipoDocumento = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -50,7 +54,7 @@ public class Login extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(30, 58, 81));
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel7.setText("DNI:");
+        jLabel7.setText("Número de documento:");
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
@@ -58,16 +62,16 @@ public class Login extends javax.swing.JFrame {
 
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
 
-        txtDNI.setBackground(new java.awt.Color(239, 228, 210));
-        txtDNI.setForeground(new java.awt.Color(153, 153, 153));
-        txtDNI.setText("Ingrese su DNI");
-        txtDNI.setBorder(null);
-        txtDNI.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtDocumento.setBackground(new java.awt.Color(239, 228, 210));
+        txtDocumento.setForeground(new java.awt.Color(153, 153, 153));
+        txtDocumento.setText("Ingrese su nro. de documento");
+        txtDocumento.setBorder(null);
+        txtDocumento.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txtDNIFocusGained(evt);
+                txtDocumentoFocusGained(evt);
             }
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDNIFocusLost(evt);
+                txtDocumentoFocusLost(evt);
             }
         });
 
@@ -103,6 +107,18 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        jLabel9.setForeground(new java.awt.Color(30, 58, 81));
+        jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel9.setText("Tipo de documento:");
+
+        cmbTipoDocumento.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbTipoDocumento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoDocumentoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -112,7 +128,7 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(58, 58, 58)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(280, 280, 280)
                                 .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -125,24 +141,32 @@ public class Login extends javax.swing.JFrame {
                                 .addGap(280, 280, 280)
                                 .addComponent(lblMostrarContraseña, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cmbTipoDocumento, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(153, 153, 153)
                         .addComponent(btnIniciarSesion)))
                 .addContainerGap(23, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(102, 102, 102))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(58, 58, 58)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(29, 29, 29)
+                .addGap(59, 59, 59)
+                .addComponent(jLabel9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cmbTipoDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel7)
                 .addGap(8, 8, 8)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDocumento, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -212,9 +236,9 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addGap(99, 99, 99)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(138, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(57, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -243,25 +267,25 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaaActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        String dni = txtDNI.getText();
+        String dni = txtDocumento.getText();
         String password = new String(txtContraseñaa.getPassword());
         ControladoraLogin loginController = new ControladoraLogin();
         loginController.autenticarCrypted(dni, password, this);
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-    private void txtDNIFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDNIFocusGained
-        if (txtDNI.getText().equals("Ingrese su DNI")) {
-            txtDNI.setText("");
-            txtDNI.setForeground(Color.BLACK);
-        }    }//GEN-LAST:event_txtDNIFocusGained
+    private void txtDocumentoFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDocumentoFocusGained
+        if (txtDocumento.getText().equals("Ingrese su nro. de documento")) {
+            txtDocumento.setText("");
+            txtDocumento.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_txtDocumentoFocusGained
 
-    private void txtDNIFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDNIFocusLost
-        if (txtDNI.getText().equals("")) {
-            txtDNI.setText("Ingrese su DNI");
-            txtDNI.setForeground(new Color(153, 153, 153));
+    private void txtDocumentoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDocumentoFocusLost
+        if (txtDocumento.getText().equals("")) {
+            txtDocumento.setText("Ingrese su nro. de documento");
+            txtDocumento.setForeground(new Color(153, 153, 153));
         } else {
-            txtDNI.setForeground(Color.BLACK);
-        }    }//GEN-LAST:event_txtDNIFocusLost
+            txtDocumento.setForeground(Color.BLACK);
+        }    }//GEN-LAST:event_txtDocumentoFocusLost
 
     private void txtContraseñaaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtContraseñaaFocusGained
         if (txtContraseñaa.getText().equals("************")) {
@@ -275,18 +299,22 @@ public class Login extends javax.swing.JFrame {
             txtContraseñaa.setText("************");
             txtContraseñaa.setForeground(new Color(153, 153, 153));
         } else {
-            txtDNI.setForeground(Color.BLACK);
+            txtDocumento.setForeground(Color.BLACK);
         }
     }//GEN-LAST:event_txtContraseñaaFocusLost
 
     private void txtContraseñaaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtContraseñaaKeyPressed
          if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            String dni = txtDNI.getText();
+            String dni = txtDocumento.getText();
             String password = new String(txtContraseñaa.getPassword());
             ControladoraLogin loginController = new ControladoraLogin();
             loginController.autenticarCrypted(dni, password, this);
         }
     }//GEN-LAST:event_txtContraseñaaKeyPressed
+
+    private void cmbTipoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoDocumentoActionPerformed
+        txtDocumento.setText("");
+    }//GEN-LAST:event_cmbTipoDocumentoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,6 +353,7 @@ public class Login extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;
+    private javax.swing.JComboBox<String> cmbTipoDocumento;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -333,6 +362,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator1;
@@ -340,23 +370,46 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     public javax.swing.JLabel lblMostrarContraseña;
     public javax.swing.JPasswordField txtContraseñaa;
-    public javax.swing.JTextField txtDNI;
+    public javax.swing.JTextField txtDocumento;
     // End of variables declaration//GEN-END:variables
 
-    private void soloNumerosDni() {
-        txtDNI.addKeyListener(new KeyAdapter() {
+    private void soloNumerosDocumento() {
+        txtDocumento.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                String textoActual = txtDNI.getText();
+                String textoActual = txtDocumento.getText();
 
-                // Bloquear si:
-                // - No es un dígito.
-                if (!Character.isDigit(c)
-                        || textoActual.length() >= 8) {
+                // Obtener el tipo seleccionado
+                String tipo = cmbTipoDocumento.getSelectedItem().toString();
+                // Validar solo si es carácter numérico
+                if (!Character.isDigit(c)) {
+                    e.consume();
+                    return;
+                }
+
+                // Validar longitud máxima según tipo
+                int maxDigitos = switch (tipo) {
+                    case "DNI" ->
+                        8;
+                    case "CARNET_EXTRANJERIA" ->
+                        9;
+                    default ->
+                        10;
+                };
+
+                if (textoActual.length() >= maxDigitos) {
                     e.consume();
                 }
             }
         });
+
+    }
+
+     private void cargarTipoDocumento() {
+        cmbTipoDocumento.removeAllItems();
+        for (TipoDocumento tip : TipoDocumento.values()) {
+            cmbTipoDocumento.addItem(tip.name());
+        }
     }
 }

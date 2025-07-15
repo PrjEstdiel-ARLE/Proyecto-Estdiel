@@ -81,7 +81,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
         btnSolicitud = new javax.swing.JButton();
         btnDescripcion = new javax.swing.JButton();
 
-        setTitle("Registrar Solicitud");
+        setTitle("Registrar Solicitud de Salida");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -146,6 +146,11 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
         });
 
         txtBuscar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        txtBuscar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtBuscarKeyPressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -294,6 +299,11 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
                         return;
                     }
                 }
+
+                boolean conf = Mensajes.confirmar("¿Desea agregar el prudcto a la solicitud?");
+                if (!conf) {
+                    return;
+                }
                 //crear detalle
                 DetalleSolicitud detalle = new DetalleSolicitud();
                 detalle.setCantidad(cantidad);
@@ -370,7 +380,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
             Mensajes.mostrarMensaje("La solicitud no tiene productos asociados", "error");
             return;
         }
-        IFSolicitudEmpleado inter = new IFSolicitudEmpleado(userActual, solicitud, pantalla,tool);
+        IFSolicitudEmpleado inter = new IFSolicitudEmpleado(userActual, solicitud, pantalla, tool);
         cargarIF(inter);
         this.dispose();
     }//GEN-LAST:event_btnSolicitudActionPerformed
@@ -390,6 +400,21 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_btnDescripcionActionPerformed
+
+    private void txtBuscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            String termino = txtBuscar.getText();
+            productos = control.getControlProducto().leerParcial(termino);
+            if (productos.isEmpty()) {
+                Mensajes.mostrarMensaje("No se encontraron productos con este término", "error");
+                productos=control.getControlProducto().leerTodo();
+                listarProductos(productos);
+                return;
+            }
+            listarProductos(productos);
+            txtBuscar.setText("");
+        }
+    }//GEN-LAST:event_txtBuscarKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -451,7 +476,7 @@ public class IFProductosEmpleado extends javax.swing.JInternalFrame {
 
     private Object validarEstado(Producto produc) {
         int cant = produc.getCantidadLotes();
-        estadoProducto = cant > 10 ? "DISPONIBLE" : "NO DISPONIBLE";
+        estadoProducto = cant > 5 ? "DISPONIBLE" : "NO DISPONIBLE";
         return estadoProducto;
     }
 

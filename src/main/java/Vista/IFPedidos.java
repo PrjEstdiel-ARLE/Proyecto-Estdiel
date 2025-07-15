@@ -2,6 +2,7 @@ package Vista;
 
 import Controlador.ControladoraGeneral;
 import Extras.Cadenas;
+import Extras.ExportadorReporte;
 import Extras.Mensajes;
 import Modelo.DetallePedido;
 import Modelo.EstadoPedido;
@@ -30,7 +31,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
 public class IFPedidos extends javax.swing.JInternalFrame {
-    
+
     private final ControladoraGeneral control;
     private List<Pedido> pedidos;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
@@ -38,7 +39,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     private Pedido pedidoEnEdicion = null;
     Calendar cal;
     private final JDesktopPane pantalla;
-    
+
     public IFPedidos(JDesktopPane desktopPane) {
         initComponents();
         formato.setTimeZone(TimeZone.getTimeZone("America/Lima"));
@@ -50,7 +51,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         this.pantalla = desktopPane;
         cargarFiltros();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -84,6 +85,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         jPanel5 = new javax.swing.JPanel();
         cmbEstadosFiltro = new javax.swing.JComboBox<>();
         btnTodo2 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setTitle("Pedidos");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -154,10 +156,11 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblPedidos.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_OFF);
         tblPedidos.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(tblPedidos);
 
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 1130, 256));
+        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 1130, 200));
 
         jLabel2.setBackground(new java.awt.Color(137, 6, 6));
         jLabel2.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -193,7 +196,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 560, -1, -1));
+        jPanel2.add(jLayeredPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 520, -1, -1));
 
         jLabel7.setBackground(new java.awt.Color(137, 6, 6));
         jLabel7.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -228,7 +231,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel2.add(jLayeredPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 560, -1, -1));
+        jPanel2.add(jLayeredPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 520, -1, -1));
 
         btnGuardarCambios.setBackground(new java.awt.Color(30, 58, 81));
         btnGuardarCambios.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -242,7 +245,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnGuardarCambiosActionPerformed(evt);
             }
         });
-        jPanel2.add(btnGuardarCambios, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 630, 247, 54));
+        jPanel2.add(btnGuardarCambios, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 600, 247, 54));
 
         btnEliminar.setBackground(new java.awt.Color(30, 58, 81));
         btnEliminar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -262,7 +265,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnEliminarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 640, 247, 54));
+        jPanel2.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 600, 247, 54));
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
         btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 0, 24)); // NOI18N
@@ -275,7 +278,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnEditarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 640, 247, -1));
+        jPanel2.add(btnEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 600, 247, -1));
 
         jLayeredPane10.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new java.awt.Color(0, 0, 0)));
 
@@ -462,7 +465,18 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 btnTodo2ActionPerformed(evt);
             }
         });
-        jPanel2.add(btnTodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 290, 100, -1));
+        jPanel2.add(btnTodo2, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 290, 120, 60));
+
+        jButton1.setBackground(new java.awt.Color(30, 58, 81));
+        jButton1.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(239, 228, 210));
+        jButton1.setText("Generar Reporte");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1230, 370, 120, 60));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1388, 720));
 
@@ -489,7 +503,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
 
                     // Preparamos todos los lotes a crear
                     List<Lote> lotes = new ArrayList<>();
-                    
+
                     for (DetallePedido detalle : pedidoEnEdicion.getDetalles()) {
                         Producto prodAsoc = detalle.getProducto();
                         int tiempoAlmacen = prodAsoc.getCategoria().getTiempo_estimado_almacen();
@@ -643,14 +657,16 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         this.dispose();
     }//GEN-LAST:event_btnVolver1ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        ExportadorReporte.generarReporte(tblPedidos,"pedidos");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnFiltrar;
     private javax.swing.JButton btnGuardarCambios;
-    private javax.swing.JButton btnTodo;
-    private javax.swing.JButton btnTodo1;
     private javax.swing.JButton btnTodo2;
     private javax.swing.JButton btnVolver1;
     private javax.swing.JComboBox<String> cmbEstado;
@@ -659,6 +675,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
     private com.toedter.calendar.JDateChooser fechaDesde;
     private com.toedter.calendar.JDateChooser fechaHasta;
     private com.toedter.calendar.JDateChooser fechaLlegada;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -686,7 +703,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Proveedor", "Fecha Registro", "Fecha Estimada Llegada", "Total", "Estado"};
+        String[] titulos = {"Proveedor", "Fecha de Registro", "F. Estimada de Llegada", "Total", "Estado"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
@@ -698,12 +715,19 @@ public class IFPedidos extends javax.swing.JInternalFrame {
                 formato.format(pedido.getFechaEstimadoLlegada()),
                 Cadenas.formatoSoles(pedido.getTotal(), true),
                 pedido.getEstado()
-            
+
             };
             modeloTabla.addRow(obj);
         }
-        
+
         tblPedidos.setModel(modeloTabla);
+
+        //tamaños
+        tblPedidos.getColumnModel().getColumn(0).setPreferredWidth(220);
+        tblPedidos.getColumnModel().getColumn(1).setPreferredWidth(320);
+        tblPedidos.getColumnModel().getColumn(2).setPreferredWidth(320);
+        tblPedidos.getColumnModel().getColumn(3).setPreferredWidth(160);
+        tblPedidos.getColumnModel().getColumn(4).setPreferredWidth(180);
 
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
@@ -719,15 +743,15 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
-    
+
     private void cargarEstados() {
         cmbEstado.removeAllItems();
-        
+
         for (EstadoPedido estado : EstadoPedido.values()) {
             cmbEstado.addItem(estado.name());
         }
     }
-    
+
     private void finalizarEdicion() {
         pedidoEnEdicion = null;
         btnGuardarCambios.setEnabled(false);
@@ -738,7 +762,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cargarEstados();
         limpiarFiltros();
     }
-    
+
     private void cargarFechaEnDateChooser(JDateChooser dateChooser, Date fecha) {
         if (fecha != null) {
             // 1. Convertir Date a LocalDate con la zona horaria correcta
@@ -755,24 +779,24 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             dateChooser.setDate(null);
         }
     }
-    
+
     private String generarCodigoLote(DetallePedido detalle, int numeroLote) {
         // Formato: PEDIDO_ID-PRODUCTO_ID-FECHA-NUMEROLOTE
         SimpleDateFormat sdf = new SimpleDateFormat("yyMMdd");
         String fechaCodigo = sdf.format(new Date());
-        
+
         return String.format("%s-%s-%s-%03d",
                 detalle.getPedido().getIdPedido(),
                 detalle.getProducto().getIdProducto(),
                 fechaCodigo,
                 numeroLote);
     }
-    
+
     private void cargarFiltros() {
         cargarEstadosFiltro();
         cargarProveedores();
     }
-    
+
     private void cargarEstadosFiltro() {
         cmbEstadosFiltro.removeAllItems();
         cmbEstadosFiltro.addItem("Todos");
@@ -780,7 +804,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             cmbEstadosFiltro.addItem(estado.name());
         }
     }
-    
+
     private void cargarProveedores() {
         cmbProveedores.removeAllItems();
         cmbProveedores.addItem("Cualquiera");
@@ -788,7 +812,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
             cmbProveedores.addItem(provCmb.getNombre());
         }
     }
-    
+
     private void limpiarFiltros() {
         fechaDesde.setDate(null);
         fechaHasta.setDate(null);
@@ -796,11 +820,11 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cmbProveedores.setSelectedItem("Cualquiera");
         cargarTablaPedidos(this.pedidos);
     }
-    
+
     private boolean validarFechas(Date desde, Date hasta) {
         return !(desde != null && hasta != null && hasta.before(desde));
     }
-    
+
     private void enEdicion(boolean b) {
         btnFiltrar.setEnabled(!b);
         fechaDesde.setEnabled(!b);
@@ -808,7 +832,7 @@ public class IFPedidos extends javax.swing.JInternalFrame {
         cmbProveedores.setEnabled(!b);
         cmbEstadosFiltro.setEnabled(!b);
     }
-    
+
     private void recargarTabla() {
         pedidos = control.getControlPedido().leerTodo();
         cargarTablaPedidos(pedidos);

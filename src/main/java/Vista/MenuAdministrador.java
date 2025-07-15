@@ -36,6 +36,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         jButton8 = new javax.swing.JButton();
         MenuBar = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
+        itemCambio = new javax.swing.JMenuItem();
         itemCerrar = new javax.swing.JMenuItem();
         jSeparator4 = new javax.swing.JPopupMenu.Separator();
         itemSalir = new javax.swing.JMenuItem();
@@ -53,6 +54,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         itemSalidas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setTitle("Gestor de Logística para Papelería 'Estdiel' - Administrador");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         pantalla.setBackground(new java.awt.Color(239, 228, 210));
@@ -206,7 +208,17 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemCambio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemCambio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemCambio.setText("Cambiar Contraseña");
+        itemCambio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemCambioActionPerformed(evt);
+            }
+        });
+        menuArchivo.add(itemCambio);
+
+        itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCerrar.setText("Cerrar Sesión");
         itemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -217,7 +229,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
         menuArchivo.add(itemCerrar);
         menuArchivo.add(jSeparator4);
 
-        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
+        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -379,7 +391,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemSalirActionPerformed
 
     private void itemProveedoresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemProveedoresActionPerformed
-        IFProveedores prov = new IFProveedores(pantalla);
+        IFProveedores prov = new IFProveedores(pantalla,jToolBar2);
         cargarIF(prov);
     }//GEN-LAST:event_itemProveedoresActionPerformed
 
@@ -389,7 +401,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_itemCategoriasActionPerformed
 
     private void itemUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemUsuariosActionPerformed
-        IFUsuarios us = new IFUsuarios();
+        IFUsuarios us = new IFUsuarios(pantalla,jToolBar2);
         cargarIF(us);
     }//GEN-LAST:event_itemUsuariosActionPerformed
 
@@ -426,7 +438,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        IFProveedores prov = new IFProveedores(pantalla);
+        IFProveedores prov = new IFProveedores(pantalla,jToolBar2);
         cargarIF(prov);
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -438,7 +450,7 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        IFUsuarios us = new IFUsuarios();
+        IFUsuarios us = new IFUsuarios(pantalla,jToolBar2);
         cargarIF(us);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -450,6 +462,8 @@ public class MenuAdministrador extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
+        boolean conf=Mensajes.confirmar("¿Desea registrar un nuevo pedido?");
+        if(!conf) return;
         IFRegistrarPedido reg = new IFRegistrarPedido(pantalla);
         cargarIF(reg);
     }//GEN-LAST:event_jButton6ActionPerformed
@@ -466,9 +480,15 @@ public class MenuAdministrador extends javax.swing.JFrame {
         cargarIF(SL);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void itemCambioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemCambioActionPerformed
+        IFCambioPassword cpwd=new IFCambioPassword(userAct);
+        cargarIF(cpwd);
+    }//GEN-LAST:event_itemCambioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar MenuBar;
+    private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCategorias;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemFiltro;

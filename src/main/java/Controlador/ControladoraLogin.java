@@ -41,10 +41,10 @@ public class ControladoraLogin {
 
     public void autenticarCrypted(String dni, String pwdIngresada, Login aThis) {
         UsuarioJpaController dao = new UsuarioJpaController();       // o por inyección
-        Usuario u = dao.findByDni(dni);
+        Usuario u = dao.findByDocumento(dni);
 
         if (u == null) {
-            Mensajes.mostrarMensaje("DNI no registrado", "error");
+            Mensajes.mostrarMensaje("Documento no registrado", "error");
             return;
         }
 
