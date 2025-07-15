@@ -10,7 +10,6 @@ public class ProyectoPapeleria {
     public static void main(String[] args) {
         new JFXPanel();
         Platform.setImplicitExit(false);
-        ControladoraGeneral General = new ControladoraGeneral();
         Login igu = new Login();
         igu.setVisible(true);
         igu.setLocationRelativeTo(null);
