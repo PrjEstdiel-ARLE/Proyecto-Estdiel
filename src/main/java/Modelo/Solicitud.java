@@ -22,9 +22,16 @@ public class Solicitud implements Serializable {
     @Column(name = "fecha_solicitud")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaSolicitud;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha_aprobacion")
+    private Date fechaAprobacion;
 
     @Column(name = "estado_solicitud", length = 20)
     private String estadoSolicitud = "Pendiente";
+    
+    @Column (name = "codigo_salida", length = 20)
+    private String codigoSalida;
 
     @OneToMany(mappedBy = "solicitud", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DetalleSolicitud> detalles;
@@ -58,6 +65,14 @@ public class Solicitud implements Serializable {
         this.fechaSolicitud = fechaSolicitud;
     }
 
+    public Date getFechaAprobacion() {
+        return fechaAprobacion;
+    }
+
+    public void setFechaAprobacion(Date fechaAprobacion) {
+        this.fechaAprobacion = fechaAprobacion;
+    }
+
     public String getEstadoSolicitud() {
         return estadoSolicitud;
     }
@@ -73,4 +88,13 @@ public class Solicitud implements Serializable {
     public void setDetalles(Set<DetalleSolicitud> detalles) {
         this.detalles = detalles;
     }
+
+    public String getCodigoSalida() {
+        return codigoSalida;
+    }
+
+    public void setCodigoSalida(String codigoSalida) {
+        this.codigoSalida = codigoSalida;
+    }
+    
 }

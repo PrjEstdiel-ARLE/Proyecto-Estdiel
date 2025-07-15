@@ -334,24 +334,37 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla(List<Solicitud> solicitudes) {
-        DefaultTableModel modeloTabla = new DefaultTableModel() {
+         DefaultTableModel modeloTabla = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
-        String[] titulos = {"Fecha","Estado","Productos Asociados"};
+        String[] titulos = {"Estado", "F. Registro", "F. Aprobacion", "Codigo"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
-        // Itera sobre los detalles y los agrega a la tabla
         for (Solicitud sol : solicitudes) {
-            Object[] obj = {
-                formato.format(sol.getFechaSolicitud()),
-                sol.getEstadoSolicitud(),
-                sol.getDetalles().size()
-            };
-            modeloTabla.addRow(obj);
+            String estado = sol.getEstadoSolicitud();
+            String fechaRegistro = sol.getFechaSolicitud() != null ? formato.format(sol.getFechaSolicitud()) : "";
+            String fechaAprobacion = "";
+            String codigo = "";
+
+            // Si está aprobado, muestra la fecha de aprobación y el código
+            if ("Aprobado".equalsIgnoreCase(estado)) {
+                // Si tienes un campo fechaAprobacion úsalo, si no, usa la fecha actual o la fecha de modificación
+                fechaAprobacion = sol.getFechaAprobacion() != null
+                    ? formato.format(sol.getFechaAprobacion())
+                    : fechaRegistro; // O pon "" si no tienes ese campo
+                codigo = sol.getCodigoSalida() != null ? sol.getCodigoSalida() : "";
+            }
+
+            modeloTabla.addRow(new Object[] {
+                estado,
+                fechaRegistro,
+                fechaAprobacion,
+                codigo
+            });
         }
 
         tblSolicitudes.setModel(modeloTabla);
@@ -359,12 +372,9 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
         centrado.setHorizontalAlignment(SwingConstants.CENTER);
-
-        // Aplica el render centrado a cada columna
         for (int i = 0; i < tblSolicitudes.getColumnCount(); i++) {
             tblSolicitudes.getColumnModel().getColumn(i).setCellRenderer(centrado);
         }
-        //formatear el tamaño de texto
         tblSolicitudes.setRowHeight(35);
         JTableHeader header = tblSolicitudes.getTableHeader();
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
