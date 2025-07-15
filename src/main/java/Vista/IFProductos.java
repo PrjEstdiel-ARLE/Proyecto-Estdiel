@@ -888,8 +888,8 @@ public class IFProductos extends javax.swing.JInternalFrame {
         txtPrecio.setText("");
         cargarProveedores();
         cargarCategoria();
-        jpnCantLote.setValue(0);
-        jpnCantProducto.setValue(0);
+        jpnCantLote.setValue(1);
+        jpnCantProducto.setValue(1);
         cargarPresentacionLote();
         cargarPresentacionProducto();
     }

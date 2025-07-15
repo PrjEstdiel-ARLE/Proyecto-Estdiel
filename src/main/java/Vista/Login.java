@@ -313,7 +313,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaaKeyPressed
 
     private void cmbTipoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoDocumentoActionPerformed
-        txtDocumento.setText("");
+        txtDocumento.setText("Ingrese su nro. de documento");
     }//GEN-LAST:event_cmbTipoDocumentoActionPerformed
 
     /**

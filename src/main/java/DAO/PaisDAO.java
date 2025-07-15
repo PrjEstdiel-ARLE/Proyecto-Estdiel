@@ -14,4 +14,6 @@ public interface PaisDAO {
     void eliminar(Long id);
 
     List<Pais> leerTodo();
+    
+    Pais leerPorNombre(String nombre);
 }

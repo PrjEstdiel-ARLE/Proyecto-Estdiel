@@ -59,9 +59,11 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnGuardar1 = new javax.swing.JButton();
         btnEditar1 = new javax.swing.JButton();
         btnEliminar1 = new javax.swing.JButton();
-        txtApellido1 = new javax.swing.JTextField();
-        txtTelefono1 = new javax.swing.JTextField();
         txtNombre1 = new javax.swing.JTextField();
+        txtApellido1 = new javax.swing.JTextField();
+        txtDocumento = new javax.swing.JTextField();
+        txtTelefono1 = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
         btnRegresar1 = new javax.swing.JButton();
@@ -70,7 +72,6 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         btnRestablecer = new javax.swing.JButton();
         cmbRoles = new javax.swing.JComboBox<>();
         jLabel23 = new javax.swing.JLabel();
-        txtDocumento = new javax.swing.JTextField();
         btnCrearRol = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -81,7 +82,6 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         jLabel22 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        txtDireccion = new javax.swing.JTextField();
         cmbTipoDocumento = new javax.swing.JComboBox<>();
         cmbPais = new javax.swing.JComboBox<>();
         btnAgregarPais = new javax.swing.JButton();
@@ -282,7 +282,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         });
 
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
-        btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
         btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte.setText("Generar Reporte");
@@ -351,7 +351,7 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
                                     .addGap(33, 33, 33)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(labelRol)
-                                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(btnGuardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jLabel21)
                                         .addComponent(jLabel20)
                                         .addComponent(jLabel19)))
@@ -361,20 +361,10 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
                         .addGap(37, 37, 37)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(81, 81, 81)
+                                .addComponent(btnEditar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(35, 35, 35))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnRestablecer, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(btnCrearRol, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(btnEliminar1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -395,7 +385,16 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
                                             .addComponent(cmbPais, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(btnAgregarPais, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))))))
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnRestablecer, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(cmbRoles, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(btnCrearRol, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -509,6 +508,8 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         String documento = txtDocumento.getText();
         String direccion = txtDireccion.getText();
         TipoDocumento tipo = TipoDocumento.valueOf((String) cmbTipoDocumento.getSelectedItem());
+        String nombrePais = (String) cmbPais.getSelectedItem();
+        Pais pais = control.getControlPais().leerPorNombre(nombrePais);
         //validar datos
         StringBuilder errores = new StringBuilder();
 
@@ -543,7 +544,10 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
             Usuario nuevo = new Usuario();
             nuevo.setNombres(nombre);
             nuevo.setApellidos(apellido);
-            //nuevo.setDni(dni);
+            nuevo.setDireccion(direccion);
+            nuevo.setDocumento(documento);
+            nuevo.setTipoDocumento(tipo);
+            nuevo.setPais(pais);
             nuevo.setTelefono(telefono);
             String hash = Extras.PasswordUtils.hash("123456");
             nuevo.setPassword(hash);
@@ -562,7 +566,10 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
             }
             usuarioEnEdicion.setNombres(nombre);
             usuarioEnEdicion.setApellidos(apellido);
-            //usuarioEnEdicion.setDni(dni);
+            usuarioEnEdicion.setDireccion(direccion);
+            usuarioEnEdicion.setDocumento(documento);
+            usuarioEnEdicion.setTipoDocumento(tipo);
+            usuarioEnEdicion.setPais(pais);
             usuarioEnEdicion.setTelefono(telefono);
 
             // 2. Reconstruir set de roles
@@ -640,12 +647,17 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
                     txtDocumento.setText(usuarioEnEdicion.getDocumento());
                     txtDireccion.setText(usuarioEnEdicion.getDireccion());
                     cargarRolesUsuario(usuarioEnEdicion);
+                    cmbPais.setSelectedItem(usuarioEnEdicion.getPais().getNombre());
+                    cmbTipoDocumento.setSelectedItem(usuarioEnEdicion.getTipoDocumento().name());
                     // Cambiar el texto del botón para indicar que estamos editando
                     btnGuardar1.setText("Actualizar");
                     btnEditar1.setText("Cancelar");
                     btnCrearRol.setText("Agregar rol");
                     btnRestablecer.setEnabled(true);
                     btnTodo.setEnabled(false);
+                    btnEliminar1.setEnabled(false);
+                    btnBuscar.setEnabled(false);
+                    txtBuscar.setEnabled(false);
                     labelRol.setText("Roles:");
                     Extras.Mensajes.mostrarMensaje("Modifique los datos y presione 'Actualizar'", "informacion");
                 } else {
@@ -695,7 +707,9 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnReporteActionPerformed
 
     private void cmbTipoDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoDocumentoActionPerformed
-        txtDocumento.setText("");
+        if (usuarioEnEdicion == null) {
+            txtDocumento.setText("");
+        }
     }//GEN-LAST:event_cmbTipoDocumentoActionPerformed
 
     private void btnAgregarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPaisActionPerformed
@@ -911,6 +925,9 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         txtDocumento.setText("");
         txtTelefono1.setText("");
         cargarRoles();
+        cargarPaises();
+        cargarTipoDocumento();
+        txtDireccion.setText("");
     }
 
     private void recargarTablaUsuarios() {
@@ -927,6 +944,9 @@ public class IFUsuarios extends javax.swing.JInternalFrame {
         labelRol.setText("Rol:");
         btnCrearRol.setText("Crear Rol");
         btnTodo.setEnabled(true);
+        btnBuscar.setEnabled(true);
+        btnEliminar1.setEnabled(true);
+        txtBuscar.setEnabled(true);
     }
 
     private void cargarRolesUsuario(Usuario user) {

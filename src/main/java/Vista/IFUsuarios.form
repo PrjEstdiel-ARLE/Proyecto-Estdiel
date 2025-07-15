@@ -67,7 +67,7 @@
                                       <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="1" attributes="0">
                                           <Component id="labelRol" min="-2" max="-2" attributes="0"/>
-                                          <Component id="btnGuardar1" min="-2" pref="110" max="-2" attributes="0"/>
+                                          <Component id="btnGuardar1" min="-2" pref="150" max="-2" attributes="0"/>
                                           <Component id="jLabel21" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel20" alignment="1" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel19" min="-2" max="-2" attributes="0"/>
@@ -82,23 +82,10 @@
                           <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
-                                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                                  <Component id="btnEditar1" min="-2" pref="110" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="81" max="-2" attributes="0"/>
+                                  <Component id="btnEditar1" min="-2" pref="150" max="-2" attributes="0"/>
                                   <EmptySpace max="32767" attributes="0"/>
-                                  <Component id="btnEliminar1" min="-2" pref="123" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtNombre1" min="-2" pref="160" max="-2" attributes="0"/>
-                                      <Component id="btnRestablecer" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
-                                      <Group type="102" alignment="0" attributes="0">
-                                          <Component id="cmbRoles" min="-2" pref="160" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnCrearRol" min="-2" pref="110" max="-2" attributes="0"/>
-                                      </Group>
-                                  </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <Component id="btnEliminar1" min="-2" pref="150" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
@@ -127,6 +114,18 @@
                                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
+                              </Group>
+                              <Group type="102" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="txtNombre1" min="-2" pref="160" max="-2" attributes="0"/>
+                                      <Component id="btnRestablecer" alignment="0" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <Group type="102" alignment="0" attributes="0">
+                                          <Component id="cmbRoles" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="btnCrearRol" min="-2" pref="141" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -362,11 +361,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEliminar1ActionPerformed"/>
           </Events>
         </Component>
+        <Component class="javax.swing.JTextField" name="txtNombre1">
+        </Component>
         <Component class="javax.swing.JTextField" name="txtApellido1">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtDocumento">
         </Component>
         <Component class="javax.swing.JTextField" name="txtTelefono1">
         </Component>
-        <Component class="javax.swing.JTextField" name="txtNombre1">
+        <Component class="javax.swing.JTextField" name="txtDireccion">
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane2">
           <AuxValues>
@@ -482,8 +485,6 @@
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Documento:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtDocumento">
         </Component>
         <Component class="javax.swing.JButton" name="btnCrearRol">
           <Properties>
@@ -651,7 +652,7 @@
               <Color blue="51" green="3a" red="1e" type="rgb"/>
             </Property>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="PMingLiU-ExtB" size="18" style="1"/>
+              <Font name="PMingLiU-ExtB" size="14" style="1"/>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="d2" green="e4" red="ef" type="rgb"/>
@@ -697,8 +698,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Direcci&#xf3;n:"/>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JTextField" name="txtDireccion">
         </Component>
         <Component class="javax.swing.JComboBox" name="cmbTipoDocumento">
           <Properties>

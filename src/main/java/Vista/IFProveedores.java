@@ -789,7 +789,7 @@ public class IFProveedores extends javax.swing.JInternalFrame {
 
     private void finalizarEdicion() {
         proveedorEnEdicion = null;
-        btnGuardar.setText("Agregar Producto");
+        btnGuardar.setText("Guardar");
         btnEditar.setText("Editar");
         btnWeb.setEnabled(false);
         btnCopiarProv.setEnabled(false);
