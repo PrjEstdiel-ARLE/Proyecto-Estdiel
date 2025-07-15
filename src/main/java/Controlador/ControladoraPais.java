@@ -31,4 +31,8 @@ public class ControladoraPais {
     public List<Pais> leerTodo(){
         return usuarioDao.leerTodo();
     }
+    
+    public Pais leerPorNombre(String nombre){
+        return usuarioDao.leerPorNombre(nombre);
+    }
 }
