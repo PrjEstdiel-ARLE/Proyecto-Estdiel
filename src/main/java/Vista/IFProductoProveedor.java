@@ -48,6 +48,8 @@ public class IFProductoProveedor extends javax.swing.JInternalFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
 
+        setTitle("Filtro de Productos");
+
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
         jPanel1.setPreferredSize(new java.awt.Dimension(1046, 710));
 

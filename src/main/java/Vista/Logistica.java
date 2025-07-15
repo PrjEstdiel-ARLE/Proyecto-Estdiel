@@ -2,7 +2,9 @@ package Vista;
 
 import Extras.Mensajes;
 import Modelo.Usuario;
+import javax.swing.ImageIcon;
 import javax.swing.JInternalFrame;
+import javax.swing.JLabel;
 
 public class Logistica extends javax.swing.JFrame {
 
@@ -10,6 +12,7 @@ public class Logistica extends javax.swing.JFrame {
 
     public Logistica(Usuario usuario) {
         initComponents();
+        colocarFondoPantalla();
         this.userActual = usuario;
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -27,6 +30,7 @@ public class Logistica extends javax.swing.JFrame {
         toolBar = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        icono = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
         itemCambio = new javax.swing.JMenuItem();
@@ -73,16 +77,21 @@ public class Logistica extends javax.swing.JFrame {
 
         pantalla.setLayer(lblBienvenida, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(toolBar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        pantalla.setLayer(icono, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout pantallaLayout = new javax.swing.GroupLayout(pantalla);
         pantalla.setLayout(pantallaLayout);
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(pantallaLayout.createSequentialGroup()
                 .addGap(375, 375, 375)
                 .addComponent(lblBienvenida)
                 .addContainerGap(411, Short.MAX_VALUE))
-            .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(icono, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(364, 364, 364))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -90,7 +99,9 @@ public class Logistica extends javax.swing.JFrame {
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblBienvenida)
-                .addContainerGap(338, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addComponent(icono, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(186, 186, 186))
         );
 
         menuArchivo.setText("Archivo");
@@ -218,6 +229,7 @@ public class Logistica extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel icono;
     private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemProducts;
@@ -243,5 +255,28 @@ public class Logistica extends javax.swing.JFrame {
 
     private String colocarBienvenida() {
         return "Bienvenido " + userActual.getNombres() + " " + userActual.getApellidos();
+    }
+
+    private void colocarFondoPantalla() {
+        // Cargar la imagen de fondo desde la carpeta resources (debe estar en src/main/resources/Img)
+        ImageIcon icono = new ImageIcon(getClass().getResource("/Img/Logo.png"));
+        JLabel fondo = new JLabel(icono);
+
+        // Ajustar el tamaño del JLabel al tamaño del JDesktopPane
+        fondo.setSize(pantalla.getWidth(), pantalla.getHeight());
+
+        // Establecer posición en 0,0
+        fondo.setLocation(0, 0);
+
+        // Añadir el JLabel al escritorio en la capa más baja
+        pantalla.add(fondo, new Integer(Integer.MIN_VALUE));
+
+        // Actualizar tamaño si se redimensiona la ventana
+        pantalla.addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                fondo.setSize(pantalla.getSize());
+            }
+        });
+
     }
 }
