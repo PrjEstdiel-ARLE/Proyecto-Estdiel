@@ -96,5 +96,5 @@ public class Solicitud implements Serializable {
     public void setCodigoSalida(String codigoSalida) {
         this.codigoSalida = codigoSalida;
     }
-    
 }
+
