@@ -74,4 +74,9 @@ public class LoteDAOImpl implements LoteDAO {
     public List<Date> encontrarFechasUnicas() {
         return loteJpa.findFechasIngresoUnicas();
     }
+
+    @Override
+    public List<Lote> lotesFIFOporProducto(Producto producto, int cantidad) {
+        return loteJpa.findPrimerosLotesDisponiblesPorProducto(producto.getIdProducto(), cantidad);
+    }
 }

@@ -27,4 +27,6 @@ public interface LoteDAO {
     public List<Lote> lotesPorProducto(Producto producto);
     
     List<Date> encontrarFechasUnicas();
+    
+    List<Lote> lotesFIFOporProducto(Producto producto, int cantidad);
 }

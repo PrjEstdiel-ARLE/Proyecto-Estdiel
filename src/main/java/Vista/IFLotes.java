@@ -41,6 +41,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
         cargarCategorias();
         cmbEstado.setEnabled(false);
         combosInicializados = true;
+        lotes=control.getControlLote().leerTodo();
     }
 
     @SuppressWarnings("unchecked")
@@ -137,7 +138,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
         cmbEstado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         btnGuardar.setBackground(new java.awt.Color(30, 58, 81));
-        btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnGuardar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnGuardar.setForeground(new java.awt.Color(239, 228, 210));
         btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Guar2.png"))); // NOI18N
         btnGuardar.setText("Guardar");
@@ -149,7 +150,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
         });
 
         btnEditar.setBackground(new java.awt.Color(30, 58, 81));
-        btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
+        btnEditar.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(239, 228, 210));
         btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Edit.png"))); // NOI18N
         btnEditar.setText("Editar");
@@ -220,6 +221,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
         btnReporte.setBackground(new java.awt.Color(30, 58, 81));
         btnReporte.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 18)); // NOI18N
         btnReporte.setForeground(new java.awt.Color(239, 228, 210));
+        btnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Repor.png"))); // NOI18N
         btnReporte.setText("Generar Reporte");
         btnReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,9 +252,9 @@ public class IFLotes extends javax.swing.JInternalFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                     .addComponent(cmbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(29, 29, 29)
-                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(jPanel3Layout.createSequentialGroup()
                                     .addGap(19, 19, 19)
                                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -269,7 +271,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
                                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addComponent(btnTodos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addComponent(jScrollPane1))
-                    .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(63, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -308,7 +310,7 @@ public class IFLotes extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(32, 32, 32)
                 .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(51, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 667));
@@ -352,15 +354,19 @@ public class IFLotes extends javax.swing.JInternalFrame {
                 int filaSelect = tblLotes.getSelectedRow();
                 if (filaSelect != -1) {
                     // Marcar que estamos en modo edición
-                    lotes = control.getControlLote().leerTodo();
-                    loteEnEdicion = lotes.get(filaSelect);
+                    Lote loteSelect = lotes.get(filaSelect);
+                    if(loteSelect.getEstado()==EstadoLote.RETIRO_EXITOSO){
+                        Mensajes.mostrarMensaje("No se puede editar un lote retirado", "error");
+                        return;
+                    }
                     //mostrar lote en edicion
+                    loteEnEdicion=loteSelect;
                     soloLote = new ArrayList<>();
                     soloLote.add(loteEnEdicion);
                     cargarLotes(soloLote);
-                    tblLotes.setEnabled(false);
                     cmbEstado.setSelectedItem(loteEnEdicion.getEstado().name());
                     //activar botones y cambiar
+                    tblLotes.setEnabled(false);
                     btnEditar.setText("Cancelar");
                     btnGuardar.setEnabled(true);
                     cmbEstado.setEnabled(true);

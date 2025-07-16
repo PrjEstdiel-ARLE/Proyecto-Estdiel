@@ -54,4 +54,8 @@ public class ControladoraLote {
     public List<Date> encontrarFechasUnicas(){
         return loteDao.encontrarFechasUnicas();
     }
+    
+    public List<Lote> lotesFIFOporProducto(Producto producto, int cantidad){
+        return loteDao.lotesFIFOporProducto(producto, cantidad);
+    }
 }
