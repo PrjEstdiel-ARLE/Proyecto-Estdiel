@@ -262,6 +262,11 @@ public class IFSolicitudEmpleado extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSolicitudActionPerformed
+        if(solicitud.getDetalles().isEmpty()){
+            Mensajes.mostrarMensaje("Debe asociar mínimo un producto", "error");
+            return;
+        }
+        
         if (!Mensajes.confirmar("¿Desea terminar la solicitud?")) {
             return;
         }

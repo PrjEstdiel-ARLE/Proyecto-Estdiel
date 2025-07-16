@@ -301,4 +301,20 @@ public class LoteJpaController implements Serializable {
         }
     }
 
+    public List<Lote> findPrimerosLotesDisponiblesPorProducto(int idProducto, int cantidadNecesaria) {
+        EntityManager em = getEntityManager();
+        try {
+            return em.createQuery(
+                    "SELECT l FROM Lote l WHERE l.producto.idProducto = :idProducto AND l.estado = :estado ORDER BY l.fechaIngreso ASC",
+                    Lote.class
+            )
+                    .setParameter("idProducto", idProducto)
+                    .setParameter("estado", EstadoLote.ACTIVO)
+                    .setMaxResults(cantidadNecesaria)
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
+
 }
