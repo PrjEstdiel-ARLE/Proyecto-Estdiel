@@ -17,6 +17,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class SolicitudJpaController implements Serializable {
@@ -205,19 +206,51 @@ public class SolicitudJpaController implements Serializable {
 
     public void actualizarFechaEstadoCodigo(Integer idSol, Date fecha, String estado, String codigo) {
         EntityManager em = getEntityManager();
+        EntityTransaction tx = null;
         try {
-            em.getTransaction().begin();
+            tx = em.getTransaction();
+            tx.begin();
 
-            Query q = em.createQuery(
-                    "UPDATE Solicitud s "
-                    + "SET s.fechaAprobacion= :fec, s.estadoSolicitud = :est, s.codigoSalida = :codigo "
-                    + "WHERE s.idSolicitud = :id");
-            q.setParameter("fec", fecha);
-            q.setParameter("est", estado);
-            q.setParameter("codigo", codigo);
-            q.setParameter("id", idSol);
-            q.executeUpdate();
-            em.getTransaction().commit();
+            Solicitud solicitud = em.find(Solicitud.class, idSol);
+            if (solicitud == null) {
+                throw new IllegalArgumentException("No se encontró la solicitud con ID: " + idSol);
+            }
+
+            solicitud.setFechaAprobacion(fecha);
+            solicitud.setEstadoSolicitud(estado);
+            solicitud.setCodigoSalida(codigo);
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Error al actualizar la solicitud", e);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void actualizarEstado(Integer idSol, String estado) {
+        EntityManager em = getEntityManager();
+        EntityTransaction tx = null;
+        try {
+            tx = em.getTransaction();
+            tx.begin();
+
+            Solicitud solicitud = em.find(Solicitud.class, idSol);
+            if (solicitud == null) {
+                throw new IllegalArgumentException("No se encontró la solicitud con ID: " + idSol);
+            }
+
+            solicitud.setEstadoSolicitud(estado);
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Error al actualizar el estado de la solicitud", e);
         } finally {
             em.close();
         }
@@ -235,35 +268,27 @@ public class SolicitudJpaController implements Serializable {
         }
     }
 
-    public void actualizarEstado(Integer idSol, String estado) {
+    public void actualizarFechaEstado(Integer idSol, Date fecha, String estado) {
         EntityManager em = getEntityManager();
+        EntityTransaction tx = null;
         try {
-            em.getTransaction().begin();
-            Query q = em.createQuery(
-                    "UPDATE Solicitud s SET s.estadoSolicitud = :est WHERE s.idSolicitud = :id");
-            q.setParameter("est", estado);
-            q.setParameter("id", idSol);
-            q.executeUpdate();
-            em.getTransaction().commit();
-        } finally {
-            em.close();
-        }
-    }
+            tx = em.getTransaction();
+            tx.begin();
 
-    public void actualizarFechaEstado(Integer idSol, Date date, String estado) {
-        EntityManager em = getEntityManager();
-        try {
-            em.getTransaction().begin();
+            Solicitud solicitud = em.find(Solicitud.class, idSol);
+            if (solicitud == null) {
+                throw new IllegalArgumentException("No se encontró la solicitud con ID: " + idSol);
+            }
 
-            Query q = em.createQuery(
-                    "UPDATE Solicitud s "
-                    + "SET s.fechaSolicitud = :fec, s.estadoSolicitud = :est, s.codigoSalida = :codigo "
-                    + "WHERE s.idSolicitud = :id");
-            q.setParameter("fec", fecha);
-            q.setParameter("est", estado);
-            q.setParameter("id", idSol);
-            q.executeUpdate();
-            em.getTransaction().commit();
+            solicitud.setFechaAprobacion(fecha);
+            solicitud.setEstadoSolicitud(estado);
+
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null && tx.isActive()) {
+                tx.rollback();
+            }
+            throw new RuntimeException("Error al actualizar la solicitud", e);
         } finally {
             em.close();
         }
