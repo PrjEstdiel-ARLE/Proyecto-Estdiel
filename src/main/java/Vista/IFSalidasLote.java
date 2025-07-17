@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -30,6 +31,7 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     private SolicitudJpaController daoSoli;
     private DetalleSolicitudJpaController daoDetalle;
     private List<Solicitud> solicitudes = null;
+    private List<Solicitud> solicitudesAprob = null;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
     private final ControladoraGeneral control;
 
@@ -39,9 +41,10 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         formato.setTimeZone(TimeZone.getTimeZone("America/Lima"));
         this.daoSoli = new SolicitudJpaController();
         this.daoDetalle = new DetalleSolicitudJpaController();
-        solicitudes = solicitudesFiltradas();
+        solicitudes = solicitudesPendientes();
         cargarSolicitudes(solicitudes);
-        cargarSalidasAprobadas();
+        solicitudesAprob=solicitudesAprobadas();
+        cargarSalidasAprobadas(solicitudesAprob);
     }
 
     @SuppressWarnings("unchecked")
@@ -299,11 +302,11 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         solicitudes = filtrarPorNombre(solicitudes, termino);
         if (solicitudes.isEmpty()) {
             Mensajes.mostrarMensaje("No se encontraron solicitudes de este usuario", "error");
-            recargarTabla();
+            recargarTablaSolicitudes();
             return;
         }
         cargarSolicitudes(solicitudes);
-        solicitudes = solicitudesFiltradas();
+        solicitudes = solicitudesPendientes();
         txtBuscar.setText("");
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -325,11 +328,11 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
             solicitudes = filtrarPorNombre(solicitudes, termino);
             if (solicitudes.isEmpty()) {
                 Mensajes.mostrarMensaje("No se encontraron solicitudes de este usuario", "error");
-                recargarTabla();
+                recargarTablaSolicitudes();
                 return;
             }
             cargarSolicitudes(solicitudes);
-            solicitudes = solicitudesFiltradas();
+            solicitudes = solicitudesPendientes();
             txtBuscar.setText("");
         }
     }//GEN-LAST:event_txtBuscarKeyPressed
@@ -363,17 +366,12 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         }
 
         //validar disponiblidad (con dos lotes de margen)
-        for (DetalleSolicitud det : solicitudSeleccionada.getDetalles()) {
-            if (det.getCantidad() + 2 > det.getProducto().getCantidadLotes()) {
-                Mensajes.mostrarMensaje("No hay lotes suficientes de " + det.getProducto().getNombre() + "\nCancele e informe al usuario " + cargarNombre(solicitudSeleccionada.getUsuario()), "advertencia");
-                return;
-            }
+        if (!validarStockDisponible(solicitudSeleccionada)) {
+            return;
         }
 
         // Cambia el estado y genera el código
-        solicitudSeleccionada.setEstadoSolicitud("Aprobado");
         String codigo = generarCodigoAleatorio(solicitudSeleccionada);
-        solicitudSeleccionada.setCodigoSalida(codigo);
 
         // Asegura la relación bidireccional con los detalles
         for (DetalleSolicitud detalle : solicitudSeleccionada.getDetalles()) {
@@ -381,9 +379,10 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         }
 
         try {
-            daoSoli.actualizarEstadoYCodigo(solicitudSeleccionada.getIdSolicitud(), "Aprobado", codigo);
+            daoSoli.actualizarFechaEstadoCodigo(solicitudSeleccionada.getIdSolicitud(), new Date(), "Aprobado", codigo);
         } catch (Exception e) {
             Mensajes.mostrarMensaje("Error al actualizar la solicitud en la base de datos: " + e.getMessage(), "error");
+            System.out.println("Aquí está el error: "+e);
             return;
         }
 
@@ -418,16 +417,8 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         }
 
         // Muestra en la tabla de salidas (como antes)
-        Object usuario = cargarNombre(solicitudSeleccionada.getUsuario());
-        String fechaAprobacion = formato.format(new java.util.Date());
-        String estado = "Aprobado";
-        Object cantidadLotes = solicitudSeleccionada.getDetalles().size();
-
-        DefaultTableModel modeloSalidas = (DefaultTableModel) tblSalidas.getModel();
-        modeloSalidas.addRow(new Object[]{usuario, fechaAprobacion, estado, cantidadLotes, codigo});
-
-        // NO ELIMINES la fila del modelo de solicitudes, solo recarga la tabla
-        recargarTabla(); // Esto hará que ya no aparezca en la tabla izquierda si solo muestras pendientes  
+        recargarTablaSalidas();
+        recargarTablaSolicitudes();
 
     }//GEN-LAST:event_btnConcederPermisoActionPerformed
 
@@ -501,16 +492,28 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         return user.getNombres() + " " + user.getApellidos();
     }
 
-    private List<Solicitud> solicitudesFiltradas() {
+    private List<Solicitud> solicitudesPendientes() {
         return daoSoli.findSolicitudEntities()
                 .stream()
                 .filter(s -> "Pendiente".equals(s.getEstadoSolicitud()))
                 .collect(Collectors.toList());
     }
 
-    private void recargarTabla() {
-        solicitudes = solicitudesFiltradas();
+    private List<Solicitud> solicitudesAprobadas() {
+        return daoSoli.findSolicitudEntities()
+                .stream()
+                .filter(s -> "Aprobado".equals(s.getEstadoSolicitud()))
+                .collect(Collectors.toList());
+    }
+
+    private void recargarTablaSolicitudes() {
+        solicitudes = solicitudesPendientes();
         cargarSolicitudes(solicitudes);
+    }
+
+    private void recargarTablaSalidas() {
+        solicitudesAprob = solicitudesAprobadas();
+        cargarSalidasAprobadas(solicitudesAprob);
     }
 
     private List<Solicitud> filtrarPorNombre(List<Solicitud> solicitudes, String termino) {
@@ -522,11 +525,10 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
     }
 
     private String generarCodigoAleatorio(Solicitud solicitud) {
-        int codigo = (int) (Math.random() * 900000) + 100000; // 6 dígitos
-        return String.valueOf(codigo) + solicitud.getUsuario().getIdUsuario();
+        return UUID.randomUUID().toString().replace("-", "").substring(0, 8).toUpperCase();
     }
 
-    private void cargarSalidasAprobadas() {
+    private void cargarSalidasAprobadas(List<Solicitud> solisAprob) {
         DefaultTableModel modeloTabla = new DefaultTableModel() {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -537,16 +539,10 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
-        // Obtén todas las solicitudes aprobadas
-        List<Solicitud> salidasAprobadas = daoSoli.findSolicitudEntities()
-                .stream()
-                .filter(s -> "Aprobado".equals(s.getEstadoSolicitud()))
-                .collect(Collectors.toList());
-
-        for (Solicitud sol : salidasAprobadas) {
+        for (Solicitud sol : solisAprob) {
             Object[] obj = {
                 cargarNombre(sol.getUsuario()),
-                formato.format(sol.getFechaSolicitud()),
+                formato.format(sol.getFechaAprobacion()),
                 sol.getEstadoSolicitud(),
                 sol.getDetalles().size(),
                 sol.getCodigoSalida()
@@ -576,4 +572,39 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
+
+    private boolean validarStockDisponible(Solicitud solicitudSeleccionada) {
+        StringBuilder productosFaltantes = new StringBuilder();
+
+        for (DetalleSolicitud det : solicitudSeleccionada.getDetalles()) {
+            int disponibles = det.getProducto().getCantidadLotes();
+            int solicitados = det.getCantidad() + 2;
+            if (solicitados > disponibles) {
+                productosFaltantes.append("• ")
+                        .append(det.getProducto().getNombre())
+                        .append(" (solicitado: ").append(det.getCantidad())
+                        .append(", disponibles: ").append(disponibles).append(")\n");
+            }
+        }
+
+        if (productosFaltantes.length() > 0) {
+            String mensaje = "No hay lotes suficientes para los siguientes productos:\n\n"
+                    + productosFaltantes
+                    + "\nLa solicitud será cancelada.\n"
+                    + "Por favor informe al usuario " + cargarNombre(solicitudSeleccionada.getUsuario());
+
+            Mensajes.mostrarMensaje(mensaje, "advertencia");
+            try {
+                daoSoli.actualizarEstado(solicitudSeleccionada.getIdSolicitud(), "Cancelado");
+            } catch (Exception e) {
+                Mensajes.mostrarMensaje("Error al actualizar la solicitud en la base de datos: " + e.getMessage(), "error");
+                System.out.println("O el error es este: es el error: "+e);
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
 }

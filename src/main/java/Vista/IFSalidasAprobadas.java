@@ -4,24 +4,32 @@ import DAO.DetalleSolicitudJpaController;
 import DAO.SolicitudJpaController;
 import Extras.ExportadorReporte;
 import Extras.Mensajes;
+import Modelo.DetalleSolicitud;
 import Modelo.Producto;
 import Modelo.Solicitud;
 import Modelo.Usuario;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 
-public class IFSolicitarSalida extends javax.swing.JInternalFrame {
+public class IFSalidasAprobadas extends javax.swing.JInternalFrame {
 
     private Usuario userAct;
     private SolicitudJpaController daoSoli;
@@ -29,13 +37,13 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     private List<Solicitud> solicitudes = null;
     SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
 
-    public IFSolicitarSalida(Usuario usuario) {
+    public IFSalidasAprobadas(Usuario usuario) {
         initComponents();
         formato.setTimeZone(TimeZone.getTimeZone("America/Lima"));
         this.userAct = usuario;
         this.daoSoli = new SolicitudJpaController();
         this.daoDetalle = new DetalleSolicitudJpaController();
-        solicitudes = solicitudesNoAprobadas(usuario);
+        solicitudes = solicitudesAprobadas(usuario);
         cargarTabla(solicitudes);
     }
 
@@ -49,7 +57,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblSolicitudes = new javax.swing.JTable();
+        tblSalidas = new javax.swing.JTable();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         fechaDesde = new com.toedter.calendar.JDateChooser();
@@ -58,8 +66,9 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         jLabel11 = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JButton();
         btnReporte = new javax.swing.JButton();
+        btnVerProductos = new javax.swing.JButton();
 
-        setTitle("Lista de Solicitudes");
+        setTitle("Solicitudes Aprobadas");
 
         jPanel1.setBackground(new java.awt.Color(239, 228, 210));
 
@@ -81,7 +90,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
         jSeparator3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        tblSolicitudes.setModel(new javax.swing.table.DefaultTableModel(
+        tblSalidas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -92,8 +101,8 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
                 "Estado", "F. Llegada", "F. Registro", "Proveedor", "Total"
             }
         ));
-        tblSolicitudes.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jScrollPane1.setViewportView(tblSolicitudes);
+        tblSalidas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane1.setViewportView(tblSalidas);
 
         jPanel8.setBackground(new java.awt.Color(239, 228, 210));
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(137, 6, 6), 2), "Filtros", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("PMingLiU-ExtB", 1, 24), new java.awt.Color(137, 6, 6))); // NOI18N
@@ -188,6 +197,17 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
             }
         });
 
+        btnVerProductos.setBackground(new java.awt.Color(30, 58, 81));
+        btnVerProductos.setFont(new java.awt.Font("PMingLiU-ExtB", 1, 14)); // NOI18N
+        btnVerProductos.setForeground(new java.awt.Color(239, 228, 210));
+        btnVerProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/Ico-Enviar.png"))); // NOI18N
+        btnVerProductos.setText("Enviar Código");
+        btnVerProductos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVerProductosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -195,9 +215,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
@@ -206,8 +224,16 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
                         .addGap(72, 72, 72)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jButton1)
-                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(30, 30, 30))
+                            .addComponent(jSeparator3, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnVerProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 901, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(51, 51, 51))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,11 +254,13 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(32, 32, 32)
+                .addGap(50, 50, 50)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
-                .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnVerProductos, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -264,7 +292,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
             limpiarFiltros();
             return;
         }
-        
+
         //cambiar hora para incluir el día
         final Date hastaFinal;
         if (hasta != null) {
@@ -285,29 +313,29 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
                     if (desde == null) {
                         return true;
                     }
-                    if (p.getFechaSolicitud() == null) {
+                    if (p.getFechaAprobacion() == null) {
                         return false;
                     }
-                    Instant fechaSolicitud = p.getFechaSolicitud().toInstant();
+                    Instant fechaAprobacion = p.getFechaAprobacion().toInstant();
                     Instant desdeInstant = desde.toInstant();
-                    return !fechaSolicitud.isBefore(desdeInstant);
+                    return !fechaAprobacion.isBefore(desdeInstant);
                 })
                 .filter(p -> {
                     if (hastaFinal == null) {
                         return true;
                     }
-                    if (p.getFechaSolicitud() == null) {
+                    if (p.getFechaAprobacion() == null) {
                         return false;
                     }
-                    Instant fechaSolicitud = p.getFechaSolicitud().toInstant();
+                    Instant fechaAprobacion = p.getFechaAprobacion().toInstant();
                     Instant hastaInstant = hastaFinal.toInstant();
-                    return !fechaSolicitud.isAfter(hastaInstant);
+                    return !fechaAprobacion.isAfter(hastaInstant);
                 })
                 .collect(Collectors.toList());
 
         //Actualizar tabla
         if (solisFiltrados.isEmpty()) {
-            Mensajes.mostrarMensaje("No realizó solicitudes entre estas fechas", "error");
+            Mensajes.mostrarMensaje("No existen solicitudes aprobadas entre estas fechas", "error");
             limpiarFiltros();
             return;
         }
@@ -315,12 +343,61 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReporteActionPerformed
-        ExportadorReporte.generarReporte(tblSolicitudes, "solicitudes de "+userAct.getNombres()+"-"+userAct.getApellidos());
+        ExportadorReporte.generarReporte(tblSalidas, "salidas de " + userAct.getNombres() + " " + userAct.getApellidos());
     }//GEN-LAST:event_btnReporteActionPerformed
+
+    private void btnVerProductosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerProductosActionPerformed
+        if (tblSalidas.getRowCount() > 0) {
+            int filaSelect = tblSalidas.getSelectedRow();
+            if (filaSelect != -1) {
+                // Busca la solicitud original en la lista
+                Solicitud solicitudSeleccionada = solicitudes.get(filaSelect);
+
+                if ("Retidarado".equals(solicitudSeleccionada.getEstadoSolicitud())) {
+                    Mensajes.mostrarMensaje("La solicitud ya fue retirada.", "advertencia");
+                    return;
+                }
+
+                // Construir resumen de productos
+                StringBuilder resumen = new StringBuilder("¿Desea que se le envíe el código de la solicitud para retirar los siguientes productos?\n\n");
+
+                for (DetalleSolicitud detalle : solicitudSeleccionada.getDetalles()) {
+                    resumen.append("• ")
+                            .append(detalle.getProducto().getNombre())
+                            .append(" - Cantidad: ")
+                            .append(detalle.getCantidad())
+                            .append("\n");
+                }
+
+                boolean confirmar = Mensajes.confirmar(resumen.toString());
+                if (!confirmar) {
+                    return;
+                }
+
+                Mensajes.mostrarMensaje("Acerquese al almacén con el código:\n" + solicitudSeleccionada.getCodigoSalida(), "informacion");
+                try {
+                    String telefono = "51929281169";
+                    String mensaje = "Hola, su código de retiro es "+solicitudSeleccionada.getCodigoSalida()+".";
+                    String mensajeCodificado = URLEncoder.encode(mensaje, StandardCharsets.UTF_8.toString());
+
+                    // Crear URL de WhatsApp
+                    String url = "https://wa.me/" + telefono + "?text=" + mensajeCodificado;
+
+                    // Abrir en navegador
+                    Desktop.getDesktop().browse(new URI(url));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                Extras.Mensajes.mostrarMensaje("Seleccione una salida para ver\nsus productos asociados.", "advertencia");
+            }
+        }
+    }//GEN-LAST:event_btnVerProductosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnReporte;
+    private javax.swing.JButton btnVerProductos;
     private com.toedter.calendar.JDateChooser fechaDesde;
     private com.toedter.calendar.JDateChooser fechaHasta;
     private javax.swing.JButton jButton1;
@@ -333,7 +410,7 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTable tblSolicitudes;
+    private javax.swing.JTable tblSalidas;
     // End of variables declaration//GEN-END:variables
 
     private void cargarTabla(List<Solicitud> solicitudes) {
@@ -343,47 +420,58 @@ public class IFSolicitarSalida extends javax.swing.JInternalFrame {
                 return false;
             }
         };
-        String[] titulos = {"Estado", "F. Registro", "Productos Asociados"};
+        String[] titulos = {"Estado", "F. Registro", "F. Aprobacion", "Codigo"};
         modeloTabla.setColumnIdentifiers(titulos);
         modeloTabla.setRowCount(0);
 
         for (Solicitud sol : solicitudes) {
             String estado = sol.getEstadoSolicitud();
             String fechaRegistro = sol.getFechaSolicitud() != null ? formato.format(sol.getFechaSolicitud()) : "";
-            int productos = sol.getDetalles().size();
+            String fechaAprobacion = "";
+            String codigo = "";
+
+            // Si está aprobado, muestra la fecha de aprobación y el código
+            if ("Aprobado".equalsIgnoreCase(estado)) {
+                // Si tienes un campo fechaAprobacion úsalo, si no, usa la fecha actual o la fecha de modificación
+                fechaAprobacion = sol.getFechaAprobacion() != null
+                        ? formato.format(sol.getFechaAprobacion())
+                        : fechaRegistro; // O pon "" si no tienes ese campo
+                codigo = sol.getCodigoSalida() != null ? sol.getCodigoSalida() : "";
+            }
 
             modeloTabla.addRow(new Object[]{
                 estado,
                 fechaRegistro,
-                productos
+                fechaAprobacion,
+                codigo
             });
         }
 
-        tblSolicitudes.setModel(modeloTabla);
+        tblSalidas.setModel(modeloTabla);
 
         // Centra el texto en todas las celdas
         DefaultTableCellRenderer centrado = new DefaultTableCellRenderer();
         centrado.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < tblSolicitudes.getColumnCount(); i++) {
-            tblSolicitudes.getColumnModel().getColumn(i).setCellRenderer(centrado);
+        for (int i = 0; i < tblSalidas.getColumnCount(); i++) {
+            tblSalidas.getColumnModel().getColumn(i).setCellRenderer(centrado);
         }
-        tblSolicitudes.setRowHeight(35);
-        JTableHeader header = tblSolicitudes.getTableHeader();
+        tblSalidas.setRowHeight(35);
+        JTableHeader header = tblSalidas.getTableHeader();
         header.setFont(new java.awt.Font("PMingLiU-ExtB", Font.BOLD, 26));
         header.setPreferredSize(new Dimension(header.getWidth(), 40));
     }
 
-    private List<Solicitud> solicitudesNoAprobadas(Usuario usuario) {
+    private List<Solicitud> solicitudesAprobadas(Usuario usuario) {
         return daoSoli.findByUsuario(usuario)
                 .stream()
-                .filter(s -> !"Aprobado".equals(s.getEstadoSolicitud()))
+                .filter(s -> "Aprobado".equals(s.getEstadoSolicitud()) || "Retirado".equals(s.getEstadoSolicitud()))
                 .collect(Collectors.toList());
     }
 
     private void limpiarFiltros() {
         fechaDesde.setDate(null);
         fechaHasta.setDate(null);
-        cargarTabla(solicitudesNoAprobadas(userAct));
+        cargarTabla(solicitudesAprobadas(userAct));
     }
 
     private boolean validarFechas(Date desde, Date hasta) {
