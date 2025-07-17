@@ -30,6 +30,7 @@ public class Logistica extends javax.swing.JFrame {
         toolBar = new javax.swing.JToolBar();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         icono = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuArchivo = new javax.swing.JMenu();
@@ -41,6 +42,7 @@ public class Logistica extends javax.swing.JFrame {
         itemProducts = new javax.swing.JMenuItem();
         menuSalidas = new javax.swing.JMenu();
         itemSolicitarSalida = new javax.swing.JMenuItem();
+        itemSalidasAceptadas = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Gestor de Logística para Papelería 'Estdiel' - Encargado de Logística");
@@ -75,6 +77,17 @@ public class Logistica extends javax.swing.JFrame {
         });
         toolBar.add(jButton2);
 
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/ToolLogo_Lotes.png"))); // NOI18N
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+        toolBar.add(jButton3);
+
         pantalla.setLayer(lblBienvenida, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(toolBar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         pantalla.setLayer(icono, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -84,22 +97,22 @@ public class Logistica extends javax.swing.JFrame {
         pantallaLayout.setHorizontalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(toolBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(pantallaLayout.createSequentialGroup()
-                .addGap(375, 375, 375)
-                .addComponent(lblBienvenida)
-                .addContainerGap(411, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pantallaLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(601, Short.MAX_VALUE)
                 .addComponent(icono, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(364, 364, 364))
+            .addGroup(pantallaLayout.createSequentialGroup()
+                .addGap(390, 390, 390)
+                .addComponent(lblBienvenida)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         pantallaLayout.setVerticalGroup(
             pantallaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pantallaLayout.createSequentialGroup()
                 .addComponent(toolBar, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addComponent(lblBienvenida)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 112, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(icono, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(186, 186, 186))
         );
@@ -107,6 +120,7 @@ public class Logistica extends javax.swing.JFrame {
         menuArchivo.setText("Archivo");
         menuArchivo.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
+        itemCambio.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCambio.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCambio.setText("Cambiar Contraseña");
         itemCambio.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +130,7 @@ public class Logistica extends javax.swing.JFrame {
         });
         menuArchivo.add(itemCambio);
 
+        itemCerrar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemCerrar.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemCerrar.setText("Cerrar Sesión");
         itemCerrar.addActionListener(new java.awt.event.ActionListener() {
@@ -126,6 +141,7 @@ public class Logistica extends javax.swing.JFrame {
         menuArchivo.add(itemCerrar);
         menuArchivo.add(jSeparator5);
 
+        itemSalir.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.ALT_DOWN_MASK));
         itemSalir.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         itemSalir.setText("Salir");
         itemSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -155,15 +171,25 @@ public class Logistica extends javax.swing.JFrame {
         menuSalidas.setText("Salidas");
         menuSalidas.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
 
-        itemSolicitarSalida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemSolicitarSalida.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         itemSolicitarSalida.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        itemSolicitarSalida.setText("Solicitar Salida");
+        itemSolicitarSalida.setText("Pendientes");
         itemSolicitarSalida.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSolicitarSalidaActionPerformed(evt);
             }
         });
         menuSalidas.add(itemSolicitarSalida);
+
+        itemSalidasAceptadas.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        itemSalidasAceptadas.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
+        itemSalidasAceptadas.setText("Aprobadas");
+        itemSalidasAceptadas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalidasAceptadasActionPerformed(evt);
+            }
+        });
+        menuSalidas.add(itemSalidasAceptadas);
 
         jMenuBar1.add(menuSalidas);
 
@@ -228,15 +254,27 @@ public class Logistica extends javax.swing.JFrame {
         cargarIF(SS);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void itemSalidasAceptadasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalidasAceptadasActionPerformed
+        IFSalidasAprobadas SS=new IFSalidasAprobadas(userActual);
+        cargarIF(SS);
+    }//GEN-LAST:event_itemSalidasAceptadasActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        IFSalidasAprobadas SS=new IFSalidasAprobadas(userActual);
+        cargarIF(SS);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel icono;
     private javax.swing.JMenuItem itemCambio;
     private javax.swing.JMenuItem itemCerrar;
     private javax.swing.JMenuItem itemProducts;
+    private javax.swing.JMenuItem itemSalidasAceptadas;
     private javax.swing.JMenuItem itemSalir;
     private javax.swing.JMenuItem itemSolicitarSalida;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPopupMenu.Separator jSeparator5;
     private javax.swing.JLabel lblBienvenida;

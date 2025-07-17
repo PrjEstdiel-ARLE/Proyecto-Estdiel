@@ -203,27 +203,27 @@ public class SolicitudJpaController implements Serializable {
         }
     }
 
-    public void actualizarFechaEstado(Integer idSol, Date fecha, String estado) {
+    public void actualizarFechaEstadoCodigo(Integer idSol, Date fecha, String estado, String codigo) {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
 
             Query q = em.createQuery(
                     "UPDATE Solicitud s "
-                    + "SET s.fechaSolicitud = :fec, s.estadoSolicitud = :est "
+                    + "SET s.fechaAprobacion= :fec, s.estadoSolicitud = :est, s.codigoSalida = :codigo "
                     + "WHERE s.idSolicitud = :id");
             q.setParameter("fec", fecha);
             q.setParameter("est", estado);
+            q.setParameter("codigo", codigo);
             q.setParameter("id", idSol);
-
             q.executeUpdate();
             em.getTransaction().commit();
         } finally {
             em.close();
         }
     }
-    
-      public List<Solicitud> findByUsuario(Usuario usuario) {
+
+    public List<Solicitud> findByUsuario(Usuario usuario) {
         EntityManager em = getEntityManager();
         try {
             return em.createQuery(
@@ -234,20 +234,39 @@ public class SolicitudJpaController implements Serializable {
             em.close();
         }
     }
-      public void actualizarEstadoYCodigo(Integer idSol, String estado, String codigo) {
-    EntityManager em = getEntityManager();
-    try {
-        em.getTransaction().begin();
-        Query q = em.createQuery(
-            "UPDATE Solicitud s SET s.estadoSolicitud = :est, s.codigoSalida = :cod WHERE s.idSolicitud = :id");
-        q.setParameter("est", estado);
-        q.setParameter("cod", codigo);
-        q.setParameter("id", idSol);
-        q.executeUpdate();
-        em.getTransaction().commit();
-    } finally {
-        em.close();
+
+    public void actualizarEstado(Integer idSol, String estado) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Query q = em.createQuery(
+                    "UPDATE Solicitud s SET s.estadoSolicitud = :est WHERE s.idSolicitud = :id");
+            q.setParameter("est", estado);
+            q.setParameter("id", idSol);
+            q.executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
     }
-}
+
+    public void actualizarFechaEstado(Integer idSol, Date date, String estado) {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Query q = em.createQuery(
+                    "UPDATE Solicitud s "
+                    + "SET s.fechaSolicitud = :fec, s.estadoSolicitud = :est, s.codigoSalida = :codigo "
+                    + "WHERE s.idSolicitud = :id");
+            q.setParameter("fec", fecha);
+            q.setParameter("est", estado);
+            q.setParameter("id", idSol);
+            q.executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
 
 }
