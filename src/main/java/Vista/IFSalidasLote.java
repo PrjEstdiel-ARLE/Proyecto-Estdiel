@@ -458,7 +458,8 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         for (Solicitud sol : solicitudes) {
             Object[] obj = {
                 cargarNombre(sol.getUsuario()),
-                formato.format(sol.getFechaSolicitud()),
+                "Fecha no disponible",
+                //formato.format(sol.getFechaSolicitud()),
                 sol.getEstadoSolicitud(),
                 sol.getDetalles().size()
             };
@@ -542,7 +543,8 @@ public class IFSalidasLote extends javax.swing.JInternalFrame {
         for (Solicitud sol : solisAprob) {
             Object[] obj = {
                 cargarNombre(sol.getUsuario()),
-                formato.format(sol.getFechaAprobacion()),
+                "Fecha no disponible",
+                //formato.format(sol.getFechaAprobacion()),
                 sol.getEstadoSolicitud(),
                 sol.getDetalles().size(),
                 sol.getCodigoSalida()
