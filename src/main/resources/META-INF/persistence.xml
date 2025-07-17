@@ -17,11 +17,10 @@
     <class>Modelo.DetalleSolicitud</class>
     <class>Modelo.Pais</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3307/papeleria?serverTimezone=UTC"/>
-      <property name="javax.persistence.jdbc.user" value="root"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://u44okiaiwbjavwj7:xXaZu81WKNomZyX6pKOo@b9cbymoe3xtutiwj1wwj-mysql.services.clever-cloud.com:3306/b9cbymoe3xtutiwj1wwj"/>
+      <property name="javax.persistence.jdbc.user" value="u44okiaiwbjavwj7"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
-      <property name="javax.persistence.jdbc.password" value="root"/>
-      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+      <property name="javax.persistence.jdbc.password" value="u44okiaiwbjavwj7"/>
     </properties>
   </persistence-unit>
 </persistence>

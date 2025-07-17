@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "solicitud", schema = "papeleria")
+@Table(name = "solicitud")
 public class Solicitud implements Serializable {
 
     @Id
